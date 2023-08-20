@@ -1,14 +1,14 @@
 package com.insert.ogbsm.domain.post;
 
 import com.insert.ogbsm.domain.common.BaseTime;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class PostBase extends BaseTime {
     @Id
