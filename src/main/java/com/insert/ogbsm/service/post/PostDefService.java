@@ -26,4 +26,10 @@ public class PostDefService {
 
         return updatablePost;
     }
+
+    public void delete(Long postId) {
+        // ToDo 사용자가 작성자인지 검증
+
+        postRepo.deleteById(postId);
+    }
 }
