@@ -2,34 +2,15 @@ package com.insert.ogbsm.service.post;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import com.insert.ogbsm.service.post.inter.DefService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-public class PostDefService {
+public class PostDefService extends DefService<Post, PostRepo> {
 
-    private final PostRepo postRepo;
-
-    public Post create(Post post) {
-        return postRepo.save(post);
-    }
-
-    public Post update(Post post) {
-        Post updatablePost = postRepo.findById(post.getId())
-                .orElseThrow((() -> new EntityNotFoundException("Updatable Post Not Found"))); // ToDo
-
-        updatablePost.update(post.getTitle(), post.getContent());
-
-        return updatablePost;
-    }
-
-    public void delete(Long postId) {
-        // ToDo 사용자가 작성자인지 검증
-
-        postRepo.deleteById(postId);
+    public PostDefService(PostRepo postRepo) {
+        super(postRepo);
     }
 }
