@@ -1,23 +1,23 @@
 package com.insert.ogbsm.domain.post;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.insert.ogbsm.domain.common.CreatedAt;
+import com.insert.ogbsm.domain.post.category.Category;
+import jakarta.persistence.*;
 
 @Entity
-@Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends PostBase {
-
+public class Post extends CreatedAt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Post(String title, String content) {
-        super(title, content);
-    }
+    @Column(columnDefinition = "VARCHAR(30)")
+    private String title;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
+    //TODO ADD INFO OF WRITER
 }
