@@ -23,7 +23,7 @@ public class PostController {
     @MutationMapping
     public PostResDto update(@Argument(name = "input") PostReqDto postReqDto) {
         return new PostResDto(
-                postDefService.update(postReqDto.entityToBeCreated())
+                postDefService.update(postReqDto.entityToBeUpdated())
         );
     }
 }

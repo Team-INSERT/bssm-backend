@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -18,6 +20,11 @@ public class PostDefService {
     }
 
     public Post update(Post post) {
-        return postRepo.save(post);
+        Post updatablePost = postRepo.findById(post.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No Updatable Post"));
+
+        updatablePost.update(post);
+
+        return updatablePost;
     }
 }

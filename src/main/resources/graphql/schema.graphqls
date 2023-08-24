@@ -8,13 +8,16 @@ type Mutation{
 }
 
 input PostInput{
-    id:Int,
+    id: ID,
     title:String,
     category:String,
     content:String,
     prUrl:String,
     isFinished:Boolean,
     lostThingImage:String
+    startTime:String
+    endTime:String
+    field:String
 }
 
 type PostOutPut{
@@ -25,4 +28,7 @@ type PostOutPut{
     prUrl:String,
     isFinished:Boolean,
     lostThingImage:String
+    startTime:String
+    endTime:String
+    field:String
 }

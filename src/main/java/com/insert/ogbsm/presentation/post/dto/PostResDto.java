@@ -2,6 +2,9 @@ package com.insert.ogbsm.presentation.post.dto;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
+import jakarta.persistence.Column;
+
+import java.time.LocalDateTime;
 
 public class PostResDto {
 
@@ -12,6 +15,9 @@ public class PostResDto {
     final String prUrl;
     final Boolean isFinished;
     final String lostThingImage;
+    final LocalDateTime startTime;
+    final LocalDateTime endTime;
+    final String field;
 
     public PostResDto(Post post) {
         this.id = post.getId();
@@ -21,5 +27,8 @@ public class PostResDto {
         this.prUrl = post.getCodeReview().getPrUrl();
         this.isFinished = post.getCodeReview().getIsFinished();
         this.lostThingImage = post.getLostFound().getLostThingImage();
+        this.startTime = post.getProject().getStartTime();
+        this.endTime = post.getProject().getEndTime();
+        this.field = post.getProject().getField();
     }
 }
