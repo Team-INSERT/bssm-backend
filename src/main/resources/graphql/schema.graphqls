@@ -1,5 +1,6 @@
 type Query{
-    no(Thing:Int):String
+    readOne(id:Int):PostOutPut
+    readByCategory(category: String): [PostOutPut]
 }
 
 type Mutation{
