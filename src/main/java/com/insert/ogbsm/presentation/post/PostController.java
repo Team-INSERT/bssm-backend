@@ -10,12 +10,17 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
+@RequestMapping("/post")
 public class PostController {
     private final PostDefService postDefService;
     private final PostReadService postReadService;
@@ -45,5 +50,10 @@ public class PostController {
                 .stream()
                 .map(PostResDto::new)
                 .collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        postDefService.delete(id);
     }
 }

@@ -27,4 +27,9 @@ public class PostDefService {
 
         return updatablePost;
     }
+
+    public void delete(Long id) {
+       //TODO 자기가 쓴 글인지 확인
+        postRepo.deleteById(id);
+    }
 }
