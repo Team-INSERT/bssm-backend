@@ -1,18 +1,21 @@
 package com.insert.ogbsm.domain.post.values;
 
 import jakarta.persistence.Column;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CodeReview {
 
     @Column(columnDefinition = "TEXT")
     private String prUrl;
 
     @Column(columnDefinition = "boolean default false")
-    private boolean isFinished;
+    private Boolean isFinished;
 
-    public CodeReview(String prUrl, boolean isFinished) {
+    public CodeReview(String prUrl, Boolean isFinished) {
         this.prUrl = prUrl;
         this.isFinished = isFinished;
     }

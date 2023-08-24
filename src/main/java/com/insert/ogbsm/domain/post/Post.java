@@ -47,4 +47,8 @@ public class Post extends CreatedAt {
     public void setLostFound(LostFound lostFound) {
         this.lostFound = lostFound;
     }
+
+    public void setIdForUpdate(Long id) {
+        this.id = id;
+    }
 }
