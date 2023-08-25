@@ -1,0 +1,5 @@
+{
+  "name": "Using Graphql When use Post(of Domain) Api",
+  "schemaPath": "src/main/resources/graphql/schema.graphqls",
+  "extensions": {}
+}
