@@ -4,6 +4,7 @@ import com.insert.ogbsm.presentation.user.dto.UserResponseDto;
 import com.insert.ogbsm.service.user.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,5 +18,10 @@ public class UserController {
     @GetMapping("/")
     public UserResponseDto findMyInfo() {
         return userInfoService.findMyInfo();
+    }
+
+    @GetMapping("/{id}")
+    public UserResponseDto findUserInfo(@PathVariable Long id) {
+        return userInfoService.findUserInfo(id);
     }
 }
