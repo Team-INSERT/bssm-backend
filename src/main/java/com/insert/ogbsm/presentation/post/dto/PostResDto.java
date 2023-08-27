@@ -2,7 +2,6 @@ package com.insert.ogbsm.presentation.post.dto;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
-import jakarta.persistence.Column;
 
 import java.time.LocalDateTime;
 
