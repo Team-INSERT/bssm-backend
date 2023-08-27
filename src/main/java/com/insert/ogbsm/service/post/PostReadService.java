@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service;
+package com.insert.ogbsm.service.post;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
