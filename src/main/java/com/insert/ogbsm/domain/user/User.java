@@ -2,10 +2,17 @@ package com.insert.ogbsm.domain.user;
 
 import com.insert.ogbsm.domain.user.authority.Authority;
 import com.insert.ogbsm.domain.user.role.Role;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import leehj050211.bsmOauth.dto.resource.BsmStudent;
+import leehj050211.bsmOauth.dto.resource.BsmTeacher;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,6 +20,8 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
 
@@ -46,16 +55,30 @@ public class User {
     @Column()
     @Min(1)
     @Max(3)
-    private Long grade;
+    private Short grade;
 
     @Column()
     @Min(1)
     @Max(4)
-    private Long class_number;
+    private Short class_number;
 
     @Column()
     @Min(1)
     @Max(16)
-    private Long student_number;
+    private Short student_number;
+
+    public void setTeacherValue(BsmTeacher teacher) {
+        this.name = teacher.getName();
+        this.role = Role.TEACHER;
+    }
+
+    public void setStudentValue(BsmStudent student) {
+        this.name = student.getName();
+        this.role = Role.STUDENT;
+        this.enroll = student.getEnrolledAt().longValue();
+        this.grade = student.getGrade().shortValue();
+        this.class_number = student.getClassNo().shortValue();
+        this.student_number = student.getStudentNo().shortValue();
+    }
 
 }

@@ -1,12 +1,11 @@
-package com.insert.ogbsm.service;
+package com.insert.ogbsm.service.post;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 @RequiredArgsConstructor

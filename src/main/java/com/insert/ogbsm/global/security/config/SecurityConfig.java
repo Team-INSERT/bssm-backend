@@ -38,21 +38,6 @@ public class SecurityConfig {
                 .exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper)))
                 .apply(new FilterConfig(jwtUtil, jwtAuth));
 
-//                .csrf().disable()error
-//                .formLogin().disable()
-//                .cors()
-//
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .authorizeRequests()
-//                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-//                .anyRequest().permitAll()
-//                .and()
-//                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper))
-//                .and()
-//                .apply(new FilterConfig(jwtUtil, jwtAuth));
-
         return http.build();
     }
 }
