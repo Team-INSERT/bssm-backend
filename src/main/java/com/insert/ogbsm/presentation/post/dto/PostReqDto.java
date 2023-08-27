@@ -5,11 +5,9 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.values.CodeReview;
 import com.insert.ogbsm.domain.post.values.LostFound;
 import com.insert.ogbsm.domain.post.values.Project;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
 public record PostReqDto(Long id, String title, Category category, String content, String prUrl, Boolean isFinished,
                          String lostThingImage, LocalDateTime startTime, LocalDateTime endTime, String field) {
 

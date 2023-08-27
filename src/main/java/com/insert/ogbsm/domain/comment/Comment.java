@@ -3,10 +3,12 @@ package com.insert.ogbsm.domain.comment;
 import com.insert.ogbsm.domain.post.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,21 +18,18 @@ public class Comment {
 
     private boolean hasReComment;
 
-    @ManyToOne(fetch = FetchType.LAZY,
-    cascade = CascadeType.REMOVE)
-    @JoinColumn
-    private Post post;
+    private Long postId;
 
     private int likeCount;
 
-    //TODO 댓글 작성자
+    private Long userId;
 
-    //TODO 나중에 댓글에 작성자 추가함
-    public Comment(String detail, Post post) {
+    public Comment(String detail, Long postId, Long userId) {
         this.detail = detail;
-        this.post = post;
+        this.postId = postId;
         this.hasReComment = false;
         this.likeCount = 0;
+        this.userId = userId;
     }
 
     public void update(String detail) {

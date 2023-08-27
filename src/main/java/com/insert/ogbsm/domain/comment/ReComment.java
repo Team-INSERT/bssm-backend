@@ -2,9 +2,11 @@ package com.insert.ogbsm.domain.comment;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReComment {
     @Id
@@ -13,14 +15,13 @@ public class ReComment {
 
     private String detail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private Comment comment;
+    private Long commentId;
 
     private int likeCount;
 
-    public ReComment(String detail, Comment comment) {
+    public ReComment(String detail, Long commentId) {
         this.detail = detail;
-        this.comment = comment;
+        this.commentId = commentId;
+        likeCount = 0;
     }
 }
