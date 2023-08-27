@@ -65,8 +65,6 @@ public class Post extends CreatedAt {
         this.project = project;
     }
 
-
-
     public void setIdForUpdate(Long id) {
         this.id = id;
     }
