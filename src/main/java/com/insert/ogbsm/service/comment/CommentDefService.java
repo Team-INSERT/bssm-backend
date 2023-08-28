@@ -17,18 +17,26 @@ public class CommentDefService {
     private final CommentRepo commentRepo;
     private final UserValidation userValidation;
 
-    public void createComment(CommentReqDto reqDto, Long postId, Long userId) {
+    public void create(CommentReqDto reqDto, Long postId, Long userId) {
         Comment comment = new Comment(reqDto.detail(), postId, userId);
-        System.out.println(comment);
         commentRepo.save(comment);
     }
 
-    public void updateComment(CommentReqDto reqDto, Long userId) {
+    public void update(CommentReqDto reqDto, Long userId) {
         Comment comment = commentRepo.findById(reqDto.id())
                 .orElseThrow(() -> new EntityNotFoundException("No Updatable Comment"));
 
         userValidation.checkSameUser(userId, comment.getUserId());
 
         comment.update(reqDto.detail());
+    }
+
+    public void delete(Long commentId, Long userId) {
+        Comment comment = commentRepo.findById(commentId)
+                .orElseThrow(() -> new EntityNotFoundException("Comment Not Found"));
+
+        userValidation.checkSameUser(userId, comment.getUserId());
+
+        commentRepo.delete(comment);
     }
 }

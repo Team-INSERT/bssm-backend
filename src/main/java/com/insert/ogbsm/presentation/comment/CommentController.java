@@ -23,17 +23,23 @@ public class CommentController {
     @PostMapping("/{postId}")
     public void create(@RequestBody CommentReqDto dto, @PathVariable Long postId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.createComment(dto, postId, user.getId());
+        commentDefService.create(dto, postId, user.getId());
     }
 
     @PutMapping()
     public void update(@RequestBody CommentReqDto dto) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.updateComment(dto, user.getId());
+        commentDefService.update(dto, user.getId());
     }
 
     @GetMapping("/{postId}")
     public List<CommentResDto> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
         return commentReadService.readComments(postId, pageable);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public void delete(@PathVariable Long commentId) {
+        User user = SecurityUtil.getCurrentUserWithLogin();
+        commentDefService.delete(commentId, user.getId());
     }
 }
