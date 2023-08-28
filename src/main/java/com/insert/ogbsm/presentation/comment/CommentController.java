@@ -34,9 +34,6 @@ public class CommentController {
 
     @GetMapping("/{postId}")
     public List<CommentResDto> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
-        System.out.println("들어는 오는 건가");
-        List<CommentResDto> 히히 = commentReadService.readComments(postId, pageable);
-
-        return 히히;
+        return commentReadService.readComments(postId, pageable);
     }
 }
