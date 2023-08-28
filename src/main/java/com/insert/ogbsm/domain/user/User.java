@@ -31,38 +31,30 @@ public class User {
     @Column(unique = true, nullable = false)
     private String nickname;
 
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column()
     private String name;
 
-    @Column()
     private String profile_image;
 
     @Enumerated(EnumType.STRING)
-    @Column()
     private Authority authority;
 
     @Enumerated(EnumType.STRING)
-    @Column()
     private Role role;
 
-    @Column()
     @Min(2021)
     private Long enroll;
 
-    @Column()
     @Min(1)
     @Max(3)
     private Short grade;
 
-    @Column()
     @Min(1)
     @Max(4)
     private Short class_number;
 
-    @Column()
     @Min(1)
     @Max(16)
     private Short student_number;
