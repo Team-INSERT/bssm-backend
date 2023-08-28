@@ -1,5 +1,7 @@
 package com.insert.ogbsm.presentation.comment;
 
+import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.CommentReqDto;
 import com.insert.ogbsm.presentation.comment.dto.CommentResDto;
 import com.insert.ogbsm.service.comment.CommentDefService;
@@ -7,10 +9,8 @@ import com.insert.ogbsm.service.comment.CommentReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -22,14 +22,14 @@ public class CommentController {
 
     @PostMapping("/{postId}")
     public void create(@RequestBody CommentReqDto dto, @PathVariable Long postId) {
-        // TODO get User Login
-        commentDefService.createComment(dto, postId, 10L);
+        User user = SecurityUtil.getCurrentUserWithLogin();
+        commentDefService.createComment(dto, postId, user.getId());
     }
 
     @PutMapping()
     public void update(@RequestBody CommentReqDto dto) {
-        //TODO get User Login
-        commentDefService.updateComment(dto, 10L);
+        User user = SecurityUtil.getCurrentUserWithLogin();
+        commentDefService.updateComment(dto, user.getId());
     }
 
     @GetMapping("/{postId}")
