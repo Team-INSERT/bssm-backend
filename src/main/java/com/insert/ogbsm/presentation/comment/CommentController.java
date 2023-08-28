@@ -10,29 +10,33 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
 import java.util.List;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/comment")
 public class CommentController {
     private final CommentDefService commentDefService;
     private final CommentReadService commentReadService;
 
-    @PostMapping("/create/{postId}")
+    @PostMapping("/{postId}")
     public void create(@RequestBody CommentReqDto dto, @PathVariable Long postId) {
         // TODO get User Login
         commentDefService.createComment(dto, postId, 10L);
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public void update(@RequestBody CommentReqDto dto) {
         //TODO get User Login
-        commentDefService.updateComment(dto, 1L);
+        commentDefService.updateComment(dto, 10L);
     }
 
     @GetMapping("/{postId}")
     public List<CommentResDto> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
-        return commentReadService.readComments(postId, pageable);
+        System.out.println("들어는 오는 건가");
+        List<CommentResDto> 히히 = commentReadService.readComments(postId, pageable);
+
+        return 히히;
     }
 }

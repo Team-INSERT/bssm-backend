@@ -19,7 +19,7 @@ public class CommentDefService {
 
     public void createComment(CommentReqDto reqDto, Long postId, Long userId) {
         Comment comment = new Comment(reqDto.detail(), postId, userId);
-
+        System.out.println(comment);
         commentRepo.save(comment);
     }
 
