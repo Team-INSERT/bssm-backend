@@ -35,4 +35,5 @@ public class BambooAdminController {
     public Long deleteBamboo(@PathVariable Long id) {
         return bambooAdminService.deleteBamboo(id);
     }
+
 }

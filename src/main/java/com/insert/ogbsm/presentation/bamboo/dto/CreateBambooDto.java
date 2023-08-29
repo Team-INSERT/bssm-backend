@@ -5,6 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class CreateBambooDto {
+
     @NotNull
     private String content;
+
 }

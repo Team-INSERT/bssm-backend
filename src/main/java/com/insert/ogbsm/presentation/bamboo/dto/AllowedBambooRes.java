@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 
 @Getter
 public class AllowedBambooRes {
-    private Long allowedId;
-    private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime allowedAt;
+    private final Long allowedId;
+    private final String content;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime allowedAt;
 
     public AllowedBambooRes(AllowedBamboo allowedBamboo) {
         this.allowedId = allowedBamboo.getId();

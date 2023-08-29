@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AllowedBamboo extends CreatedAt {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,4 +27,5 @@ public class AllowedBamboo extends CreatedAt {
 
     @OneToOne(fetch = FetchType.EAGER)
     private Bamboo bamboo;
+
 }

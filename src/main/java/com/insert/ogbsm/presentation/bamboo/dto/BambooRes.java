@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 
 @Getter
 public class BambooRes {
-    private Long id;
-    private String content;
-    private LocalDateTime createdAt;
+    private final Long id;
+    private final String content;
+    private final LocalDateTime createdAt;
 
     public BambooRes(Bamboo bamboo) {
         this.id = bamboo.getId();

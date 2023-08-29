@@ -16,6 +16,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class BambooService {
+
     private final BambooRepo bambooRepo;
     private final AllowedBambooRepo allowedBambooRepo;
 
@@ -27,13 +28,14 @@ public class BambooService {
     }
 
     public Long createBamboo(CreateBambooDto createBambooDto) {
-        Bamboo bamboo = bambooRepo.save(Bamboo.builder()
-                .content(createBambooDto.getContent())
-                .userId(SecurityUtil.getCurrentUserOrNotLogin().getId())
-                .isAllow(false)
-                .build()
+        Bamboo bamboo = bambooRepo.save(
+                Bamboo.builder()
+                        .content(createBambooDto.getContent())
+                        .userId(SecurityUtil.getCurrentUserOrNotLogin().getId())
+                        .isAllow(false)
+                        .build()
         );
-
         return bamboo.getId();
     }
+
 }

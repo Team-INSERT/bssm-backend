@@ -17,6 +17,7 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class BambooAdminService {
+
     private final BambooRepo bambooRepo;
     private final AllowedBambooRepo allowedBambooRepo;
 

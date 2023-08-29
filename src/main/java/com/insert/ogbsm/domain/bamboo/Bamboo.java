@@ -32,4 +32,5 @@ public class Bamboo extends CreatedAt {
     public void setIsAllow() {
         this.isAllow = true;
     }
+
 }
