@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                        .requestMatchers("/api/bamboo/admin").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper)))
