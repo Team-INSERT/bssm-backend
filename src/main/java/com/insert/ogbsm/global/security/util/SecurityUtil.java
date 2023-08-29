@@ -15,6 +15,10 @@ public class SecurityUtil {
         }
     }
 
+    public static Long getCurrentUserIdWithLogin() {
+        return getCurrentUserWithLogin().getId();
+    }
+
     public static User getCurrentUserOrNotLogin() {
         return getUser();
     }

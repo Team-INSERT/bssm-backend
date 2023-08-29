@@ -1,12 +1,13 @@
 package com.insert.ogbsm.presentation.comment.dto;
 
-import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class ReCommentResDto {
     final Long id;
     final UserSimpleRes user;
