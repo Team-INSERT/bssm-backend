@@ -5,7 +5,14 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.values.CodeReview;
 import com.insert.ogbsm.domain.post.values.LostFound;
 import com.insert.ogbsm.domain.post.values.Project;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,8 +71,6 @@ public class Post extends CreatedAt {
     public void setProject(Project project) {
         this.project = project;
     }
-
-
 
     public void setIdForUpdate(Long id) {
         this.id = id;

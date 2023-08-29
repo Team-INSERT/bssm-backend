@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserInfoService userInfoService;
 
-    @GetMapping("/")
+    @GetMapping()
     public UserResponseDto findMyInfo() {
         return userInfoService.findMyInfo();
     }
