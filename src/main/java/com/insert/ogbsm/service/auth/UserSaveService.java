@@ -45,7 +45,6 @@ public class UserSaveService {
                 .nickname(resource.getNickname())
                 .email(resource.getEmail())
                 .profile_image(resource.getProfileUrl())
-                .authority(Authority.USER)
                 .build();
 
         switch (resource.getRole()) {

@@ -15,6 +15,9 @@ public enum ErrorCode {
     USER_NOT_LOGIN(403, "USER-403-1", "User Not Login"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
 
+    //Bamboo
+    BAMBOO_ALREADY_ALLOWED(400, "BAMBOO-400-1", "Bamboo Already Allowed"),
+
     //JWT
     INVALID_TOKEN(403, "TOKEN-403-1", "Access with Invalid Token"),
     EXPIRED_JWT(403, "TOKEN-403-2", "Access Token Expired"),

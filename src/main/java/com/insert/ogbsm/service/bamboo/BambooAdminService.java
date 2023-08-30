@@ -2,6 +2,7 @@ package com.insert.ogbsm.service.bamboo;
 
 import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
+import com.insert.ogbsm.domain.bamboo.exception.BambooAlreadyAllowed;
 import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
@@ -22,13 +23,18 @@ public class BambooAdminService {
     private final AllowedBambooRepo allowedBambooRepo;
 
     public List<BambooRes> findAllBamboo() {
-        return bambooRepo.findAll()
+        return bambooRepo.findAllByIsAllow(false)
                 .stream()
                 .map(BambooRes::new).toList();
     }
 
     public AllowedBambooRes allowBamboo(Long id, Long userId) {
         Bamboo bamboo = bambooRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+
+        if(bamboo.getIsAllow()) {
+            throw BambooAlreadyAllowed.EXCEPTION;
+        }
+
         bamboo.setIsAllow();
         return new AllowedBambooRes(
                 allowedBambooRepo.save(AllowedBamboo.builder()

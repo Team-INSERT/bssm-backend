@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insert.ogbsm.global.error.CustomAuthenticationEntryPoint;
 import com.insert.ogbsm.global.jwt.auth.JwtAuth;
 import com.insert.ogbsm.global.jwt.util.JwtUtil;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +22,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
+@AllArgsConstructor
 public class SecurityConfig {
+
     private ObjectMapper objectMapper;
     private final JwtUtil jwtUtil;
     private final JwtAuth jwtAuth;
@@ -36,7 +39,7 @@ public class SecurityConfig {
                 .sessionManagement((sessionManagement) -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
-                        .requestMatchers("/api/bamboo/admin").hasAuthority("ADMIN")
+                        .requestMatchers("/bamboo/admin/**").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper)))
