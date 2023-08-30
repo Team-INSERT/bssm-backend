@@ -12,8 +12,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
-
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.AUTH_ID;
 
 @Component
@@ -28,9 +26,14 @@ public class JwtUtil {
         return parseToken(bearer);
     }
 
+    public String replaceBearer(String bearer) {
+        if (bearer == null || bearer.isEmpty()) return null;
+        return bearer.replaceAll(jwtProperties.getPrefix(), "").trim();
+    }
+
     public String parseToken(String bearer) {
-        if (!Objects.equals(bearer, "") && bearer != null) {
-            String token = bearer.replaceAll(jwtProperties.getPrefix(), "").trim();
+        String token = replaceBearer(bearer);
+        if (token != null) {
             checkingIfJwtExpired(token);
             return token;
         }
