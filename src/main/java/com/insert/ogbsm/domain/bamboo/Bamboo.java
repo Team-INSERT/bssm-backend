@@ -27,7 +27,7 @@ public class Bamboo extends CreatedAt {
 
     private Long userId;
 
-    private boolean isAllow;
+    private Boolean isAllow;
 
     public void setIsAllow() {
         this.isAllow = true;

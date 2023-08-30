@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class BambooRes {
+
     private final Long id;
     private final String content;
     private final LocalDateTime createdAt;
