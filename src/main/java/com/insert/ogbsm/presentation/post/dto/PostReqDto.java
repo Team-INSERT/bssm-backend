@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 public record PostReqDto(Long id, String title, Category category, String content, String prUrl, Boolean isFinished,
                          String lostThingImage, LocalDateTime startTime, LocalDateTime endTime, String field) {
 
-    public Post entityToBeCreated() {
-        Post post = new Post(title, category, content);
+    public Post entityToBeCreated(Long userId) {
+        Post post = new Post(title, category, content, userId);
         post.setCodeReview(new CodeReview(prUrl, isFinished));
         post.setLostFound(new LostFound(lostThingImage));
         post.setProject(new Project(startTime, endTime, field));
@@ -20,8 +20,8 @@ public record PostReqDto(Long id, String title, Category category, String conten
         return post;
     }
 
-    public Post entityToBeUpdated() {
-        Post post = new Post(title, category, content);
+    public Post entityToBeUpdated(Long userId) {
+        Post post = new Post(title, category, content, userId);
         post.setCodeReview(new CodeReview(prUrl, isFinished));
         post.setLostFound(new LostFound(lostThingImage));
         post.setProject(new Project(startTime, endTime, field));

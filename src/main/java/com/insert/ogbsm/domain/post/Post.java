@@ -27,7 +27,7 @@ public class Post extends CreatedAt {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    //TODO ADD INFO OF WRITER
+    private Long writerId;
 
     @Embedded
     private CodeReview codeReview;
@@ -38,7 +38,8 @@ public class Post extends CreatedAt {
     @Embedded
     private Project project;
 
-    public Post(String title, Category category, String content) {
+    public Post(String title, Category category, String content, Long writerId) {
+        this.writerId = writerId;
         this.title = title;
         this.category = category;
         this.content = content;

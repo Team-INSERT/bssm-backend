@@ -12,8 +12,7 @@ public class LostFound {
     @Column(columnDefinition = "TEXT")
     private String lostThingImage;
 
-    //TODO PERSON WHO FOUND
-
+    private Long foundUserId;
 
     public LostFound(String lostThingImage) {
         this.lostThingImage = lostThingImage;
