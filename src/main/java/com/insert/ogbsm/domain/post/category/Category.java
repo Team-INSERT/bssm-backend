@@ -1,7 +1,7 @@
 package com.insert.ogbsm.domain.post.category;
 
 public enum Category {
-    POST,
+    COMMON,
     CODE_REVIEW,
     LOST_FOUND,
     NOTICE,

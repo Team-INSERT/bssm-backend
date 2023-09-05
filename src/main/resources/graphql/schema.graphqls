@@ -32,4 +32,12 @@ type PostOutPut{
     startTime:String
     endTime:String
     field:String
+    createdAt: String
+    user: UserSimpleOutPut
+}
+
+type UserSimpleOutPut{
+    id: Int
+    nickName: String
+    profileImage: String
 }

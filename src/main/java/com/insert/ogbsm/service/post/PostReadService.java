@@ -3,12 +3,16 @@ package com.insert.ogbsm.service.post;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.presentation.post.dto.PostResDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -16,13 +20,24 @@ import java.util.List;
 public class PostReadService {
 
     private final PostRepo postRepo;
+    private final UserRepo userRepo;
 
-    public Post readOne(Long id) {
-        return postRepo.findById(id)
+    public PostResDto readOne(Long id) {
+        Post post = postRepo.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Can't Read An Entity"));
+
+        User user = userRepo.findById(post.getWriterId())
+                .orElseThrow(() -> new EntityNotFoundException("Post Writer Not Found"));
+
+        return new PostResDto(post, user);
     }
 
-    public List<Post> readByCategory(Category category) {
-        return postRepo.findByCategory(category);
+    public List<PostResDto> readByCategory(Category category) {
+        return postRepo.findByCategory(category)
+                .stream()
+                .map(post -> new PostResDto(post, userRepo.findById(post.getWriterId())
+                        .orElseThrow(
+                                () -> new EntityNotFoundException("Post Read Category User Not Found"))))
+                .collect(Collectors.toList());
     }
 }

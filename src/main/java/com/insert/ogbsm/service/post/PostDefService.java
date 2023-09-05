@@ -2,6 +2,10 @@ package com.insert.ogbsm.service.post;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.presentation.post.dto.PostReqDto;
+import com.insert.ogbsm.presentation.post.dto.PostResDto;
+import com.insert.ogbsm.service.validation.UserValidation;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,22 +17,28 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostDefService {
 
     private final PostRepo postRepo;
+    private final UserValidation userValidation;
 
-    public Post create(Post post) {
-        return postRepo.save(post);
+    public PostResDto create(PostReqDto postReqDto, User user) {
+        Post post = postRepo.save(postReqDto.entityToBeCreated(user.getId()));
+
+        return new PostResDto(post, user);
     }
 
-    public Post update(Post post) {
-        Post updatablePost = postRepo.findById(post.getId())
+    public PostResDto update(PostReqDto reqDto, User user) {
+        Post updatablePost = postRepo.findById(reqDto.id())
                 .orElseThrow(() -> new EntityNotFoundException("No Updatable Post"));
 
+        userValidation.checkSameUser(updatablePost.getWriterId(), user.getId());
+
+        Post post = reqDto.entityToBeUpdated(user.getId());
         updatablePost.update(post);
 
-        return updatablePost;
+        return new PostResDto(post, user);
     }
 
     public void delete(Long id) {
-       //TODO 자기가 쓴 글인지 확인
+
         postRepo.deleteById(id);
     }
 }

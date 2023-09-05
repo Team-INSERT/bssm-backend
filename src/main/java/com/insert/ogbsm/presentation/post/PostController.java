@@ -1,6 +1,8 @@
 package com.insert.ogbsm.presentation.post;
 
 import com.insert.ogbsm.domain.post.category.Category;
+import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.post.dto.PostReqDto;
 import com.insert.ogbsm.presentation.post.dto.PostResDto;
 import com.insert.ogbsm.service.post.PostDefService;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,29 +27,26 @@ public class PostController {
 
     @MutationMapping
     public PostResDto create(@Argument(name = "input") PostReqDto postReqDto) {
-        return new PostResDto(
-                postDefService.create(postReqDto.entityToBeCreated())
-        );
+        User user = SecurityUtil.getCurrentUserWithLogin();
+
+        return postDefService.create(postReqDto, user);
     }
 
     @MutationMapping
     public PostResDto update(@Argument(name = "input") PostReqDto postReqDto) {
-        return new PostResDto(
-                postDefService.update(postReqDto.entityToBeUpdated())
-        );
+        User user = SecurityUtil.getCurrentUserWithLogin();
+
+        return postDefService.update(postReqDto, user);
     }
 
     @QueryMapping
     public PostResDto readOne(@Argument Long id) {
-        return new PostResDto(postReadService.readOne(id));
+        return postReadService.readOne(id);
     }
 
     @QueryMapping
     public List<PostResDto> readByCategory(@Argument Category category) {
-        return postReadService.readByCategory(category)
-                .stream()
-                .map(PostResDto::new)
-                .collect(Collectors.toList());
+        return postReadService.readByCategory(category);
     }
 
     @DeleteMapping("/{id}")
