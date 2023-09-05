@@ -3,8 +3,8 @@ package com.insert.ogbsm.presentation.post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.post.dto.PostReqDto;
-import com.insert.ogbsm.presentation.post.dto.PostResDto;
+import com.insert.ogbsm.presentation.post.dto.PostReq;
+import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.post.PostDefService;
 import com.insert.ogbsm.service.post.PostReadService;
 import lombok.RequiredArgsConstructor;
@@ -26,26 +26,26 @@ public class PostController {
     private final PostReadService postReadService;
 
     @MutationMapping
-    public PostResDto create(@Argument(name = "input") PostReqDto postReqDto) {
+    public PostRes create(@Argument(name = "input") PostReq postReq) {
         User user = SecurityUtil.getCurrentUserWithLogin();
 
-        return postDefService.create(postReqDto, user);
+        return postDefService.create(postReq, user);
     }
 
     @MutationMapping
-    public PostResDto update(@Argument(name = "input") PostReqDto postReqDto) {
+    public PostRes update(@Argument(name = "input") PostReq postReq) {
         User user = SecurityUtil.getCurrentUserWithLogin();
 
-        return postDefService.update(postReqDto, user);
+        return postDefService.update(postReq, user);
     }
 
     @QueryMapping
-    public PostResDto readOne(@Argument Long id) {
+    public PostRes readOne(@Argument Long id) {
         return postReadService.readOne(id);
     }
 
     @QueryMapping
-    public List<PostResDto> readByCategory(@Argument Category category) {
+    public List<PostRes> readByCategory(@Argument Category category) {
         return postReadService.readByCategory(category);
     }
 

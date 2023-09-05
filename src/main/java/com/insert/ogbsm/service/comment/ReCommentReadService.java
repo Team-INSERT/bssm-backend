@@ -4,7 +4,7 @@ import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
 import com.insert.ogbsm.presentation.comment.dto.PageReCommentRes;
-import com.insert.ogbsm.presentation.comment.dto.ReCommentResDto;
+import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,8 +25,8 @@ public class ReCommentReadService {
     public PageReCommentRes read(Long commentId, Pageable pageable) {
 
         Page<ReComment> pageReComment = reCommentRepo.findByCommentIdOrderByCreatedAtAsc(commentId, pageable);
-        List<ReCommentResDto> reComments = pageReComment.stream()
-                .map(reComment -> new ReCommentResDto(
+        List<ReCommentRes> reComments = pageReComment.stream()
+                .map(reComment -> new ReCommentRes(
                                 reComment,
                                 userRepo.findById(reComment.getUserId())
                                         .orElseThrow(() -> new EntityNotFoundException("ReComment User Not Found"))

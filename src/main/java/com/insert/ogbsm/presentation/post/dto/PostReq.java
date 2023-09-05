@@ -8,8 +8,8 @@ import com.insert.ogbsm.domain.post.values.Project;
 
 import java.time.LocalDateTime;
 
-public record PostReqDto(Long id, String title, Category category, String content, String prUrl, Boolean isFinished,
-                         String lostThingImage, LocalDateTime startTime, LocalDateTime endTime, String field) {
+public record PostReq(Long id, String title, Category category, String content, String prUrl, Boolean isFinished,
+                      String lostThingImage, LocalDateTime startTime, LocalDateTime endTime, String field) {
 
     public Post entityToBeCreated(Long userId) {
         Post post = new Post(title, category, content, userId);

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class UserResponseDto {
+public class UserResponse {
     private Long id;
     private String nickname;
     private String email;
@@ -22,7 +22,7 @@ public class UserResponseDto {
     private Short classNum;
     private Short studentNumber;
 
-    public UserResponseDto(User user) {
+    public UserResponse(User user) {
         this.id = user.getId();
         this.nickname = user.getNickname();
         this.email = user.getEmail();

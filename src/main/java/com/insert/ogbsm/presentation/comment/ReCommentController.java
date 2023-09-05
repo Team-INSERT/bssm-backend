@@ -2,7 +2,7 @@ package com.insert.ogbsm.presentation.comment;
 
 import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.PageReCommentRes;
-import com.insert.ogbsm.presentation.comment.dto.ReCommentReqDto;
+import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
 import com.insert.ogbsm.service.comment.ReCommentDefService;
 import com.insert.ogbsm.service.comment.ReCommentReadService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ public class ReCommentController {
     private final ReCommentReadService reCommentReadService;
 
     @PostMapping("/{commentId}")
-    public void create(@RequestBody ReCommentReqDto reqDto, @PathVariable Long commentId) {
+    public void create(@RequestBody ReCommentReq reqDto, @PathVariable Long commentId) {
         Long userId = SecurityUtil.getCurrentUserIdWithLogin();
         reCommentDefService.create(reqDto, commentId, userId);
     }
@@ -29,7 +29,7 @@ public class ReCommentController {
     }
 
     @PutMapping()
-    public void update(@RequestBody ReCommentReqDto reqDto) {
+    public void update(@RequestBody ReCommentReq reqDto) {
         Long userId = SecurityUtil.getCurrentUserIdWithLogin();
         reCommentDefService.update(reqDto, userId);
     }

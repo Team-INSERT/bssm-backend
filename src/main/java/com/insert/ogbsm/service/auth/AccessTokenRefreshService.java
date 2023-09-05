@@ -6,7 +6,7 @@ import com.insert.ogbsm.global.jwt.dto.TokenResponseDto;
 import com.insert.ogbsm.global.jwt.exception.RefreshTokenExpiredException;
 import com.insert.ogbsm.global.jwt.util.JwtProvider;
 import com.insert.ogbsm.global.jwt.util.JwtUtil;
-import com.insert.ogbsm.presentation.auth.dto.UsingRefreshTokenReqDto;
+import com.insert.ogbsm.presentation.auth.dto.UsingRefreshTokenReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,9 @@ public class AccessTokenRefreshService {
     private final JwtProvider jwtProvider;
     private final JwtUtil jwtUtil;
 
-    public TokenResponseDto execute(final UsingRefreshTokenReqDto usingRefreshTokenReqDto) {
+    public TokenResponseDto execute(final UsingRefreshTokenReq usingRefreshTokenReq) {
         RefreshToken redisRefreshToken = refreshTokenRepo.findByRefreshToken(
-                jwtUtil.replaceBearer(usingRefreshTokenReqDto.getRefreshToken())
+                jwtUtil.replaceBearer(usingRefreshTokenReq.getRefreshToken())
         ).orElseThrow(() -> RefreshTokenExpiredException.EXCEPTION);
         return getNewAccessTokens(redisRefreshToken);
     }

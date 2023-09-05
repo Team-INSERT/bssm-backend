@@ -2,8 +2,8 @@ package com.insert.ogbsm.presentation.comment;
 
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.comment.dto.CommentReqDto;
-import com.insert.ogbsm.presentation.comment.dto.PageCommentResDto;
+import com.insert.ogbsm.presentation.comment.dto.CommentReq;
+import com.insert.ogbsm.presentation.comment.dto.PageCommentRes;
 import com.insert.ogbsm.service.comment.CommentDefService;
 import com.insert.ogbsm.service.comment.CommentReadService;
 import lombok.RequiredArgsConstructor;
@@ -19,19 +19,19 @@ public class CommentController {
     private final CommentReadService commentReadService;
 
     @PostMapping("/{postId}")
-    public void create(@RequestBody CommentReqDto dto, @PathVariable Long postId) {
+    public void create(@RequestBody CommentReq dto, @PathVariable Long postId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
         commentDefService.create(dto, postId, user.getId());
     }
 
     @PutMapping()
-    public void update(@RequestBody CommentReqDto dto) {
+    public void update(@RequestBody CommentReq dto) {
         User user = SecurityUtil.getCurrentUserWithLogin();
         commentDefService.update(dto, user.getId());
     }
 
     @GetMapping("/{postId}")
-    public PageCommentResDto readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
+    public PageCommentRes readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
         return commentReadService.readComments(postId, pageable);
     }
 
