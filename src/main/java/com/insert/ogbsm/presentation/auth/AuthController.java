@@ -2,6 +2,7 @@ package com.insert.ogbsm.presentation.auth;
 
 import com.insert.ogbsm.global.jwt.dto.TokenResponseDto;
 import com.insert.ogbsm.presentation.auth.dto.UserLoginDto;
+import com.insert.ogbsm.presentation.auth.dto.UsingRefreshTokenReqDto;
 import com.insert.ogbsm.service.auth.AccessTokenRefreshService;
 import com.insert.ogbsm.service.auth.UserLoginService;
 import com.insert.ogbsm.service.auth.UserLogoutService;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,12 +34,12 @@ public class AuthController {
     }
 
     @DeleteMapping("/logout")
-    public ResponseEntity<String> userLogout(@RequestHeader("refresh_token") String refreshToken) {
+    public ResponseEntity<String> userLogout(@RequestBody @Valid UsingRefreshTokenReqDto refreshToken) {
         return ResponseEntity.ok(userLogoutService.execute(refreshToken));
     }
 
     @PutMapping("/refresh/access")
-    public TokenResponseDto refreshAccessToken(@RequestHeader("refresh_token") String refreshToken) {
+    public TokenResponseDto refreshAccessToken(@RequestBody @Valid UsingRefreshTokenReqDto refreshToken) {
         return ResponseEntity.ok(accessTokenRefreshService.execute(refreshToken)).getBody();
     }
 }
