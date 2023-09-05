@@ -1,10 +1,13 @@
 package com.insert.ogbsm.service.comment;
 
+import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.presentation.comment.dto.PageReCommentRes;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentResDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +22,10 @@ public class ReCommentReadService {
     private final ReCommentRepo reCommentRepo;
     private final UserRepo userRepo;
 
-    public List<ReCommentResDto> read(Long commentId, Pageable pageable) {
+    public PageReCommentRes read(Long commentId, Pageable pageable) {
 
-        return reCommentRepo.findByCommentIdOrderByCreatedAtAsc(commentId, pageable)
-                .stream()
+        Page<ReComment> pageReComment = reCommentRepo.findByCommentIdOrderByCreatedAtAsc(commentId, pageable);
+        List<ReCommentResDto> reComments = pageReComment.stream()
                 .map(reComment -> new ReCommentResDto(
                                 reComment,
                                 userRepo.findById(reComment.getUserId())
@@ -30,5 +33,7 @@ public class ReCommentReadService {
                         )
                 )
                 .collect(Collectors.toList());
+
+        return new PageReCommentRes(reComments, pageReComment.getTotalPages());
     }
 }
