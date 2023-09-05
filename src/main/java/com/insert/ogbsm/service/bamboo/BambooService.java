@@ -5,7 +5,7 @@ import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
-import com.insert.ogbsm.presentation.bamboo.dto.CreateBambooDto;
+import com.insert.ogbsm.presentation.bamboo.dto.CreateBambooReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +27,10 @@ public class BambooService {
                 .toList();
     }
 
-    public Long createBamboo(CreateBambooDto createBambooDto) {
+    public Long createBamboo(CreateBambooReq createBambooReq) {
         Bamboo bamboo = bambooRepo.save(
                 Bamboo.builder()
-                        .content(createBambooDto.getContent())
+                        .content(createBambooReq.getContent())
                         .userId(SecurityUtil.getCurrentUserOrNotLogin().getId())
                         .isAllow(false)
                         .build()

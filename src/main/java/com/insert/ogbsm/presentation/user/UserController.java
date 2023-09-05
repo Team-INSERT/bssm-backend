@@ -1,6 +1,6 @@
 package com.insert.ogbsm.presentation.user;
 
-import com.insert.ogbsm.presentation.user.dto.UserResponseDto;
+import com.insert.ogbsm.presentation.user.dto.UserResponse;
 import com.insert.ogbsm.service.user.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +16,12 @@ public class UserController {
     private final UserInfoService userInfoService;
 
     @GetMapping()
-    public UserResponseDto findMyInfo() {
+    public UserResponse findMyInfo() {
         return userInfoService.findMyInfo();
     }
 
     @GetMapping("/{id}")
-    public UserResponseDto findUserInfo(@PathVariable Long id) {
+    public UserResponse findUserInfo(@PathVariable Long id) {
         return userInfoService.findUserInfo(id);
     }
 }

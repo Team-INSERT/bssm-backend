@@ -7,7 +7,7 @@ import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
 
 import java.time.LocalDateTime;
 
-public class PostResDto {
+public class PostRes {
 
     final Long id;
     final String title;
@@ -22,7 +22,7 @@ public class PostResDto {
     LocalDateTime endTime;
     String field;
 
-    public PostResDto(Post post, User user) {
+    public PostRes(Post post, User user) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.category = post.getCategory();

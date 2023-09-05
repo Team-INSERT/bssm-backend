@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserLoginDto {
+public class UserLoginReq {
     @NotNull
     private String authCode;
 }

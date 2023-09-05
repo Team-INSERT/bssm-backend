@@ -4,7 +4,7 @@ import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.exception.UserNotFoundException;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.user.dto.UserResponseDto;
+import com.insert.ogbsm.presentation.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +14,13 @@ public class UserInfoService {
 
     private final UserRepo userRepo;
 
-    public UserResponseDto findMyInfo() {
-        return new UserResponseDto(SecurityUtil.getCurrentUserWithLogin());
+    public UserResponse findMyInfo() {
+        return new UserResponse(SecurityUtil.getCurrentUserWithLogin());
     }
 
-    public UserResponseDto findUserInfo(Long id) {
+    public UserResponse findUserInfo(Long id) {
         User user = userRepo.findById(id)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
-        return new UserResponseDto(user);
+        return new UserResponse(user);
     }
 }

@@ -1,4 +1,4 @@
 package com.insert.ogbsm.presentation.comment.dto;
 
-public record CommentReqDto(Long id, String detail) {
+public record ReCommentReq(Long id, String detail) {
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class ReCommentResDto {
+public class ReCommentRes {
     final Long id;
     final UserSimpleRes user;
     final String detail;
@@ -16,7 +16,7 @@ public class ReCommentResDto {
     final int likeCount;
     final LocalDateTime createdAt;
 
-    public ReCommentResDto(ReComment reComment, User user) {
+    public ReCommentRes(ReComment reComment, User user) {
         this.id = reComment.getId();
         this.detail = reComment.getDetail();
         this.commentId = reComment.getCommentId();
