@@ -15,15 +15,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class UserSaveService {
 
     private final BsmOauth bsmOauth;
     private final UserRepo userRepo;
 
-    @Transactional
     public User execute(String authId) throws IOException {
         String token;
         BsmUserResource resource;
@@ -35,17 +36,26 @@ public class UserSaveService {
         } catch (BsmOAuthInvalidClientException e) {
             throw InvalidClientException.EXCEPTION;
         }
-        return saveUser(resource);
+        return checkUserExist(resource);
     }
 
-    @Transactional
-    public User saveUser(final BsmUserResource resource) {
+    public User checkUserExist(final BsmUserResource resource) {
+        Optional<User> user = userRepo.findById(resource.getUserCode());
+
+        if (user.isEmpty())
+            return SaveNewUser(resource);
+
+        return UpdateUserProfile(user.get(), resource);
+
+    }
+
+    private User SaveNewUser(final BsmUserResource resource) {
         User user = User.builder()
                 .id(resource.getUserCode())
-                .nickname(resource.getNickname())
                 .email(resource.getEmail())
-                .profile_image(resource.getProfileUrl())
+                .nickname(resource.getNickname())
                 .authority(Authority.USER)
+                .profile_image(resource.getProfileUrl())
                 .build();
 
         switch (resource.getRole()) {
@@ -55,4 +65,10 @@ public class UserSaveService {
 
         return userRepo.save(user);
     }
+
+    public User UpdateUserProfile(User user, BsmUserResource resource) {
+        user.updateUserProfile(resource);
+        return user;
+    }
+
 }

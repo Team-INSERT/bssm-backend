@@ -2,7 +2,6 @@ package com.insert.ogbsm.global.error;
 
 import com.insert.ogbsm.global.error.exception.BsmException;
 import com.insert.ogbsm.global.error.exception.ErrorCode;
-
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,15 +19,23 @@ import java.util.Map;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+    private final String errorLogsFormat = """
+            {
+                      "status": "%s",
+                      "code": "%s",
+                      "message": "%s"
+            }
+            """;
+
     @ExceptionHandler(BsmException.class)
     public ResponseEntity<ErrorResponse> handleGlobal(BsmException e) {
         final ErrorCode errorCode = e.getErrorCode();
         log.error(
-                "\n" + "{\n" +
-                        "\t\"status\": " + errorCode.getStatus() + '\"' +
-                        ",\n\t\"code\": \"" + errorCode.getCode() + '\"' +
-                        ",\n\t\"message\": \"" + errorCode.getMessage() + '\"' +
-                        "\n}"
+                errorLogsFormat.formatted(
+                        errorCode.getStatus(),
+                        errorCode.getCode(),
+                        errorCode.getMessage()
+                )
         );
         return new ResponseEntity<>(
                 new ErrorResponse(
@@ -45,8 +52,13 @@ public class GlobalExceptionHandler {
 
         for (FieldError error : e.getFieldErrors()) {
             errorMap.put(error.getField(), error.getDefaultMessage());
-            log.error(error.toString());
-            log.error(error.getDefaultMessage());
+            log.error(
+                    errorLogsFormat.formatted(
+                            HttpStatus.BAD_REQUEST.value(),
+                            "400",
+                            errorMap.toString()
+                    )
+            );
         }
         return new ResponseEntity<>(errorMap, HttpStatus.BAD_REQUEST);
     }
