@@ -5,14 +5,7 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.values.CodeReview;
 import com.insert.ogbsm.domain.post.values.LostFound;
 import com.insert.ogbsm.domain.post.values.Project;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +38,8 @@ public class Post extends CreatedAt {
     @Embedded
     private Project project;
 
+    private int likeCount = 0;
+
     public Post(String title, Category category, String content, Long writerId) {
         this.writerId = writerId;
         this.title = title;
@@ -75,5 +70,13 @@ public class Post extends CreatedAt {
 
     public void setIdForUpdate(Long id) {
         this.id = id;
+    }
+
+    public void decreaseLike() {
+        likeCount--;
+    }
+
+    public void increaseLike() {
+        likeCount++;
     }
 }

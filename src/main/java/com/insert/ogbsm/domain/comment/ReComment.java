@@ -1,7 +1,10 @@
 package com.insert.ogbsm.domain.comment;
 
 import com.insert.ogbsm.domain.common.CreatedAt;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +21,7 @@ public class ReComment extends CreatedAt {
 
     private Long commentId;
 
-    private int likeCount;
+    private int likeCount = 0;
 
     private Long userId;
 
@@ -31,5 +34,13 @@ public class ReComment extends CreatedAt {
 
     public void update(String detail) {
         this.detail = detail;
+    }
+
+    public void increaseLike() {
+        likeCount++;
+    }
+
+    public void decreaseLike() {
+        likeCount--;
     }
 }
