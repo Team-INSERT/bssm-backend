@@ -34,6 +34,7 @@ public class JwtProvider {
     }
 
     public TokenResponseDto generateToken(String authId, String role) {
+
         String accessToken = generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
         String refreshToken = generateToken(authId, role, REFRESH_KEY.getMessage(), jwtProperties.getRefreshExp());
 

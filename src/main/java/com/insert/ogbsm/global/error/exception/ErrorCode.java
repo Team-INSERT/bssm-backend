@@ -26,7 +26,8 @@ public enum ErrorCode {
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
     BSM_AUTH_INVALID_CLIENT(500, "BSM-500-1", "Bsm Client Is Invalid"),
-    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error");
+    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
+    NOT_FOUND(404, "NOT_FOUND", "Not Found");
 
     private final int status;
     private final String code;

@@ -1,13 +1,10 @@
 package com.insert.ogbsm.global.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.insert.ogbsm.domain.user.authority.Authority;
-import com.insert.ogbsm.domain.user.role.Role;
 import com.insert.ogbsm.global.error.CustomAuthenticationEntryPoint;
 import com.insert.ogbsm.global.jwt.auth.JwtAuth;
 import com.insert.ogbsm.global.jwt.util.JwtUtil;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,7 +22,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-//@RequiredArgsConstructor
 @AllArgsConstructor
 public class SecurityConfig {
 
