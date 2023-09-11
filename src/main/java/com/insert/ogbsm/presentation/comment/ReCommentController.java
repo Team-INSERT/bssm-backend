@@ -1,14 +1,17 @@
 package com.insert.ogbsm.presentation.comment;
 
 import com.insert.ogbsm.global.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.comment.dto.PageReCommentRes;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
+import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.service.comment.ReCommentDefService;
 import com.insert.ogbsm.service.comment.ReCommentReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/recomment")
@@ -24,7 +27,7 @@ public class ReCommentController {
     }
 
     @GetMapping("/{commentId}")
-    public PageReCommentRes read(@PathVariable Long commentId, @PageableDefault Pageable pageable) {
+    public Pagination<List<ReCommentRes>> read(@PathVariable Long commentId, @PageableDefault Pageable pageable) {
         return reCommentReadService.read(commentId, pageable);
     }
 

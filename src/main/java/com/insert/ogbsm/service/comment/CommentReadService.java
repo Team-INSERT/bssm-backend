@@ -4,7 +4,7 @@ import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
-import com.insert.ogbsm.presentation.comment.dto.PageCommentRes;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public class CommentReadService {
     private final CommentRepo commentRepo;
     private final UserRepo userRepo;
 
-    public PageCommentRes readComments(Long postId, Pageable pageable) {
+    public Pagination<List<CommentRes>> readComments(Long postId, Pageable pageable) {
         Page<Comment> postPage = commentRepo.findAllByPostId(postId, pageable);
 
         List<CommentRes> comments = postPage.stream()
@@ -32,6 +32,6 @@ public class CommentReadService {
                                 .orElseThrow(() -> new EntityNotFoundException("comment user not found"))))
                 .collect(Collectors.toList());
 
-        return new PageCommentRes(comments, postPage.getTotalPages(), pageable.getPageNumber());
+        return new Pagination<>(comments, postPage.getTotalPages(), pageable.getPageNumber());
     }
 }

@@ -3,13 +3,16 @@ package com.insert.ogbsm.presentation.comment;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
-import com.insert.ogbsm.presentation.comment.dto.PageCommentRes;
+import com.insert.ogbsm.presentation.comment.dto.CommentRes;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.service.comment.CommentDefService;
 import com.insert.ogbsm.service.comment.CommentReadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +34,7 @@ public class CommentController {
     }
 
     @GetMapping("/{postId}")
-    public PageCommentRes readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
+    public Pagination<List<CommentRes>> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
         return commentReadService.readComments(postId, pageable);
     }
 
