@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class AllowedBambooRes {
+
     private final Long allowedId;
     private final String content;
     private final LocalDateTime createdAt;
@@ -18,4 +19,5 @@ public class AllowedBambooRes {
         this.createdAt = allowedBamboo.getBamboo().getCreatedAt();
         this.allowedAt = allowedBamboo.getCreatedAt();
     }
+
 }

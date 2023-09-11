@@ -11,6 +11,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+
+import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity
 @Getter
@@ -26,6 +29,7 @@ public class AllowedBamboo extends CreatedAt {
     private Long allowedAdminId;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @OnDelete(action = CASCADE)
     private Bamboo bamboo;
 
 }
