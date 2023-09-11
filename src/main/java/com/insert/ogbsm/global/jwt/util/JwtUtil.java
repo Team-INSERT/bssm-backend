@@ -51,7 +51,8 @@ public class JwtUtil {
         if (token == null) {
             throw InvalidJwtException.EXCEPTION;
         }
-        return Jwts.parser().setSigningKey(jwtProperties.getSecret()).parseClaimsJws(token);
+
+        return Jwts.parserBuilder().setSigningKey(jwtProperties.getSecret()).build().parseClaimsJws(token);
     }
 
 
