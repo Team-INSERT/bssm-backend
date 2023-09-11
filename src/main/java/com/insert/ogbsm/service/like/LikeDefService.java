@@ -16,7 +16,6 @@ public class LikeDefService {
     private final LikesRepo likeRepo;
 
     public boolean changeLikeStatus(LikesReq likesReq, Long userId) {
-        System.out.println("asdfasdfasd " + likesReq.partyId() + " " + likesReq.type());
         Optional<Likes> like = likeRepo.findByUserIdAndTypeAndPartyId(userId, likesReq.type(), likesReq.partyId());
 
         if (like.isEmpty()) {
