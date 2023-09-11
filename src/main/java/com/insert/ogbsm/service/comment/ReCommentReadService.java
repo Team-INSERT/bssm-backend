@@ -34,6 +34,6 @@ public class ReCommentReadService {
                 )
                 .collect(Collectors.toList());
 
-        return new PageReCommentRes(reComments, pageReComment.getTotalPages());
+        return new PageReCommentRes(reComments, pageReComment.getTotalPages(), pageable.getPageNumber());
     }
 }

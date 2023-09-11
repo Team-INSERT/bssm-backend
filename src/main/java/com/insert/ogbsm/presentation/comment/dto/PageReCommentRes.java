@@ -2,5 +2,5 @@ package com.insert.ogbsm.presentation.comment.dto;
 
 import java.util.List;
 
-public record PageReCommentRes(List<ReCommentRes> reComments, int totalPage) {
+public record PageReCommentRes(List<ReCommentRes> reComments, int totalPage, int currentPage) {
 }

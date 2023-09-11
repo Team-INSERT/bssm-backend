@@ -32,6 +32,6 @@ public class CommentReadService {
                                 .orElseThrow(() -> new EntityNotFoundException("comment user not found"))))
                 .collect(Collectors.toList());
 
-        return new PageCommentRes(comments, postPage.getTotalPages());
+        return new PageCommentRes(comments, postPage.getTotalPages(), pageable.getPageNumber());
     }
 }
