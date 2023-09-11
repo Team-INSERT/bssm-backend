@@ -1,6 +1,6 @@
 type Query{
     readOne(id:Int):PostOutPut
-    readByCategory(category: String): [PostOutPut]
+    readByCategory(category: String, page: Int): Pagination
 }
 
 type Mutation{
@@ -34,6 +34,12 @@ type PostOutPut{
     field:String
     createdAt: String
     user: UserSimpleOutPut
+}
+
+type Pagination{
+    entity: [PostOutPut]
+    totalPage: Int!
+    currentPage: Int!
 }
 
 type UserSimpleOutPut{

@@ -4,9 +4,11 @@ import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class PostRes {
 
     final Long id;
