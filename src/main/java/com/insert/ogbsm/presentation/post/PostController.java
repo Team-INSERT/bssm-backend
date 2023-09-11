@@ -3,11 +3,13 @@ package com.insert.ogbsm.presentation.post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostReq;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.post.PostDefService;
 import com.insert.ogbsm.service.post.PostReadService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -44,9 +46,9 @@ public class PostController {
         return postReadService.readOne(id);
     }
 
-    @QueryMapping
-    public List<PostRes> readByCategory(@Argument Category category) {
-        return postReadService.readByCategory(category);
+    @QueryMapping(name = "readByCategory")
+    public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page) {
+        return postReadService.readByCategory(category, PageRequest.of(page, 10));
     }
 
     @DeleteMapping("/{id}")

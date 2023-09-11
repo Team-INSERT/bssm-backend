@@ -5,9 +5,12 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,12 +35,16 @@ public class PostReadService {
         return new PostRes(post, user);
     }
 
-    public List<PostRes> readByCategory(Category category) {
-        return postRepo.findByCategory(category)
+    public Pagination<List<PostRes>> readByCategory(Category category, Pageable pageable) {
+
+        Page<Post> pagePost = postRepo.findByCategory(category, pageable);
+        List<PostRes> collect = pagePost
                 .stream()
                 .map(post -> new PostRes(post, userRepo.findById(post.getWriterId())
                         .orElseThrow(
                                 () -> new EntityNotFoundException("Post Read Category User Not Found"))))
                 .collect(Collectors.toList());
+
+        return new Pagination<>(collect, pagePost.getTotalPages(), pageable.getPageNumber());
     }
 }

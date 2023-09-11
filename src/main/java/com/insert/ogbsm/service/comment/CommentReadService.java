@@ -4,14 +4,14 @@ import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
-import com.insert.ogbsm.presentation.comment.dto.PageCommentRes;
-import jakarta.persistence.EntityNotFoundException;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ public class CommentReadService {
     private final CommentRepo commentRepo;
     private final UserRepo userRepo;
 
-    public PageCommentRes readComments(Long postId, Pageable pageable) {
+    public Pagination<List<CommentRes>> readComments(Long postId, Pageable pageable) {
         Page<Comment> postPage = commentRepo.findAllByPostId(postId, pageable);
 
         List<CommentRes> comments = postPage.stream()
@@ -32,6 +32,6 @@ public class CommentReadService {
                                 .orElseThrow(() -> new EntityNotFoundException("comment user not found"))))
                 .collect(Collectors.toList());
 
-        return new PageCommentRes(comments, postPage.getTotalPages());
+        return new Pagination<>(comments, postPage.getTotalPages(), pageable.getPageNumber());
     }
 }

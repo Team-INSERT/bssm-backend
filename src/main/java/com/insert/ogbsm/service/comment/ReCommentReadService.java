@@ -3,8 +3,8 @@ package com.insert.ogbsm.service.comment;
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
-import com.insert.ogbsm.presentation.comment.dto.PageReCommentRes;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
+import com.insert.ogbsm.presentation.pagination.Pagination;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class ReCommentReadService {
     private final ReCommentRepo reCommentRepo;
     private final UserRepo userRepo;
 
-    public PageReCommentRes read(Long commentId, Pageable pageable) {
+    public Pagination<List<ReCommentRes>> read(Long commentId, Pageable pageable) {
 
         Page<ReComment> pageReComment = reCommentRepo.findByCommentIdOrderByCreatedAtAsc(commentId, pageable);
         List<ReCommentRes> reComments = pageReComment.stream()
@@ -34,6 +34,6 @@ public class ReCommentReadService {
                 )
                 .collect(Collectors.toList());
 
-        return new PageReCommentRes(reComments, pageReComment.getTotalPages());
+        return new Pagination<>(reComments, pageReComment.getTotalPages(), pageable.getPageNumber());
     }
 }
