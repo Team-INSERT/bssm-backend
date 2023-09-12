@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface PostRepo extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p where p.category = :category order by p.createdAt desc")
+    @Query("select p from Post p where p.category = :category " +
+            "order by p.likeCount desc, " +
+            "p.createdAt desc ")
     Page<Post> findByCategory(Category category, Pageable pageable);
 }
