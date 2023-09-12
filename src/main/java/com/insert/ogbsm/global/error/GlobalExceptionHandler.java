@@ -2,6 +2,7 @@ package com.insert.ogbsm.global.error;
 
 import com.insert.ogbsm.global.error.exception.BsmException;
 import com.insert.ogbsm.global.error.exception.ErrorCode;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Slf4j
 public class GlobalExceptionHandler {
     private final String errorLogsFormat = """
+                        
             {
                       "status": "%s",
                       "code": "%s",
@@ -30,6 +32,25 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BsmException.class)
     public ResponseEntity<ErrorResponse> handleGlobal(BsmException e) {
         final ErrorCode errorCode = e.getErrorCode();
+        log.error(
+                errorLogsFormat.formatted(
+                        errorCode.getStatus(),
+                        errorCode.getCode(),
+                        errorCode.getMessage()
+                )
+        );
+        return new ResponseEntity<>(
+                new ErrorResponse(
+                        errorCode.getStatus(),
+                        errorCode.getCode(),
+                        errorCode.getMessage()),
+                HttpStatus.valueOf(errorCode.getStatus())
+        );
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePersistenceException(EntityNotFoundException e) {
+        final ErrorCode errorCode = ErrorCode.NOT_FOUND;
         log.error(
                 errorLogsFormat.formatted(
                         errorCode.getStatus(),
