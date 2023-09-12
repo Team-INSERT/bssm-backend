@@ -2,7 +2,7 @@ package com.insert.ogbsm.global.error;
 
 import com.insert.ogbsm.global.error.exception.BsmException;
 import com.insert.ogbsm.global.error.exception.ErrorCode;
-import jakarta.persistence.PersistenceException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -48,8 +48,8 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ExceptionHandler(PersistenceException.class)
-    public ResponseEntity<ErrorResponse> handlePersistenceException(PersistenceException e) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePersistenceException(EntityNotFoundException e) {
         final ErrorCode errorCode = ErrorCode.NOT_FOUND;
         log.error(
                 errorLogsFormat.formatted(

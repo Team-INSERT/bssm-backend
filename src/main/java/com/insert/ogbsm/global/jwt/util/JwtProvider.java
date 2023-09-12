@@ -15,7 +15,6 @@ import java.util.Date;
 
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.ACCESS_KEY;
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.AUTH_ID;
-import static com.insert.ogbsm.global.jwt.properties.JwtConstants.EMPTY;
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.REFRESH_KEY;
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.ROLE;
 import static com.insert.ogbsm.global.jwt.properties.JwtConstants.TYPE;
@@ -30,7 +29,7 @@ public class JwtProvider {
 
     public String generateAccessToken(String authId, String role) {
 
-        return jwtProperties.getPrefix() + EMPTY.getMessage() + generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
+        return generateToken(authId, role, ACCESS_KEY.getMessage(), jwtProperties.getAccessExp());
     }
 
     public TokenResponseDto generateToken(String authId, String role) {

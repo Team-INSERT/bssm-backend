@@ -1,6 +1,7 @@
 package com.insert.ogbsm.domain.bamboo;
 
 import com.insert.ogbsm.domain.common.CreatedAt;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,7 +29,10 @@ public class AllowedBamboo extends CreatedAt {
 
     private Long allowedAdminId;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     @OnDelete(action = CASCADE)
     private Bamboo bamboo;
 
