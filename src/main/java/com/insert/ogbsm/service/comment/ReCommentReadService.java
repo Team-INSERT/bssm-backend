@@ -24,7 +24,7 @@ public class ReCommentReadService {
 
     public Pagination<List<ReCommentRes>> read(Long commentId, Pageable pageable) {
 
-        Page<ReComment> pageReComment = reCommentRepo.findByCommentIdOrderByCreatedAtAsc(commentId, pageable);
+        Page<ReComment> pageReComment = reCommentRepo.findByCommentIdOrderByLikeCountDescCreatedAtDesc(commentId, pageable);
         List<ReCommentRes> reComments = pageReComment.stream()
                 .map(reComment -> new ReCommentRes(
                                 reComment,

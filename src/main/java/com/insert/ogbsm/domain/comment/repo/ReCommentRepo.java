@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReCommentRepo extends JpaRepository<ReComment, Long> {
-    Page<ReComment> findByCommentIdOrderByCreatedAtAsc(Long commentId, Pageable pageable);
+    Page<ReComment> findByCommentIdOrderByLikeCountDescCreatedAtDesc(Long commentId, Pageable pageable);
 }
