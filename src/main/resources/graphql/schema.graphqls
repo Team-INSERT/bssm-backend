@@ -1,6 +1,6 @@
 type Query{
     readOne(id:Int):PostOutPut
-    readByCategory(category: String, page: Int): Pagination
+    readByCategory(category: String, page: Int, size: Int): Pagination
 }
 
 type Mutation{

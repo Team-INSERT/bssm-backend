@@ -10,11 +10,11 @@ import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
