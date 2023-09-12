@@ -7,10 +7,10 @@ import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.CreateBambooReq;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -21,10 +21,9 @@ public class BambooService {
     private final AllowedBambooRepo allowedBambooRepo;
 
     @Transactional(readOnly = true)
-    public List<AllowedBambooRes> findAllAllowedBamboo() {
-        return allowedBambooRepo.findAll()
-                .stream().map(AllowedBambooRes::new)
-                .toList();
+    public Slice<AllowedBambooRes> findAllAllowedBamboo(Pageable pageable) {
+        return allowedBambooRepo.findAll(pageable)
+                .map(AllowedBambooRes::new);
     }
 
     public Long createBamboo(CreateBambooReq createBambooReq) {

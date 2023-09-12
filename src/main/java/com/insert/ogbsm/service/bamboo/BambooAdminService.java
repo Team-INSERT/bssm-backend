@@ -45,6 +45,13 @@ public class BambooAdminService {
     }
 
     public Long deleteBamboo(Long id) {
+        Bamboo bamboo = bambooRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        if (bamboo.getIsAllow()) {
+            allowedBambooRepo.delete(
+                    allowedBambooRepo.findByBamboo(bamboo)
+                            .orElseThrow(EntityNotFoundException::new)
+            );
+        }
         bambooRepo.deleteById(id);
         return id;
     }

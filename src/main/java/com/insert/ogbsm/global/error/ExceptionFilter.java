@@ -4,6 +4,7 @@ import com.insert.ogbsm.global.error.exception.BsmException;
 import com.insert.ogbsm.global.error.exception.ErrorCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,6 +24,8 @@ public class ExceptionFilter extends OncePerRequestFilter {
             writeErrorCode(response, ErrorCode.EXPIRED_JWT);
         } catch (JwtException e) {
             writeErrorCode(response, ErrorCode.INVALID_TOKEN);
+        } catch (EntityNotFoundException e) {
+            writeErrorCode(response, ErrorCode.NOT_FOUND);
         } catch (Exception e) {
             e.printStackTrace();
             writeErrorCode(response, ErrorCode.INTERNAL_SERVER_ERROR);
