@@ -4,6 +4,7 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.pagination.Pagination;
+import com.insert.ogbsm.presentation.post.dto.PostDeleteRes;
 import com.insert.ogbsm.presentation.post.dto.PostLikeRes;
 import com.insert.ogbsm.presentation.post.dto.PostReq;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
@@ -14,8 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,13 +47,14 @@ public class PostController {
         return postReadService.readOne(id, userId);
     }
 
-    @QueryMapping(name = "readByCategory")
+    @QueryMapping
     public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page, @Argument int size) {
         return postReadService.readByCategory(category, PageRequest.of(page, size));
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        postDefService.delete(id);
+    @MutationMapping
+    public PostDeleteRes delete(@Argument Long id) {
+        Long userId = SecurityUtil.getCurrentUserIdWithLogin();
+        return postDefService.delete(id, userId);
     }
 }
