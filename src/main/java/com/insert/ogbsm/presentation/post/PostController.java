@@ -4,6 +4,7 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.global.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.pagination.Pagination;
+import com.insert.ogbsm.presentation.post.dto.PostLikeRes;
 import com.insert.ogbsm.presentation.post.dto.PostReq;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.post.PostDefService;
@@ -42,8 +43,9 @@ public class PostController {
     }
 
     @QueryMapping
-    public PostRes readOne(@Argument Long id) {
-        return postReadService.readOne(id);
+    public PostLikeRes readOne(@Argument Long id) {
+        Long userId = SecurityUtil.getCurrentUserIdWithoutLogin();
+        return postReadService.readOne(id, userId);
     }
 
     @QueryMapping(name = "readByCategory")

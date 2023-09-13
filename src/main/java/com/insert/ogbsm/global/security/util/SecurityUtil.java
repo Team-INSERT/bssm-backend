@@ -19,8 +19,20 @@ public class SecurityUtil {
         return getCurrentUserWithLogin().getId();
     }
 
+    public static Long getCurrentUserIdWithoutLogin() {
+        try {
+            return getCurrentUserOrNotLogin().getId();
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
     public static User getCurrentUserOrNotLogin() {
-        return getUser();
+        try {
+            return getUser();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static User getUser() {
