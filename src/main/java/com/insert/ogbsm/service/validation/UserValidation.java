@@ -1,6 +1,7 @@
 package com.insert.ogbsm.service.validation;
 
-import jakarta.persistence.EntityNotFoundException;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -10,7 +11,7 @@ public class UserValidation {
 
     public void checkSameUser(Long id1, Long id2) {
         if (!Objects.equals(id1, id2)) {
-            throw new EntityNotFoundException("Your not a same user");
+            throw new BsmException(ErrorCode.NOT_SAME_USER);
         }
     }
 

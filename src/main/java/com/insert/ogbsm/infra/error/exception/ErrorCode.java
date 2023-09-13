@@ -13,10 +13,12 @@ public enum ErrorCode {
 
     //User
     USER_NOT_LOGIN(403, "USER-403-1", "User Not Login"),
+    NOT_SAME_USER(403, "USER-403-2", "Not A Same User"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
 
     //Bamboo
     BAMBOO_ALREADY_ALLOWED(400, "BAMBOO-400-1", "Bamboo Already Allowed"),
+    BAMBOO_NOT_FOUND(404, "BAMBOO-404-1", "BAMBOO Not Found"),
 
     //JWT
     INVALID_TOKEN(403, "TOKEN-403-1", "Access with Invalid Token"),
@@ -27,7 +29,14 @@ public enum ErrorCode {
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
     BSM_AUTH_INVALID_CLIENT(500, "BSM-500-1", "Bsm Client Is Invalid"),
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
-    NOT_FOUND(404, "NOT_FOUND", "Not Found");
+    NOT_FOUND(404, "NOT_FOUND", "Not Found"),
+
+    //Post
+    POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
+
+    //Comment
+    COMMENT_NOT_FOUND(404, "COMMENT-404-1", "Comment Not Found"),
+    RECOMMENT_NOT_FOUND(404, "RECOMMENT-404-1", "ReComment Not Found");
 
     private final int status;
     private final String code;

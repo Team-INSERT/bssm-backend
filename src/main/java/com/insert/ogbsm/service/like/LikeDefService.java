@@ -9,8 +9,9 @@ import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -46,20 +47,20 @@ public class LikeDefService {
     private void decreaseLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
             Post post = postRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new EntityNotFoundException("post not found"));
+                    .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
             post.decreaseLike();
             return;
         } else if (likes.getType() == Type.COMMENT) {
             Comment comment = commentRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new EntityNotFoundException("comment not found"));
+                    .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
             comment.decreaseLike();
             return;
         }
 
         ReComment reComment = reCommentRepo.findById(likes.getPartyId())
-                .orElseThrow(() -> new EntityNotFoundException("reComment not found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         reComment.decreaseLike();
     }
@@ -67,20 +68,20 @@ public class LikeDefService {
     private void addLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
             Post post = postRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new EntityNotFoundException("post not found"));
+                    .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
             post.increaseLike();
             return;
         } else if (likes.getType() == Type.COMMENT) {
             Comment comment = commentRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new EntityNotFoundException("comment not found"));
+                    .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
             comment.increaseLike();
             return;
         }
 
         ReComment reComment = reCommentRepo.findById(likes.getPartyId())
-                .orElseThrow(() -> new EntityNotFoundException("reComment not found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         reComment.increaseLike();
     }

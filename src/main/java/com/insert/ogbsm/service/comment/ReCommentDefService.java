@@ -4,9 +4,10 @@ import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
 import com.insert.ogbsm.service.validation.UserValidation;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,14 +30,14 @@ public class ReCommentDefService {
 
     private void increaseReCommentCount(Long commentId) {
         Comment comment = commentRepo.findById(commentId)
-                .orElseThrow(() -> new EntityNotFoundException("Updatable comment Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         comment.increaseReCommentCount();
     }
 
     public void update(ReCommentReq dto, Long userId) {
         ReComment reComment = reCommentRepo.findById(dto.id())
-                .orElseThrow(() -> new EntityNotFoundException("Updatable ReComment Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, reComment.getUserId());
 
@@ -45,7 +46,7 @@ public class ReCommentDefService {
 
     public void delete(Long reCommentId, Long userId) {
         ReComment reComment = reCommentRepo.findById(reCommentId)
-                .orElseThrow(() -> new EntityNotFoundException("Deletable ReComment Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         decreaseReCommentCount(reComment);
 
@@ -56,7 +57,7 @@ public class ReCommentDefService {
 
     private void decreaseReCommentCount(ReComment reComment) {
         Comment comment = commentRepo.findById(reComment.getCommentId())
-                .orElseThrow(() -> new EntityNotFoundException("Updatable comment Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         comment.decreaseReCommentCount();
     }

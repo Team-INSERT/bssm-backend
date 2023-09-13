@@ -4,9 +4,10 @@ import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
 import com.insert.ogbsm.service.validation.UserValidation;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,14 +32,14 @@ public class CommentDefService {
 
     private void increaseCommentCount(Long postId) {
         Post post = postRepo.findById(postId)
-                .orElseThrow(() -> new EntityNotFoundException("Post Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
         post.increaseCommentCount();
     }
 
     public void update(CommentReq reqDto, Long userId) {
         Comment comment = commentRepo.findById(reqDto.id())
-                .orElseThrow(() -> new EntityNotFoundException("No Updatable Comment"));
+                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, comment.getUserId());
 
@@ -47,7 +48,7 @@ public class CommentDefService {
 
     public void delete(Long commentId, Long userId) {
         Comment comment = commentRepo.findById(commentId)
-                .orElseThrow(() -> new EntityNotFoundException("Comment Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, comment.getUserId());
 
@@ -58,7 +59,7 @@ public class CommentDefService {
 
     private void decreaseCommentCount(Comment comment) {
         Post post = postRepo.findById(comment.getPostId())
-                .orElseThrow(() -> new EntityNotFoundException("Post Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
         post.decreaseCommentCount();
     }

@@ -9,7 +9,6 @@ import com.insert.ogbsm.presentation.post.dto.PostDeleteRes;
 import com.insert.ogbsm.presentation.post.dto.PostReq;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.validation.UserValidation;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ public class PostDefService {
 
     public PostRes update(PostReq reqDto, User user) {
         Post updatablePost = postRepo.findById(reqDto.id())
-                .orElseThrow(() -> new EntityNotFoundException("No Updatable Post"));
+                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
         userValidation.checkSameUser(updatablePost.getWriterId(), user.getId());
 

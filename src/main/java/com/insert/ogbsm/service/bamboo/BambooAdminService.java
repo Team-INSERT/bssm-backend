@@ -8,7 +8,6 @@ import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ public class BambooAdminService {
     }
 
     public AllowedBambooRes allowBamboo(Long id, Long userId) {
-        Bamboo bamboo = bambooRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        Bamboo bamboo = bambooRepo.findById(id).orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_ALREADY_ALLOWED));
 
         if(bamboo.getIsAllow()) {
             throw new BsmException(ErrorCode.BAMBOO_ALREADY_ALLOWED);
@@ -46,11 +45,11 @@ public class BambooAdminService {
     }
 
     public Long deleteBamboo(Long id) {
-        Bamboo bamboo = bambooRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+        Bamboo bamboo = bambooRepo.findById(id).orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_NOT_FOUND));
         if (bamboo.getIsAllow()) {
             allowedBambooRepo.delete(
                     allowedBambooRepo.findByBamboo(bamboo)
-                            .orElseThrow(EntityNotFoundException::new)
+                            .orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_NOT_FOUND))
             );
         }
         bambooRepo.deleteById(id);

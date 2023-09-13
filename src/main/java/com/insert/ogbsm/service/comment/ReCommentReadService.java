@@ -3,9 +3,10 @@ package com.insert.ogbsm.service.comment;
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class ReCommentReadService {
                 .map(reComment -> new ReCommentRes(
                                 reComment,
                                 userRepo.findById(reComment.getUserId())
-                                        .orElseThrow(() -> new EntityNotFoundException("ReComment User Not Found"))
+                                        .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND))
                         )
                 )
                 .collect(Collectors.toList());

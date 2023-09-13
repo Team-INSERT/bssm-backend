@@ -8,10 +8,11 @@ import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostLikeRes;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -35,10 +36,10 @@ public class PostReadService {
 
     public PostLikeRes readOne(Long id, Long userId) {
         Post post = postRepo.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Can't Read An Entity"));
+                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
         User user = userRepo.findById(post.getWriterId())
-                .orElseThrow(() -> new EntityNotFoundException("Post Writer Not Found"));
+                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
 
         boolean doesLike = doesLikePost(userId, post);
 
@@ -61,7 +62,7 @@ public class PostReadService {
                 .stream()
                 .map(post -> new PostRes(post, userRepo.findById(post.getWriterId())
                         .orElseThrow(
-                                () -> new EntityNotFoundException("Post Read Category User Not Found"))))
+                                () -> new BsmException(ErrorCode.POST_NOT_FOUND))))
                 .collect(Collectors.toList());
 
         return new Pagination<>(collect, pagePost.getTotalPages(), pageable.getPageNumber());

@@ -3,9 +3,10 @@ package com.insert.ogbsm.service.comment;
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public class CommentReadService {
                 .map(comment -> new CommentRes(
                         comment,
                         userRepo.findById(comment.getUserId())
-                                .orElseThrow(() -> new EntityNotFoundException("comment user not found"))))
+                                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND))))
                 .collect(Collectors.toList());
 
         return new Pagination<>(comments, postPage.getTotalPages(), pageable.getPageNumber());
