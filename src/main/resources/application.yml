@@ -62,3 +62,8 @@ server:
   port: 8080
   servlet:
     contextPath: /api
+
+  decorator:
+    datasource:
+      p6spy:
+        enable-logging: true

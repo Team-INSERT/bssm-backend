@@ -17,6 +17,7 @@ public class PostRes {
     final String content;
     final UserSimpleRes user;
     final LocalDateTime createdAt;
+    final int likeCount;
     String prUrl;
     Boolean isFinished;
     String lostThingImage;
@@ -31,6 +32,7 @@ public class PostRes {
         this.content = post.getContent();
         this.user = new UserSimpleRes(user);
         this.createdAt = post.getCreatedAt();
+        this.likeCount = post.getLikeCount();
         if (category == Category.CODE_REVIEW) {
             this.prUrl = post.getCodeReview().getPrUrl();
             this.isFinished = post.getCodeReview().getIsFinished();

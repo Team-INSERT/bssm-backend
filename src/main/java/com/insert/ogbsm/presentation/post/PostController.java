@@ -47,8 +47,8 @@ public class PostController {
     }
 
     @QueryMapping(name = "readByCategory")
-    public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page) {
-        return postReadService.readByCategory(category, PageRequest.of(page, 10));
+    public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page, @Argument int size) {
+        return postReadService.readByCategory(category, PageRequest.of(page, size));
     }
 
     @DeleteMapping("/{id}")

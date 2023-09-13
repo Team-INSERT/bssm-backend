@@ -23,8 +23,7 @@ public class Comment extends CreatedAt {
     @Column(nullable = false)
     private Long postId;
 
-    @Column(columnDefinition = "INT UNSIGNED")
-    private int likeCount;
+    private int likeCount = 0;
 
     private Long userId;
 
@@ -40,12 +39,11 @@ public class Comment extends CreatedAt {
         this.detail = detail;
     }
 
-    public void addLike() {
-        hasReComment = true;
+    public void increaseLike() {
         likeCount++;
     }
 
-    public void deleteLike() {
+    public void decreaseLike() {
         likeCount--;
     }
 
