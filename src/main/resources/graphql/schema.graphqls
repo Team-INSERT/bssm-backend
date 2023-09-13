@@ -6,6 +6,7 @@ type Query{
 type Mutation{
     create(input:PostInput):PostOutPut,
     update(input:PostInput):PostOutPut
+    delete(id: Int):DeleteOutPut
 }
 
 input PostInput{
@@ -67,4 +68,8 @@ type UserSimpleOutPut{
     id: Int
     nickName: String
     profileImage: String
+}
+
+type DeleteOutPut{
+    deletedId: Int
 }
