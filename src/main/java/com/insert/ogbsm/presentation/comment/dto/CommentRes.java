@@ -12,7 +12,7 @@ public class CommentRes {
     final Long id;
     final UserSimpleRes user;
     final String detail;
-    final boolean hasReComment;
+    final int reCommentCount;
     final Long postId;
     final int likeCount;
     final LocalDateTime createdAt;
@@ -21,7 +21,7 @@ public class CommentRes {
     public CommentRes(Comment comment, User user) {
         this.id = comment.getId();
         this.detail = comment.getDetail();
-        this.hasReComment = comment.isHasReComment();
+        this.reCommentCount = comment.getReCommentCount();
         this.postId = comment.getPostId();
         this.likeCount = comment.getLikeCount();
         this.createdAt = comment.getCreatedAt();

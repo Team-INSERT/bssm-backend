@@ -33,6 +33,7 @@ type PostOutPut{
     endTime:String
     field:String
     likeCount:Int
+    commentCount:Int
     createdAt: String
     user: UserSimpleOutPut
 }
