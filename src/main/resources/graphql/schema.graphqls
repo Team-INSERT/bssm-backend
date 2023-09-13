@@ -1,5 +1,5 @@
 type Query{
-    readOne(id:Int):PostOutPut
+    readOne(id:Int):PostLikeOutPut
     readByCategory(category: String, page: Int, size: Int): Pagination
 }
 
@@ -36,6 +36,25 @@ type PostOutPut{
     commentCount:Int
     createdAt: String
     user: UserSimpleOutPut
+}
+
+
+type PostLikeOutPut{
+    id: ID,
+    title:String,
+    category:String,
+    content:String,
+    likeCount:Int
+    commentCount:Int
+    createdAt: String
+    doesLike:Boolean
+    user: UserSimpleOutPut
+    prUrl:String,
+    isFinished:Boolean,
+    lostThingImage:String
+    startTime:String
+    endTime:String
+    field:String
 }
 
 type Pagination{

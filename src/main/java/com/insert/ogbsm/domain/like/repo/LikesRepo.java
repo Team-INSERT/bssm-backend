@@ -14,4 +14,6 @@ public interface LikesRepo extends JpaRepository<Likes, Long> {
             "l.type = :type and " +
             "l.partyId = :partyId")
     Optional<Likes> findByUserIdAndTypeAndPartyId(Long userId, Type type, Long partyId);
+
+    Optional<Likes> findByUserIdAndPartyIdAndType(Long userId, Long partyId, Type type);
 }
