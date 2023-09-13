@@ -1,7 +1,7 @@
 package com.insert.ogbsm.presentation.comment;
 
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;

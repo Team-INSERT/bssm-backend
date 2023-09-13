@@ -21,6 +21,7 @@ public class CommentDefService {
     private final UserValidation userValidation;
 
     public void create(CommentReq reqDto, Long postId, Long userId) {
+
         Comment comment = new Comment(reqDto.detail(), postId, userId);
 
         increaseCommentCount(postId);
