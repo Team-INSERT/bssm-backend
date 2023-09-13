@@ -3,7 +3,7 @@ package com.insert.ogbsm.service.bamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
 import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
-import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.CreateBambooReq;
 import lombok.RequiredArgsConstructor;

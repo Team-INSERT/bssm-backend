@@ -2,7 +2,7 @@ package com.insert.ogbsm.presentation.post;
 
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostDeleteRes;
 import com.insert.ogbsm.presentation.post.dto.PostLikeRes;

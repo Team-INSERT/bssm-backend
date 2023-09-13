@@ -2,9 +2,10 @@ package com.insert.ogbsm.service.bamboo;
 
 import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
-import com.insert.ogbsm.domain.bamboo.exception.BambooAlreadyAllowed;
 import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,7 +33,7 @@ public class BambooAdminService {
         Bamboo bamboo = bambooRepo.findById(id).orElseThrow(EntityNotFoundException::new);
 
         if(bamboo.getIsAllow()) {
-            throw BambooAlreadyAllowed.EXCEPTION;
+            throw new BsmException(ErrorCode.BAMBOO_ALREADY_ALLOWED);
         }
 
         bamboo.setIsAllow();

@@ -3,9 +3,9 @@ package com.insert.ogbsm.service.auth;
 import com.insert.ogbsm.domain.auth.AuthId;
 import com.insert.ogbsm.domain.auth.repo.AuthIdRepo;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.global.jwt.dto.TokenResponseDto;
-import com.insert.ogbsm.global.jwt.properties.JwtProperties;
-import com.insert.ogbsm.global.jwt.util.JwtProvider;
+import com.insert.ogbsm.infra.jwt.dto.TokenResponseDto;
+import com.insert.ogbsm.infra.jwt.properties.JwtProperties;
+import com.insert.ogbsm.infra.jwt.util.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

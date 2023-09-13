@@ -3,8 +3,8 @@ package com.insert.ogbsm.service.post;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.domain.user.exception.UserNotFoundException;
-import com.insert.ogbsm.global.error.exception.ErrorCode;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.post.dto.PostDeleteRes;
 import com.insert.ogbsm.presentation.post.dto.PostReq;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
@@ -42,7 +42,7 @@ public class PostDefService {
 
     public PostDeleteRes delete(Long id, Long userId) {
         Post post = postRepo.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(ErrorCode.NOT_FOUND));
+                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
 
         userValidation.checkSameUser(post.getWriterId(), userId);
 

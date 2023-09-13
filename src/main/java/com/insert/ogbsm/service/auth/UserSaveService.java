@@ -1,10 +1,10 @@
 package com.insert.ogbsm.service.auth;
 
-import com.insert.ogbsm.domain.auth.exception.InvalidClientException;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.authority.Authority;
-import com.insert.ogbsm.domain.user.exception.UserNotLoginException;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import leehj050211.bsmOauth.BsmOauth;
 import leehj050211.bsmOauth.dto.resource.BsmUserResource;
 import leehj050211.bsmOauth.exception.BsmOAuthCodeNotFoundException;
@@ -32,9 +32,9 @@ public class UserSaveService {
             token = bsmOauth.getToken(authId);
             resource = bsmOauth.getResource(token);
         } catch (BsmOAuthCodeNotFoundException | BsmOAuthTokenNotFoundException e) {
-            throw UserNotLoginException.EXCEPTION;
+            throw new BsmException(ErrorCode.USER_NOT_LOGIN);
         } catch (BsmOAuthInvalidClientException e) {
-            throw InvalidClientException.EXCEPTION;
+            throw new BsmException(ErrorCode.BSM_AUTH_INVALID_CLIENT);
         }
         return checkUserExist(resource);
     }

@@ -1,6 +1,6 @@
 package com.insert.ogbsm.presentation.auth;
 
-import com.insert.ogbsm.global.jwt.dto.TokenResponseDto;
+import com.insert.ogbsm.infra.jwt.dto.TokenResponseDto;
 import com.insert.ogbsm.presentation.auth.dto.UserLoginReq;
 import com.insert.ogbsm.presentation.auth.dto.UsingRefreshTokenReq;
 import com.insert.ogbsm.service.auth.AccessTokenRefreshService;

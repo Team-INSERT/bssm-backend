@@ -1,6 +1,6 @@
 package com.insert.ogbsm.presentation.comment;
 
-import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;

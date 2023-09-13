@@ -2,8 +2,8 @@ package com.insert.ogbsm.service.auth;
 
 import com.insert.ogbsm.domain.auth.repo.AuthIdRepo;
 import com.insert.ogbsm.domain.auth.repo.RefreshTokenRepo;
-import com.insert.ogbsm.global.jwt.properties.JwtConstants;
-import com.insert.ogbsm.global.jwt.util.JwtUtil;
+import com.insert.ogbsm.infra.jwt.properties.JwtConstants;
+import com.insert.ogbsm.infra.jwt.util.JwtUtil;
 import com.insert.ogbsm.presentation.auth.dto.UsingRefreshTokenReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

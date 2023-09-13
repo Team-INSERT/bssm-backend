@@ -1,7 +1,7 @@
 package com.insert.ogbsm.presentation.like;
 
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.global.security.util.SecurityUtil;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
 import com.insert.ogbsm.service.like.LikeDefService;
 import lombok.RequiredArgsConstructor;
