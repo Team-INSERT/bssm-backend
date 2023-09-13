@@ -40,6 +40,8 @@ public class Post extends CreatedAt {
 
     private int likeCount = 0;
 
+    private int commentCount = 0;
+
     public Post(String title, Category category, String content, Long writerId) {
         this.writerId = writerId;
         this.title = title;
@@ -78,5 +80,13 @@ public class Post extends CreatedAt {
 
     public void increaseLike() {
         likeCount++;
+    }
+
+    public void decreaseCommentCount() {
+        commentCount--;
+    }
+
+    public void increaseCommentCount() {
+        commentCount++;
     }
 }

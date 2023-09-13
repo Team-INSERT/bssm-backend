@@ -17,20 +17,18 @@ public class Comment extends CreatedAt {
     @Column(nullable = false)
     private String detail;
 
-    @Column(columnDefinition = "BOOLEAN", nullable = false)
-    private boolean hasReComment;
-
     @Column(nullable = false)
     private Long postId;
 
     private int likeCount = 0;
+
+    private int reCommentCount = 0;
 
     private Long userId;
 
     public Comment(String detail, Long postId, Long userId) {
         this.detail = detail;
         this.postId = postId;
-        this.hasReComment = false;
         this.likeCount = 0;
         this.userId = userId;
     }
@@ -47,11 +45,11 @@ public class Comment extends CreatedAt {
         likeCount--;
     }
 
-    public void newReComment() {
-        hasReComment = true;
+    public void increaseReCommentCount() {
+        reCommentCount++;
     }
 
-    public void noReComment() {
-        hasReComment = false;
+    public void decreaseReCommentCount() {
+        reCommentCount--;
     }
 }
