@@ -14,6 +14,11 @@ public class LostFound {
 
     private Long foundUserId;
 
+    public void updateFoundUserId(Long foundUserId) {
+        this.foundUserId = foundUserId;
+    }
+
+    ;
     public LostFound(String lostThingImage) {
         this.lostThingImage = lostThingImage;
     }

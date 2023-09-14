@@ -27,11 +27,12 @@ public enum ErrorCode {
 
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
+    NOT_FOUND(404, "NOT_FOUND", "Not Found"),
     BSM_AUTH_INVALID_CLIENT(500, "BSM-500-1", "Bsm Client Is Invalid"),
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
-    NOT_FOUND(404, "NOT_FOUND", "Not Found"),
 
     //Post
+    POST_TYPE_WEIRD(400, "POST-400-1", "Post Type Weird"),
     POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
 
     //Comment

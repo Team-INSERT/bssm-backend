@@ -57,4 +57,11 @@ public class PostController {
         Long userId = SecurityUtil.getCurrentUserIdWithLogin();
         return postDefService.delete(id, userId);
     }
+
+    @MutationMapping
+    public PostRes updateLostFoundUser(@Argument Long postId, @Argument Long foundUserId) {
+        User user = SecurityUtil.getCurrentUserWithLogin();
+
+        return postDefService.updateFoundUser(postId, foundUserId, user);
+    }
 }
