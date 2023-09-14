@@ -12,6 +12,8 @@ import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
+import com.insert.ogbsm.service.comment.PostValidation;
+import com.insert.ogbsm.service.validation.UserValidation;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,15 @@ import java.util.Optional;
 public class LikeDefService {
     private final LikesRepo likeRepo;
     private final PostWrapper postWrapper;
+    private final PostValidation postValidation;
+    private final UserValidation userValidation;
     private final CommentRepo commentRepo;
     private final ReCommentRepo reCommentRepo;
 
     public boolean changeLikeStatus(LikesReq likesReq, Long userId) {
         Optional<Likes> like = likeRepo.findByUserIdAndTypeAndPartyId(userId, likesReq.type(), likesReq.partyId());
+
+        validation(userId, likesReq.partyId(), likesReq.type());
 
         if (like.isEmpty()) {
             Likes likes = likesReq.toEntity(userId);
@@ -42,6 +48,21 @@ public class LikeDefService {
         likeRepo.delete(likes);
         decreaseLikeCount(likes);
         return false;
+    }
+
+    private void validation(Long userId, Long partyId, Type type) {
+        userValidation.checkUserExist(userId);
+
+        if (type == Type.POST) {
+            postValidation.checkPostExist(partyId);
+            return;
+        } else if (type == Type.COMMENT) {
+            commentRepo.findById(partyId)
+                    .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
+            return;
+        }
+        reCommentRepo.findById(partyId)
+                .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
     }
 
     private void decreaseLikeCount(Likes likes) {
