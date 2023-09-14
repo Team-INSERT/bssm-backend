@@ -4,7 +4,7 @@ import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.post.dto.PostDeleteRes;
@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostDefService {
 
     private final PostRepo postRepo;
-    private final UserRepo userRepo;
+    private final UserWrapper userWrapper;
     private final UserValidation userValidation;
 
     public PostRes create(PostReq postReq, User user) {
@@ -63,8 +63,7 @@ public class PostDefService {
             throw new BsmException(ErrorCode.POST_TYPE_WEIRD);
         }
 
-        User foundUser = userRepo.findById(foundUserId)
-                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
+        User foundUser = userWrapper.getUser(foundUserId);
 
         post.getLostFound().updateFoundUserId(user.getId());
 

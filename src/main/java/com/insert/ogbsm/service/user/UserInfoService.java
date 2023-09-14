@@ -1,9 +1,7 @@
 package com.insert.ogbsm.service.user;
 
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.domain.user.repo.UserRepo;
-import com.insert.ogbsm.infra.error.exception.BsmException;
-import com.insert.ogbsm.infra.error.exception.ErrorCode;
+import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
@@ -13,15 +11,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserInfoService {
 
-    private final UserRepo userRepo;
+    private final UserWrapper userWrapper;
 
     public UserResponse findMyInfo() {
         return new UserResponse(SecurityUtil.getCurrentUserWithLogin());
     }
 
     public UserResponse findUserInfo(Long id) {
-        User user = userRepo.findById(id)
-                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
+        User user = userWrapper.getUser(id);
         return new UserResponse(user);
     }
 }

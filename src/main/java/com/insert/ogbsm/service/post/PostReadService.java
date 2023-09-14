@@ -7,7 +7,7 @@ import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.pagination.Pagination;
@@ -31,15 +31,14 @@ import java.util.stream.Collectors;
 public class PostReadService {
 
     private final PostRepo postRepo;
-    private final UserRepo userRepo;
+    private final UserWrapper userWrapper;
     private final LikesRepo likesRepo;
 
     public PostLikeRes readOne(Long id, Long userId) {
         Post post = postRepo.findById(id)
                 .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
-        User user = userRepo.findById(post.getWriterId())
-                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
+        User user = userWrapper.getUser(post.getWriterId());
 
         boolean doesLike = doesLikePost(userId, post);
 
@@ -60,9 +59,7 @@ public class PostReadService {
         Page<Post> pagePost = postRepo.findByCategory(category, pageable);
         List<PostRes> collect = pagePost
                 .stream()
-                .map(post -> new PostRes(post, userRepo.findById(post.getWriterId())
-                        .orElseThrow(
-                                () -> new BsmException(ErrorCode.POST_NOT_FOUND))))
+                .map(post -> new PostRes(post, userWrapper.getUser(post.getWriterId())))
                 .collect(Collectors.toList());
 
         return new Pagination<>(collect, pagePost.getTotalPages(), pageable.getPageNumber());
