@@ -19,11 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommentDefService {
     private final CommentRepo commentRepo;
     private final PostWrapper postWrapper;
+    private final PostValidation postValidation;
     private final UserValidation userValidation;
 
     public void create(CommentReq reqDto, Long postId, Long userId) {
 
         Comment comment = new Comment(reqDto.detail(), postId, userId);
+
+        postValidation.checkPostExist(postId);
 
         increaseCommentCount(postId);
 
