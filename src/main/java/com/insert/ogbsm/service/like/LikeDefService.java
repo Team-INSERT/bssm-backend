@@ -8,7 +8,7 @@ import com.insert.ogbsm.domain.like.Likes;
 import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.domain.post.Post;
-import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @Transactional
 public class LikeDefService {
     private final LikesRepo likeRepo;
-    private final PostRepo postRepo;
+    private final PostWrapper postWrapper;
     private final CommentRepo commentRepo;
     private final ReCommentRepo reCommentRepo;
 
@@ -46,8 +46,7 @@ public class LikeDefService {
 
     private void decreaseLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
-            Post post = postRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+            Post post = postWrapper.getPost(likes.getPartyId());
 
             post.decreaseLike();
             return;
@@ -67,15 +66,13 @@ public class LikeDefService {
 
     private void addLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
-            Post post = postRepo.findById(likes.getPartyId())
-                    .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
-
+            Post post = postWrapper.getPost(likes.getPartyId());
             post.increaseLike();
             return;
+
         } else if (likes.getType() == Type.COMMENT) {
             Comment comment = commentRepo.findById(likes.getPartyId())
                     .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
-
             comment.increaseLike();
             return;
         }

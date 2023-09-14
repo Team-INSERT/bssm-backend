@@ -3,6 +3,7 @@ package com.insert.ogbsm.service.post;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostDefService {
 
     private final PostRepo postRepo;
+    private final PostWrapper postWrapper;
     private final UserWrapper userWrapper;
     private final UserValidation userValidation;
 
@@ -31,8 +33,7 @@ public class PostDefService {
     }
 
     public PostRes update(PostReq reqDto, User user) {
-        Post updatablePost = postRepo.findById(reqDto.id())
-                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+        Post updatablePost = postWrapper.getPost(reqDto.id());
 
         userValidation.checkSameUser(updatablePost.getWriterId(), user.getId());
 
@@ -43,8 +44,7 @@ public class PostDefService {
     }
 
     public PostDeleteRes delete(Long id, Long userId) {
-        Post post = postRepo.findById(id)
-                .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
+        Post post = postWrapper.getPost(id);
 
         userValidation.checkSameUser(post.getWriterId(), userId);
 

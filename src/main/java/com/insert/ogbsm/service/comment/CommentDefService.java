@@ -3,7 +3,7 @@ package com.insert.ogbsm.service.comment;
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.post.Post;
-import com.insert.ogbsm.domain.post.repo.PostRepo;
+import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CommentDefService {
     private final CommentRepo commentRepo;
-    private final PostRepo postRepo;
+    private final PostWrapper postWrapper;
     private final UserValidation userValidation;
 
     public void create(CommentReq reqDto, Long postId, Long userId) {
@@ -31,8 +31,7 @@ public class CommentDefService {
     }
 
     private void increaseCommentCount(Long postId) {
-        Post post = postRepo.findById(postId)
-                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+        Post post = postWrapper.getPost(postId);
 
         post.increaseCommentCount();
     }
@@ -58,8 +57,7 @@ public class CommentDefService {
     }
 
     private void decreaseCommentCount(Comment comment) {
-        Post post = postRepo.findById(comment.getPostId())
-                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+        Post post = postWrapper.getPost(comment.getPostId());
 
         post.decreaseCommentCount();
     }
