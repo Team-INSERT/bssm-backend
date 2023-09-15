@@ -1,15 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    contextPath: /api
+
 spring:
+  config:
+    import: classKpath:/env.yml
   data:
     redis:
-      host: ${REDIS_HOST}
+      host: ${env.redis.host}
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: ${env.db.url}
+    username: ${env.db.user_name}
+    password: ${env.db.password}
 
 
   logging:
@@ -40,15 +47,15 @@ spring:
 cloud:
   aws:
     s3:
-      bucket: ${BUCKET_NAME}
+      bucket: ${env.s3.name}
     stack:
       auto: false
     region:
       static: ap-northeast-2
     credentials:
       instance-profile: true
-      access-key: ${S3_ACCESS_KEY}
-      secret-key: ${S3_SECRET_KEY}
+      access-key: ${env.s3.access_key}
+      secret-key: ${env.s3.secret_key}
 
 decorator:
   datasource:
@@ -57,26 +64,13 @@ decorator:
 
 auth:
   jwt:
-    header: ${HEADER}
-    secret: ${SECRET}
-    accessExp: ${ACCESS_EXP}
-    refreshExp: ${REFRESH_EXP}
-    prefix: ${PREFIXES}
+    header: ${env.jwt.header}
+    secret: ${env.jwt.secret}
+    accessExp: ${env.jwt.access_exp}
+    refreshExp: ${env.jwt.refresh_exp}
+    prefix: ${env.jwt.prefixes}
 
 bsm:
-  client-id: ${BSM_CLIENT_ID}
-  secret-key: ${BSM_SECRET_KEY}
-  redirect-url: ${BSM_REDIRECT_URL}
-
-image:
-  path: ${SAVING_URL}
-
-server:
-  port: 8080
-  servlet:
-    contextPath: /api
-
-  decorator:
-    datasource:
-      p6spy:
-        enable-logging: true
+  client-id: ${env.bsm.client_id}
+  secret-key: ${env.bsm.secret_key}
+  redirect-url: ${env.bsm.redirect_url}
