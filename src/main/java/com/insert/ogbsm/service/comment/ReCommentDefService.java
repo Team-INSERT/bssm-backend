@@ -7,6 +7,7 @@ import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
+import com.insert.ogbsm.service.validation.CommentValidation;
 import com.insert.ogbsm.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class ReCommentDefService {
     private final ReCommentRepo reCommentRepo;
+    private final CommentValidation commentValidation;
     private final CommentRepo commentRepo;
     private final UserValidation userValidation;
 
     public void create(ReCommentReq dto, Long commentId, Long userId) {
         ReComment reComment = new ReComment(dto.detail(), commentId, userId);
 
+        commentValidation.checkCommentExist(commentId);
         increaseReCommentCount(commentId);
 
         reCommentRepo.save(reComment);
@@ -49,9 +52,7 @@ public class ReCommentDefService {
                 .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         decreaseReCommentCount(reComment);
-
         userValidation.checkSameUser(reComment.getUserId(), userId);
-
         reCommentRepo.delete(reComment);
     }
 

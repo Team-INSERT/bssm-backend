@@ -2,9 +2,7 @@ package com.insert.ogbsm.service.comment;
 
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
-import com.insert.ogbsm.domain.user.repo.UserRepo;
-import com.insert.ogbsm.infra.error.exception.BsmException;
-import com.insert.ogbsm.infra.error.exception.ErrorCode;
+import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReCommentReadService {
     private final ReCommentRepo reCommentRepo;
-    private final UserRepo userRepo;
+    private final UserWrapper userWrapper;
 
     public Pagination<List<ReCommentRes>> read(Long commentId, Pageable pageable) {
 
@@ -29,8 +27,7 @@ public class ReCommentReadService {
         List<ReCommentRes> reComments = pageReComment.stream()
                 .map(reComment -> new ReCommentRes(
                                 reComment,
-                                userRepo.findById(reComment.getUserId())
-                                        .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND))
+                        userWrapper.getUser(reComment.getUserId())
                         )
                 )
                 .collect(Collectors.toList());

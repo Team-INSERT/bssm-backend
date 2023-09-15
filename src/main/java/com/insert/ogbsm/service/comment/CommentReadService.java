@@ -2,9 +2,7 @@ package com.insert.ogbsm.service.comment;
 
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
-import com.insert.ogbsm.domain.user.repo.UserRepo;
-import com.insert.ogbsm.infra.error.exception.BsmException;
-import com.insert.ogbsm.infra.error.exception.ErrorCode;
+import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,7 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class CommentReadService {
     private final CommentRepo commentRepo;
-    private final UserRepo userRepo;
+    private final UserWrapper userWrapper;
 
     public Pagination<List<CommentRes>> readComments(Long postId, Pageable pageable) {
         Page<Comment> postPage = commentRepo.findAllByPostIdOrderByLikeCountDescCreatedAtDesc(postId, pageable);
@@ -29,8 +27,8 @@ public class CommentReadService {
         List<CommentRes> comments = postPage.stream()
                 .map(comment -> new CommentRes(
                         comment,
-                        userRepo.findById(comment.getUserId())
-                                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND))))
+                        userWrapper.getUser(comment.getUserId())
+                ))
                 .collect(Collectors.toList());
 
         return new Pagination<>(comments, postPage.getTotalPages(), pageable.getPageNumber());

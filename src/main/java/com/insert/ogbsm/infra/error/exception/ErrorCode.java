@@ -33,6 +33,7 @@ public enum ErrorCode {
 
     //Post
     POST_TYPE_WEIRD(400, "POST-400-1", "Post Type Weird"),
+    POST_VALUE_NOT_EXIST(400, "POST-400-2", "Post Value Not Exist"),
     POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
 
     //Comment
