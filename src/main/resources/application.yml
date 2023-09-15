@@ -5,7 +5,7 @@ server:
 
 spring:
   config:
-    import: classKpath:/env.yml
+    import: classpath:/env.yml
   data:
     redis:
       host: ${env.redis.host}
