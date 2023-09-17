@@ -42,7 +42,11 @@ public enum ErrorCode {
 
     // S3
     IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
-    IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found");
+    IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found"),
+
+    //Calender
+    NO_AUTH_TO_DEF_CALENDER(403, "CALENDER-403-1", "No Auth To Def Calender"),
+    CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found");
 
     private final int status;
     private final String code;
