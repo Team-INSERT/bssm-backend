@@ -75,8 +75,10 @@ type CalenderRes{
     title: String
     priority: Int
     date: Date
-    color: Int
+    color: String
     types: String
+    grade: Int
+    classNumber: Int
     user: UserSimpleOutPut
 }
 
