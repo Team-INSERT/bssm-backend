@@ -3,6 +3,8 @@ package com.insert.ogbsm.presentation.calender.dto;
 import com.insert.ogbsm.domain.calender.Calender;
 import com.insert.ogbsm.domain.calender.Date;
 import com.insert.ogbsm.domain.calender.Type;
+import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
 import lombok.Getter;
 
 @Getter
@@ -14,8 +16,9 @@ public class CalenderRes {
     final Long color;
     final Type type;
     final Long userId;
+    final UserSimpleRes userSimpleRes;
 
-    public CalenderRes(Calender calender) {
+    public CalenderRes(Calender calender, User user) {
         this.id = calender.getId();
         this.title = calender.getTitle();
         this.priority = calender.getPriority();
@@ -23,5 +26,6 @@ public class CalenderRes {
         this.color = calender.getColor();
         this.type = calender.getType();
         this.userId = calender.getUserId();
+        this.userSimpleRes = new UserSimpleRes(user);
     }
 }

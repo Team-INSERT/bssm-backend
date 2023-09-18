@@ -25,7 +25,7 @@ public class CalenderDefService {
         calender.updateUserId(user.getId());
         Calender save = calenderRepo.save(calender);
 
-        return new CalenderRes(save);
+        return new CalenderRes(save, user);
     }
 
     public CalenderRes update(CalenderReq calenderReq, User user) {
@@ -33,7 +33,7 @@ public class CalenderDefService {
         calenderValidation.checkHasAuthToDef(calender, user);
         calenderRepo.save(calender);
 
-        return new CalenderRes(calender);
+        return new CalenderRes(calender, user);
     }
 
     public void delete(Long calenderId, User user) {
