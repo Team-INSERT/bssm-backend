@@ -14,8 +14,7 @@ public class CalenderRes {
     final int priority;
     final Date date;
     final Long color;
-    final Type type;
-    final Long userId;
+    final Type types;
     final UserSimpleRes userSimpleRes;
 
     public CalenderRes(Calender calender, User user) {
@@ -24,8 +23,7 @@ public class CalenderRes {
         this.priority = calender.getPriority();
         this.date = calender.getDate();
         this.color = calender.getColor();
-        this.type = calender.getType();
-        this.userId = calender.getUserId();
+        this.types = calender.getType();
         this.userSimpleRes = new UserSimpleRes(user);
     }
 }

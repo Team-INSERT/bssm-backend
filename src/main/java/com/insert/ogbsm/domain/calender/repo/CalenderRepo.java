@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface CalenderRepo extends JpaRepository<Calender, Long> {
+public interface CalenderRepo extends JpaRepository<Calender, Long>, CalenderDao {
     @Query("select c from Calender c where c.date.month = :month and c.date.day = :day")
     List<Calender> findByDate(Long month, Long day);
 }
