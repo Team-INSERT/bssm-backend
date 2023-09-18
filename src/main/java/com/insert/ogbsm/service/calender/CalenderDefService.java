@@ -9,16 +9,18 @@ import com.insert.ogbsm.presentation.calender.dto.CalenderRes;
 import com.insert.ogbsm.service.validation.CalenderValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class CalenderDefService {
     private final CalenderRepo calenderRepo;
     private final CalenderWrapper calenderWrapper;
     private final CalenderValidation calenderValidation;
 
     public CalenderRes create(CalenderReq calenderReq, User user) {
-        Calender calender = calenderReq.toEntity();
+        Calender calender = calenderReq.toEntity(user.getId());
 
         calenderValidation.checkHasAuthToDef(calender, user);
 
@@ -29,7 +31,7 @@ public class CalenderDefService {
     }
 
     public CalenderRes update(CalenderReq calenderReq, User user) {
-        Calender calender = calenderReq.toEntity();
+        Calender calender = calenderReq.toEntity(user.getId());
         calenderValidation.checkHasAuthToDef(calender, user);
         calenderRepo.save(calender);
 

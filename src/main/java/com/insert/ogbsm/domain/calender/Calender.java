@@ -30,13 +30,14 @@ public class Calender {
     @Max(4)
     private Short classNumber;
 
-    private Long color;
+    private String color;
 
+    @Enumerated(EnumType.STRING)
     private Type type;
 
     private Long userId;
 
-    public Calender(String title, int priority, Date date, Long color, Type type, Short grade, Short classNumber) {
+    public Calender(String title, int priority, Date date, String color, Type type, Short grade, Short classNumber) {
         this.title = title;
         this.priority = priority;
         this.date = date;
