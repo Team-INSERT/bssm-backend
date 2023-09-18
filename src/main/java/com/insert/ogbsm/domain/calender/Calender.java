@@ -49,4 +49,8 @@ public class Calender {
     public void updateUserId(Long userId) {
         this.userId = userId;
     }
+
+    public void updatePriority(int priority) {
+        this.priority = priority;
+    }
 }
