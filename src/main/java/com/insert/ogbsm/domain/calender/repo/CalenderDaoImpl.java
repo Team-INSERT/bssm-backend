@@ -56,8 +56,8 @@ public class CalenderDaoImpl implements CalenderDao {
 
     public List<CalenderRes> findTemplate(BooleanExpression where, OrderSpecifier<Integer>... orderBy) {
         return jpaQueryFactory
-                .select(constructor(CalenderRes.class, calender, user))
                 .from(calender)
+                .select(constructor(CalenderRes.class, calender, user))
                 .join(user)
                 .on(calender.userId.eq(user.id))
                 .where(where)
