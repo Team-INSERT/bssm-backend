@@ -18,6 +18,7 @@ public class CalenderDaoImpl implements CalenderDao {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    @Override
     public List<CalenderRes> findBySchool(Integer month) {
         return findTemplate(
                 calender.date.month.eq(month)
@@ -26,6 +27,7 @@ public class CalenderDaoImpl implements CalenderDao {
         );
     }
 
+    @Override
     public List<CalenderRes> findByGrade(Integer month, Short grade) {
         return findTemplate(
                 calender.date.month.eq(month)
@@ -34,6 +36,7 @@ public class CalenderDaoImpl implements CalenderDao {
                 calender.date.day.asc());
     }
 
+    @Override
     public List<CalenderRes> findByClass(Integer month, Short grade, Short classNumber) {
         return findTemplate(
                 calender.date.month.eq(month)
@@ -44,7 +47,7 @@ public class CalenderDaoImpl implements CalenderDao {
         );
     }
 
-    private List<CalenderRes> findTemplate(BooleanExpression where, OrderSpecifier<Integer>... orderBy) {
+    public List<CalenderRes> findTemplate(BooleanExpression where, OrderSpecifier<Integer>... orderBy) {
         return jpaQueryFactory
                 .select(constructor(CalenderRes.class, calender, user))
                 .from(calender)
