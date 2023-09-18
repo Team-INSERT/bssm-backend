@@ -4,11 +4,12 @@ import com.insert.ogbsm.domain.calender.Calender;
 import com.insert.ogbsm.domain.calender.Date;
 import com.insert.ogbsm.domain.calender.Type;
 
-public record CalenderReq(Long id, String title, int priority, Date date, Long color, Long userId, Type type,
+public record CalenderReq(String title, int priority, Date date, String color, Type type,
                           Short grade, Short classNumber) {
-    public Calender toEntity() {
+
+    public Calender toEntity(Long id) {
         Calender calender = new Calender(title, priority, date, color, type, grade, classNumber);
-        calender.updateUserId(userId);
+        calender.updateUserId(id);
 
         return calender;
     }
