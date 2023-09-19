@@ -21,8 +21,8 @@ public class CommentReadService {
     private final CommentRepo commentRepo;
     private final UserWrapper userWrapper;
 
-    public Pagination<List<CommentRes>> readComments(Long postId, Pageable pageable) {
-        Page<Comment> postPage = commentRepo.findAllByPostIdOrderByLikeCountDescCreatedAtDesc(postId, pageable);
+    public Pagination<List<CommentRes>> readComments(Long postId, Long userId, Pageable pageable) {
+        Page<Comment> postPage = commentRepo.findByPostId(postId, userId, pageable);
 
         List<CommentRes> comments = postPage.stream()
                 .map(comment -> new CommentRes(
