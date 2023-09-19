@@ -12,9 +12,16 @@ import java.util.Objects;
 @Component
 public class CalenderValidation {
 
+    private static void ifFalseThrowNoAuthException(boolean boll) {
+        if (boll) {
+            throw new BsmException(ErrorCode.NO_AUTH_TO_DEF_CALENDER);
+        }
+    }
+
     public void checkHasAuthToDef(Calender calender, User user) {
         Type calenderType = calender.getType();
         if (calenderType == Type.SCHOOL) {
+            return;
         } else if (calenderType == Type.GRADE) {
             checkSameGrade(calender.getGrade(), user.getGrade());
         } else if (calenderType == Type.CLASS) {
@@ -23,14 +30,10 @@ public class CalenderValidation {
     }
 
     private void checkSameClass(Short calGrade, Short calClassNumber, Short userGrade, Short userClassNumber) {
-        if (!Objects.equals(calGrade, userGrade) || !Objects.equals(calClassNumber, userClassNumber)) {
-            throw new BsmException(ErrorCode.NO_AUTH_TO_DEF_CALENDER);
-        }
+        ifFalseThrowNoAuthException(!Objects.equals(calGrade, userGrade) || !Objects.equals(calClassNumber, userClassNumber));
     }
 
     private void checkSameGrade(Short calenderGrade, Short userGrade) {
-        if (!Objects.equals(calenderGrade, userGrade)) {
-            throw new BsmException(ErrorCode.NO_AUTH_TO_DEF_CALENDER);
-        }
+        ifFalseThrowNoAuthException(!Objects.equals(calenderGrade, userGrade));
     }
 }
