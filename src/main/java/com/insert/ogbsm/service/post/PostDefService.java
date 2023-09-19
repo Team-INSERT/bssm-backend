@@ -40,7 +40,9 @@ public class PostDefService {
         Post post = reqDto.entityToBeUpdated(user.getId());
         updatablePost.update(post);
 
-        return new PostRes(post, user);
+        Post foundPost = postWrapper.getPost(post.getId());
+
+        return new PostRes(foundPost, user);
     }
 
     public PostDeleteRes delete(Long id, Long userId) {
