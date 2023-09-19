@@ -1,6 +1,7 @@
 type Query{
     readOne(id:Int):PostOutPut
     readByCategory(category: String, page: Int, size: Int): Pagination
+    getCalender(input:CalenderReadReq): CalenderGraphRes
 }
 
 type Mutation{
@@ -8,6 +9,12 @@ type Mutation{
     update(input:PostInput):PostOutPut
     delete(id: Int):DeleteOutPut
     updateLostFoundUser(postId: Int, foundUserId: Int): PostOutPut
+}
+
+input CalenderReadReq{
+    month:Int
+    grade:Int
+    classNumber:Int
 }
 
 input PostInput{
@@ -56,4 +63,26 @@ type UserSimpleOutPut{
 
 type DeleteOutPut{
     deletedId: Int
+}
+
+type CalenderGraphRes{
+    findByClass:[CalenderRes]
+    findByGrade:[CalenderRes]
+    findBySchool:[CalenderRes]
+}
+
+type CalenderRes{
+    title: String
+    priority: Int
+    date: Date
+    color: String
+    types: String
+    grade: Int
+    classNumber: Int
+    user: UserSimpleOutPut
+}
+
+type Date{
+    month: Int
+    day: Int
 }
