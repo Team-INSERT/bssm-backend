@@ -1,0 +1,82 @@
+spring:
+
+  config:
+    activate:
+      on-profile: deploy
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: debug
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  graphql:
+    graphiql:
+      enabled: true
+
+cloud:
+  aws:
+    s3:
+      bucket: ${BUCKET_NAME}
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      instance-profile: true
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
+
+decorator:
+     datasource:
+  @@ -57,26 +64,13 @@ decorator:
+
+auth:
+  jwt:
+    header: ${HEADER}
+    secret: ${SECRET}
+    accessExp: ${ACCESS_EXP}
+    refreshExp: ${REFRESH_EXP}
+    prefix: ${PREFIXES}
+
+bsm:
+  client-id: ${BSM_CLIENT_ID}
+  secret-key: ${BSM_SECRET_KEY}
+  redirect-url: ${BSM_REDIRECT_URL}
+
+image:
+  path: ${SAVING_URL}
+
+server:
+  port: 8080
+  servlet:
+    contextPath: /api
+
+  decorator:
+    datasource:
+      p6spy:
+        enable-logging: true

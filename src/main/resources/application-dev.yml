@@ -6,6 +6,8 @@ server:
 spring:
   config:
     import: classpath:/env.yml
+    activate:
+      on-profile: dev
   data:
     redis:
       host: ${env.redis.host}
