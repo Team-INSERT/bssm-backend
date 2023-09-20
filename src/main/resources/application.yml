@@ -9,8 +9,8 @@ spring:
   data:
     redis:
       host: ${env.redis.host}
-      port: ${REDIS_PORT}
-      password: ${REDIS_PASSWORD}
+      port: ${env.redis.port}
+      password: ${env.redis.password}
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
