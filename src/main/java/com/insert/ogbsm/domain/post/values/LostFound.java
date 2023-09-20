@@ -14,16 +14,17 @@ public class LostFound {
 
     private Long foundUserId;
 
+    private String place;
+
+    private String keepingPlace;
+
     public void updateFoundUserId(Long foundUserId) {
         this.foundUserId = foundUserId;
     }
 
-    ;
-    public LostFound(String lostThingImage) {
+    public LostFound(String lostThingImage, String place, String keepingPlace) {
         this.lostThingImage = lostThingImage;
-    }
-
-    public void update(String lostTingImage) {
-        this.lostThingImage = lostTingImage;
+        this.place = place;
+        this.keepingPlace = keepingPlace;
     }
 }
