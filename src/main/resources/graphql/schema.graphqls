@@ -25,6 +25,8 @@ input PostInput{
     prUrl:String
     isFinished:Boolean
     lostThingImage:String
+    place: String
+    keepingPlace: String
     startTime:String
     endTime:String
     field:String
@@ -43,6 +45,8 @@ type PostOutPut{
     prUrl:String,
     isFinished:Boolean
     lostThingImage:String
+    place: String
+    keepingPlace: String
     foundUser: UserSimpleOutPut
     startTime:String
     endTime:String

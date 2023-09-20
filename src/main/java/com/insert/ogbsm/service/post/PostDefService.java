@@ -55,7 +55,7 @@ public class PostDefService {
         return new PostDeleteRes(post.getId());
     }
 
-    public PostRes updateFoundUser(Long postId, Long foundUserId, User user) {
+    public PostRes updateLostAndFound(Long postId, Long foundUserId, User user) {
         Post post = postRepo.findById(postId)
                 .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
