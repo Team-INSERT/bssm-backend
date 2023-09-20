@@ -1,14 +1,14 @@
 spring:
-
   config:
     activate:
-      on-profile: deploy
+      on-profile: prod
 
   data:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,6 +22,7 @@ spring:
       org:
         hibernate:
           SQL: debug
+
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQLDialect
@@ -29,11 +30,14 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
   servlet:
     multipart:
       enabled: true
       max-file-size: 10MB
       max-request-size: 10MB
+
+
   graphql:
     graphiql:
       enabled: true
@@ -52,8 +56,9 @@ cloud:
       secret-key: ${S3_SECRET_KEY}
 
 decorator:
-     datasource:
-  @@ -57,26 +64,13 @@ decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
 
 auth:
   jwt:
