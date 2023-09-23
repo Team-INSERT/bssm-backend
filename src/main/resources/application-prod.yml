@@ -1,9 +1,14 @@
 spring:
+  config:
+    activate:
+      on-profile: prod
+
   data:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
       password: ${REDIS_PASSWORD}
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -36,6 +41,19 @@ spring:
   graphql:
     graphiql:
       enabled: true
+
+cloud:
+  aws:
+    s3:
+      bucket: ${BUCKET_NAME}
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      instance-profile: true
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
 
 decorator:
   datasource:

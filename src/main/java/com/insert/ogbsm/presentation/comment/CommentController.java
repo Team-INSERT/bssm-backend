@@ -35,7 +35,8 @@ public class CommentController {
 
     @GetMapping("/{postId}")
     public Pagination<List<CommentRes>> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
-        return commentReadService.readComments(postId, pageable);
+        Long userId = SecurityUtil.getCurrentUserIdWithoutLogin();
+        return commentReadService.readComments(postId, userId, pageable);
     }
 
     @DeleteMapping("/{commentId}")

@@ -23,6 +23,8 @@ public class PostRes {
     String prUrl;
     Boolean isFinished;
     String lostThingImage;
+    String place;
+    String keepingPlace;
     LocalDateTime startTime;
     LocalDateTime endTime;
     String field;
@@ -42,6 +44,8 @@ public class PostRes {
         }
         if (category == Category.LOST || category == Category.FOUND) {
             this.lostThingImage = post.getLostFound().getLostThingImage();
+            this.place = post.getLostFound().getPlace();
+            this.keepingPlace = post.getLostFound().getKeepingPlace();
             foundUser = null;
         }
 

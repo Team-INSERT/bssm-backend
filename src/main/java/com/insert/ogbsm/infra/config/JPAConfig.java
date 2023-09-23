@@ -21,4 +21,5 @@ public class JPAConfig {
         return new JPAQueryFactory(entityManager);
     }
 
+
 }

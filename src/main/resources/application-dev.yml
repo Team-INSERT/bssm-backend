@@ -1,0 +1,78 @@
+server:
+  port: 8080
+  servlet:
+    contextPath: /api
+
+spring:
+  config:
+    import: classpath:/env.yml
+    activate:
+      on-profile: dev
+  data:
+    redis:
+      host: ${env.redis.host}
+      port: ${env.redis.port}
+      password: ${env.redis.password}
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${env.db.url}
+    username: ${env.db.user_name}
+    password: ${env.db.password}
+
+
+  logging:
+    level:
+      org:
+        hibernate:
+          SQL: debug
+
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+
+  graphql:
+    graphiql:
+      enabled: true
+
+cloud:
+  aws:
+    s3:
+      bucket: ${env.s3.name}
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      instance-profile: true
+      access-key: ${env.s3.access_key}
+      secret-key: ${env.s3.secret_key}
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+
+auth:
+  jwt:
+    header: ${env.jwt.header}
+    secret: ${env.jwt.secret}
+    accessExp: ${env.jwt.access_exp}
+    refreshExp: ${env.jwt.refresh_exp}
+    prefix: ${env.jwt.prefixes}
+
+bsm:
+  client-id: ${env.bsm.client_id}
+  secret-key: ${env.bsm.secret_key}
+  redirect-url: ${env.bsm.redirect_url}
