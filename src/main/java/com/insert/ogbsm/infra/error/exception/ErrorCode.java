@@ -9,8 +9,6 @@ import lombok.Getter;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum ErrorCode {
 
-    FORBIDDEN(403, "COMMON-403-1", "Forbidden"),
-
     //User
     USER_NOT_LOGIN(403, "USER-403-1", "User Not Login"),
     NOT_SAME_USER(403, "USER-403-2", "Not A Same User"),
@@ -20,6 +18,19 @@ public enum ErrorCode {
     BAMBOO_ALREADY_ALLOWED(400, "BAMBOO-400-1", "Bamboo Already Allowed"),
     BAMBOO_NOT_FOUND(404, "BAMBOO-404-1", "BAMBOO Not Found"),
 
+    //Post
+    POST_TYPE_WEIRD(400, "POST-400-1", "Post Type Weird"),
+    POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
+
+    //Comment
+    COMMENT_NOT_FOUND(404, "COMMENT-404-1", "Comment Not Found"),
+    RECOMMENT_NOT_FOUND(404, "RECOMMENT-404-1", "ReComment Not Found"),
+
+    //Ber
+    Ber_Already_Reserved(400, "BER-400-1", "Ber Already Reserved"),
+    Ber_Not_Found(400, "Ber-400-2", "Ber Not Found"),
+    Ber_User_Already_Reserved_Same_Time(400, "Ber-400-3", "Ber User Already Reserved Same Time"),
+
     //JWT
     INVALID_TOKEN(403, "TOKEN-403-1", "Access with Invalid Token"),
     EXPIRED_JWT(403, "TOKEN-403-2", "Access Token Expired"),
@@ -27,17 +38,10 @@ public enum ErrorCode {
 
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
+    FORBIDDEN(403, "COMMON-403-1", "Forbidden"),
     NOT_FOUND(404, "NOT_FOUND", "Not Found"),
     BSM_AUTH_INVALID_CLIENT(500, "BSM-500-1", "Bsm Client Is Invalid"),
-    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
-
-    //Post
-    POST_TYPE_WEIRD(400, "POST-400-1", "Post Type Weird"),
-    POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
-
-    //Comment
-    COMMENT_NOT_FOUND(404, "COMMENT-404-1", "Comment Not Found"),
-    RECOMMENT_NOT_FOUND(404, "RECOMMENT-404-1", "ReComment Not Found");
+    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error");
 
     private final int status;
     private final String code;

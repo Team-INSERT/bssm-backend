@@ -1,0 +1,48 @@
+package com.insert.ogbsm.presentation.ber;
+
+import com.insert.ogbsm.presentation.ber.dto.BerRes;
+import com.insert.ogbsm.presentation.ber.dto.BerReserveReq;
+import com.insert.ogbsm.service.ber.BerDef;
+import com.insert.ogbsm.service.ber.BerRead;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/ber")
+public class BerController {
+
+    private final BerDef berDef;
+    private final BerRead berRead;
+
+    //TODO: 예약하기
+    @PostMapping
+    public Long BerReserve(@RequestBody BerReserveReq berReserveReq) {
+        return berDef.berReserve(berReserveReq);
+    }
+
+    //TODO: 예약 보기 (날짜별)
+    @GetMapping
+    public List<BerRes> findber(@RequestParam(name = "date") LocalDate localDate) {
+        if (localDate == null) localDate = LocalDate.now();
+        return berRead.getBer(localDate);
+    }
+
+    //TODO: 예약 취소
+    @DeleteMapping({"/{id}"})
+    public void deleteBer(@PathVariable(name = "id") Long id) {
+        berDef.berCancel(id);
+    }
+
+
+}

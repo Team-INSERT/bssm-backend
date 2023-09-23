@@ -30,7 +30,7 @@ public class BambooService {
         Bamboo bamboo = bambooRepo.save(
                 Bamboo.builder()
                         .content(createBambooReq.getContent())
-                        .userId(SecurityUtil.getCurrentUserOrNotLogin().getId())
+                        .userId(SecurityUtil.getCurrentUserWithLogin().getId())
                         .isAllow(false)
                         .build()
         );

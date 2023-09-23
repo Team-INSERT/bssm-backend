@@ -53,6 +53,10 @@ dependencies {
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
+	//querydsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jakarta"
+
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
 	annotationProcessor 'org.hibernate.orm:hibernate-jpamodelgen:6.2.2.Final'
@@ -64,6 +68,17 @@ dependencies {
 
 compileJava {
 	options.annotationProcessorPath = configurations.annotationProcessor
+}
+// === Querydsl 빌드 옵션 (선택사항) ===
+def querydslDir = "$buildDir/generated/querydsl"
+
+
+sourceSets {
+	main.java.srcDir querydslDir
+}
+
+configurations {
+	querydsl.extendsFrom compileClasspath
 }
 
 tasks.named('test') {
