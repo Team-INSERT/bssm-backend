@@ -7,6 +7,7 @@ import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
+import com.insert.ogbsm.service.validation.PostValidation;
 import com.insert.ogbsm.service.validation.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
