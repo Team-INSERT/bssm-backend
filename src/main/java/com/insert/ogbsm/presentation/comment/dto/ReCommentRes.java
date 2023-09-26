@@ -24,4 +24,7 @@ public class ReCommentRes {
         this.createdAt = reComment.getCreatedAt();
         this.user = new UserSimpleRes(user);
     }
+
+    public record ReCommentDefRes(Long commentId) {
+    }
 }
