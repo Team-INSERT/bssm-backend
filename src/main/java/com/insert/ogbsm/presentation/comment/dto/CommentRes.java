@@ -27,4 +27,6 @@ public class CommentRes {
         this.createdAt = comment.getCreatedAt();
         this.user = new UserSimpleRes(user);
     }
+
+    public record CommentDefRes(Long postId) {}
 }
