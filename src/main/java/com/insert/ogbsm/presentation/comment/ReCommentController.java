@@ -30,7 +30,8 @@ public class ReCommentController {
 
     @GetMapping("/{commentId}")
     public Pagination<List<ReCommentRes>> read(@PathVariable Long commentId, @PageableDefault Pageable pageable) {
-        return reCommentReadService.read(commentId, pageable);
+        Long userId = SecurityUtil.getCurrentUserIdWithoutLogin();
+        return reCommentReadService.read(commentId, pageable, userId);
     }
 
     @PutMapping()

@@ -15,14 +15,16 @@ public class ReCommentRes {
     final Long commentId;
     final int likeCount;
     final LocalDateTime createdAt;
+    final boolean doesLike;
 
-    public ReCommentRes(ReComment reComment, User user) {
+    public ReCommentRes(ReComment reComment, User user, boolean doesLike) {
         this.id = reComment.getId();
         this.detail = reComment.getDetail();
         this.commentId = reComment.getCommentId();
         this.likeCount = reComment.getLikeCount();
         this.createdAt = reComment.getCreatedAt();
         this.user = new UserSimpleRes(user);
+        this.doesLike = doesLike;
     }
 
     public record ReCommentDefRes(Long commentId) {
