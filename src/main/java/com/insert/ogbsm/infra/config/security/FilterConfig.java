@@ -1,4 +1,4 @@
-package com.insert.ogbsm.infra.security.config;
+package com.insert.ogbsm.infra.config.security;
 
 import com.insert.ogbsm.infra.error.ExceptionFilter;
 import com.insert.ogbsm.infra.jwt.auth.JwtAuth;
