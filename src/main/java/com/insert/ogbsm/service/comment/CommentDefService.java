@@ -40,24 +40,27 @@ public class CommentDefService {
         post.increaseCommentCount();
     }
 
-    public void update(CommentReq reqDto, Long userId) {
+    public Long update(CommentReq reqDto, Long userId) {
         Comment comment = commentRepo.findById(reqDto.id())
                 .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, comment.getUserId());
 
         comment.update(reqDto.detail());
+
+        return comment.getPostId();
     }
 
-    public void delete(Long commentId, Long userId) {
+    public Long delete(Long commentId, Long userId) {
         Comment comment = commentRepo.findById(commentId)
                 .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, comment.getUserId());
 
         decreaseCommentCount(comment);
-
         commentRepo.delete(comment);
+
+        return comment.getPostId();
     }
 
     private void decreaseCommentCount(Comment comment) {

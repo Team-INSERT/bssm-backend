@@ -28,9 +28,9 @@ public class CommentController {
     }
 
     @PutMapping()
-    public void update(@RequestBody CommentReq dto) {
+    public Long update(@RequestBody CommentReq dto) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.update(dto, user.getId());
+        return commentDefService.update(dto, user.getId());
     }
 
     @GetMapping("/{postId}")
@@ -40,8 +40,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public void delete(@PathVariable Long commentId) {
+    public Long delete(@PathVariable Long commentId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.delete(commentId, user.getId());
+        return commentDefService.delete(commentId, user.getId());
     }
 }
