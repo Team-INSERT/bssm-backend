@@ -16,9 +16,10 @@ public class CommentRes {
     final Long postId;
     final int likeCount;
     final LocalDateTime createdAt;
+    final boolean doesLike;
 
 
-    public CommentRes(Comment comment, User user) {
+    public CommentRes(Comment comment, User user, boolean doesLike) {
         this.id = comment.getId();
         this.detail = comment.getDetail();
         this.reCommentCount = comment.getReCommentCount();
@@ -26,6 +27,7 @@ public class CommentRes {
         this.likeCount = comment.getLikeCount();
         this.createdAt = comment.getCreatedAt();
         this.user = new UserSimpleRes(user);
+        this.doesLike = doesLike;
     }
 
     public record CommentDefRes(Long postId) {}
