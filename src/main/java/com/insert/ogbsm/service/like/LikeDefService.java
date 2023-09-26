@@ -12,7 +12,7 @@ import com.insert.ogbsm.domain.post.repo.PostWrapper;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.like.dto.LikesReq;
-import com.insert.ogbsm.service.comment.PostValidation;
+import com.insert.ogbsm.service.validation.PostValidation;
 import com.insert.ogbsm.service.validation.UserValidation;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
