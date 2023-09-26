@@ -13,6 +13,6 @@ public class CommentValidation {
 
     public void checkCommentExist(Long commentId) {
         commentRepo.findById(commentId)
-                .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+                .orElseThrow(() -> new BsmException(ErrorCode.COMMENT_NOT_FOUND));
     }
 }
