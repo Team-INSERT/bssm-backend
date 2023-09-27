@@ -34,7 +34,6 @@ public class MealProvider {
         Response mealResponse = sendRequest(url);
         JsonElement element = JsonParser.parseString(Objects.requireNonNull(mealResponse.body()).string());
 
-        System.out.println(element.toString());
         JsonArray jsonElements = element
                 .getAsJsonObject().get("mealServiceDietInfo")
                 .getAsJsonArray().get(1)
@@ -59,7 +58,6 @@ public class MealProvider {
     @NotNull
     private String getUrl(YearMonth date) {
         String dateParam = "MLSV_YMD=" + date.getYear() + String.format("%02d", date.getMonthValue());
-        System.out.println("url = " + MEAL_API_URL + dateParam);
         return MEAL_API_URL + dateParam;
     }
 
