@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Getter
 @Entity
@@ -19,8 +20,7 @@ public class Calender {
 
     private int priority;
 
-    @Embedded
-    private Date date;
+    private LocalDate date;
 
     @Min(1)
     @Max(3)
@@ -37,7 +37,7 @@ public class Calender {
 
     private Long userId;
 
-    public Calender(String title, int priority, Date date, String color, Type type, Short grade, Short classNumber) {
+    public Calender(String title, int priority, LocalDate date, String color, Type type, Short grade, Short classNumber) {
         this.title = title;
         this.priority = priority;
         this.date = date;

@@ -14,6 +14,6 @@ public class CalenderReadService {
     private final CalenderRepo calenderRepo;
 
     public CalenderGraphRes get(CalenderReadReq calenderReadReq) {
-        return calenderRepo.get(calenderReadReq.month(), calenderReadReq.grade(), calenderReadReq.classNumber());
+        return calenderRepo.get(calenderReadReq.year(), calenderReadReq.month(), calenderReadReq.grade(), calenderReadReq.classNumber());
     }
 }
