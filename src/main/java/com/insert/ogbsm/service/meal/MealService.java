@@ -27,7 +27,7 @@ public class MealService {
 
     public void updateMonthMeal(YearMonth date) throws IOException {
         List<Meal> mealList = mealProvider.getRawMonthMealList(date).stream()
-                .map(meal -> meal.toEntity(mealFacade.filterMealStr(meal.getDDISH_NM())))
+                .map(meal -> meal.toEntity(mealFacade.filterMealStr(meal.DDISH_NM())))
                 .toList();
 
         List<Meal> deleteList = mealRepo.findAllByPkDateBetween(date.atDay(1), date.atEndOfMonth());

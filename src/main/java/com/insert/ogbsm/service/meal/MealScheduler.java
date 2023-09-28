@@ -22,7 +22,7 @@ public class MealScheduler {
     private void getMonthMeal() throws IOException {
         YearMonth nextMonth = YearMonth.now().plusMonths(1);
         List<Meal> mealList = mealProvider.getRawMonthMealList(nextMonth).stream()
-                .map(meal -> meal.toEntity(mealFacade.filterMealStr(meal.getDDISH_NM())))
+                .map(meal -> meal.toEntity(mealFacade.filterMealStr(meal.DDISH_NM())))
                 .toList();
 
         mealRepo.saveAll(mealList);
