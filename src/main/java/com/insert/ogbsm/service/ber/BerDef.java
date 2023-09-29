@@ -2,11 +2,10 @@ package com.insert.ogbsm.service.ber;
 
 import com.insert.ogbsm.domain.ber.Ber;
 import com.insert.ogbsm.domain.ber.repo.BerRepo;
-import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
-import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.ber.dto.BerReserveReq;
+import com.insert.ogbsm.service.validation.BerValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,39 +14,26 @@ import org.springframework.stereotype.Service;
 public class BerDef {
 
     private final BerRepo berRepo;
+    private final BerValidation berValidation;
 
-    public Long berReserve(BerReserveReq berReserveReq) {
+    public Long berReserve(BerReserveReq berReserveReq, Long userId) {
 
-        User user = SecurityUtil.getCurrentUserWithLogin();
-
-        berRepo.findByBerNumberAndReservationDate(berReserveReq.getBerNumber(), berReserveReq.getReservationTime())
-                .ifPresent(ber -> {
-                    throw new BsmException(ErrorCode.Ber_Already_Reserved);
-                });
-
-        berRepo.findByReservationDateAndReservationUser(berReserveReq.getReservationTime(), user)
-                .ifPresent(ber -> {
-                    throw new BsmException(ErrorCode.Ber_User_Already_Reserved_Same_Time);
-                });
+        berValidation.executeReserve(berReserveReq, userId);
 
         Ber ber = Ber.builder()
                 .berNumber(berReserveReq.getBerNumber())
                 .reservation(berReserveReq.getReservationTime())
-                .reservationUser(user)
+                .reservationUserId(userId)
                 .build();
 
         return berRepo.save(ber).getId();
     }
 
-    public void berCancel(Long berId) {
+    public void berCancel(Long berId, Long userId) {
         Ber ber = berRepo.findById(berId)
-                .orElseThrow(() -> new BsmException(ErrorCode.Ber_Not_Found));
+                .orElseThrow(() -> new BsmException(ErrorCode.NOT_SAME_USER));
 
-        User user = SecurityUtil.getCurrentUserWithLogin();
-
-        if (ber.getReservationUser().getId() != user.getId()) {
-            throw new BsmException(ErrorCode.FORBIDDEN);
-        }
+        berValidation.executeCancel(ber.getReservationUserId(), userId);
 
         berRepo.delete(ber);
     }

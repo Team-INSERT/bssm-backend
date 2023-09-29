@@ -6,6 +6,6 @@ import java.time.LocalDate;
 
 @Getter
 public class BerReserveReq {
-    private Integer berNumber;
+    private int berNumber;
     private LocalDate reservationTime;
 }

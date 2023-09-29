@@ -36,6 +36,10 @@ public enum ErrorCode {
     EXPIRED_JWT(403, "TOKEN-403-2", "Access Token Expired"),
     REFRESH_TOKEN_EXPIRED(403, "TOKEN-403-3", "Refresh Token Expired"),
 
+    //Calender
+    NO_AUTH_TO_DEF_CALENDER(403, "CALENDER-403-1", "No Auth To Def Calender"),
+    CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found"),
+
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
     FORBIDDEN(403, "COMMON-403-1", "Forbidden"),

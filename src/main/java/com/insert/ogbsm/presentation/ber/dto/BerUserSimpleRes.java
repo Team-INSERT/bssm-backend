@@ -5,23 +5,17 @@ import com.insert.ogbsm.domain.user.User;
 import lombok.Getter;
 
 @Getter
-public class BerUserSimple {
+public class BerUserSimpleRes {
 
     private final Long id;
-
     private final String name;
-
     private final String nickname;
-
     private final String profileImage;
-
     private final Short grade;
-
     private final Short class_number;
-
     private final Short student_number;
 
-    public BerUserSimple(User user) {
+    public BerUserSimpleRes(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.nickname = user.getNickname();

@@ -1,12 +1,9 @@
 package com.insert.ogbsm.domain.ber;
 
-import com.insert.ogbsm.domain.user.User;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Builder;
@@ -29,13 +26,12 @@ public class Ber {
 
     private Integer berNumber;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
-    private User reservationUser;
+    private Long reservationUserId;
 
     @Builder
-    public Ber(LocalDate reservation, Integer berNumber, User reservationUser) {
+    public Ber(LocalDate reservation, Integer berNumber, Long reservationUserId) {
         this.reservationDate = reservation;
         this.berNumber = berNumber;
-        this.reservationUser = reservationUser;
+        this.reservationUserId = reservationUserId;
     }
 }
