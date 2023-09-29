@@ -1,4 +1,4 @@
-package com.insert.ogbsm.infra.security.config;
+package com.insert.ogbsm.infra.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insert.ogbsm.infra.error.CustomAuthenticationEntryPoint;

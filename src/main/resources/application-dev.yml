@@ -33,7 +33,7 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
   servlet:
     multipart:
