@@ -20,6 +20,7 @@ public enum ErrorCode {
 
     //Post
     POST_TYPE_WEIRD(400, "POST-400-1", "Post Type Weird"),
+    POST_VALUE_NOT_EXIST(400, "POST-400-2", "Post Value Not Exist"),
     POST_NOT_FOUND(404, "POST-404-1", "Post Not Found"),
 
     //Comment
@@ -31,14 +32,23 @@ public enum ErrorCode {
     Ber_Not_Found(400, "Ber-400-2", "Ber Not Found"),
     Ber_User_Already_Reserved_Same_Time(400, "Ber-400-3", "Ber User Already Reserved Same Time"),
 
+    // S3
+    IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
+    IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found"),
+
     //JWT
     INVALID_TOKEN(403, "TOKEN-403-1", "Access with Invalid Token"),
     EXPIRED_JWT(403, "TOKEN-403-2", "Access Token Expired"),
     REFRESH_TOKEN_EXPIRED(403, "TOKEN-403-3", "Refresh Token Expired"),
 
     //Calender
+    Invalid_Date(400, "CALENDER-400-1", "Invalid Date"),
     NO_AUTH_TO_DEF_CALENDER(403, "CALENDER-403-1", "No Auth To Def Calender"),
     CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found"),
+
+    //meal
+    MEAL_NOT_FOUND(404, "MEAL-404-1", "Meal Not Found"),
+    MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR"),
 
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
