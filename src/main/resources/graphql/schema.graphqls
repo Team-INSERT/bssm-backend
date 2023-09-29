@@ -12,6 +12,7 @@ type Mutation{
 }
 
 input CalenderReadReq{
+    year:Int
     month:Int
     grade:Int
     classNumber:Int
@@ -75,7 +76,11 @@ type CalenderGraphRes{
     findBySchool:[CalenderRes]
 }
 
+scalar Date
+    @specifiedBy(url:"https://tools.ietf.org/html/rfc3339")
+
 type CalenderRes{
+    id:ID
     title: String
     priority: Int
     date: Date
@@ -86,7 +91,3 @@ type CalenderRes{
     user: UserSimpleOutPut
 }
 
-type Date{
-    month: Int
-    day: Int
-}

@@ -46,7 +46,8 @@ public enum ErrorCode {
 
     //Calender
     NO_AUTH_TO_DEF_CALENDER(403, "CALENDER-403-1", "No Auth To Def Calender"),
-    CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found");
+    CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found"),
+    Invalid_Date(400,"CALENDER-400-1","Invalid Date");
 
     private final int status;
     private final String code;
