@@ -24,7 +24,6 @@ public class CalenderDefService {
 
         calenderValidation.checkHasAuthToDef(calender, user);
 
-        calender.updateUserId(user.getId());
         Calender save = calenderRepo.save(calender);
 
         return new CalenderRes(save, user);

@@ -45,12 +45,14 @@ public enum ErrorCode {
     IMAGE_NOT_FOUND(404, "IMAGE-404-1", "Image Not Found"),
 
     //Calender
+    Invalid_Date(400,"CALENDER-400-1","Invalid Date");
     NO_AUTH_TO_DEF_CALENDER(403, "CALENDER-403-1", "No Auth To Def Calender"),
     CALENDER_NOT_FOUND(404, "CALENDER-404-1", "Calender Not Found"),
 
     //meal
     MEAL_NOT_FOUND(404, "MEAL-404-1", "Meal Not Found"),
     MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR");
+
 
     private final int status;
     private final String code;

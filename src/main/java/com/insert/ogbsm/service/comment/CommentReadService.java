@@ -2,6 +2,9 @@ package com.insert.ogbsm.service.comment;
 
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
+import com.insert.ogbsm.domain.like.Likes;
+import com.insert.ogbsm.domain.like.repo.LikesRepo;
+import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.domain.user.repo.UserWrapper;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,17 +24,28 @@ import java.util.stream.Collectors;
 public class CommentReadService {
     private final CommentRepo commentRepo;
     private final UserWrapper userWrapper;
+    private final LikesRepo likesRepo;
 
     public Pagination<List<CommentRes>> readComments(Long postId, Long userId, Pageable pageable) {
         Page<Comment> postPage = commentRepo.findByPostId(postId, userId, pageable);
-
+/**/
         List<CommentRes> comments = postPage.stream()
                 .map(comment -> new CommentRes(
-                        comment,
-                        userWrapper.getUser(comment.getUserId())
-                ))
-                .collect(Collectors.toList());
+                                comment,
+                                userWrapper.getUser(comment.getUserId()),
+                                doesLikeComment(userId, comment)
+                        )
+                ).collect(Collectors.toList());
 
         return new Pagination<>(comments, postPage.getTotalPages(), pageable.getPageNumber());
+    }
+
+    private boolean doesLikeComment(Long userId, Comment comment) {
+        if (userId != null) {
+            Optional<Likes> likes = likesRepo.findByUserIdAndPartyIdAndType(userId, comment.getId(), Type.COMMENT);
+            return likes.isPresent();
+        }
+
+        return false;
     }
 }

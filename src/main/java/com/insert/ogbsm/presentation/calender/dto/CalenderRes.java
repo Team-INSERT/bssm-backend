@@ -1,18 +1,18 @@
 package com.insert.ogbsm.presentation.calender.dto;
 
 import com.insert.ogbsm.domain.calender.Calender;
-import com.insert.ogbsm.domain.calender.Date;
 import com.insert.ogbsm.domain.calender.Type;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
 import lombok.Getter;
+import java.time.LocalDate;
 
 @Getter
 public class CalenderRes {
     final Long id;
     final String title;
     final int priority;
-    final Date date;
+    final LocalDate date;
     final String color;
     final Type types;
     final Short grade;
