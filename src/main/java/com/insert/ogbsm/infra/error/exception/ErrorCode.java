@@ -49,7 +49,6 @@ public enum ErrorCode {
     //meal
     MEAL_NOT_FOUND(404, "MEAL-404-1", "Meal Not Found"),
     MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR"),
-    MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR"),
 
     //ServerError,
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
