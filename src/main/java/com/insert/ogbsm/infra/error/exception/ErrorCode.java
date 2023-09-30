@@ -50,7 +50,10 @@ public enum ErrorCode {
 
     //meal
     MEAL_NOT_FOUND(404, "MEAL-404-1", "Meal Not Found"),
-    MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR");
+    MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR"),
+
+    //timeTable
+    NO_PERIOD_MATCHED(404, "TIMETABLE-404-1", "TimeTable Not Matches");
 
     private final int status;
     private final String code;
