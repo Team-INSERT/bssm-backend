@@ -20,41 +20,44 @@ public class CalenderDaoImpl implements CalenderDao {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public CalenderGraphRes get(Integer month, Short grade, Short classNumber) {
+    public CalenderGraphRes get(Integer year, Integer month, Short grade, Short classNumber) {
         return new CalenderGraphRes(
-                findByClass(month, grade, classNumber),
-                findByGrade(month, grade),
-                findBySchool(month)
+                findByClass(year, month, grade, classNumber),
+                findByGrade(year, month, grade),
+                findBySchool(year, month)
         );
     }
 
-    private List<CalenderRes> findBySchool(Integer month) {
+    private List<CalenderRes> findBySchool(Integer year, Integer month) {
         return findTemplate(
-                calender.date.month.eq(month)
+                calender.date.month().eq(month)
+                        .and(calender.date.year().eq(year))
                         .and(calender.type.eq(Type.SCHOOL)),
-                calender.date.day.asc()
+                calender.date.dayOfMonth().asc()
         );
     }
 
-    private List<CalenderRes> findByGrade(Integer month, Short grade) {
+    private List<CalenderRes> findByGrade(Integer year, Integer month, Short grade) {
         return findTemplate(
-                calender.date.month.eq(month)
+                calender.date.month().eq(month)
+                        .and(calender.date.year().eq(year))
                         .and(calender.type.eq(Type.GRADE))
                         .and(calender.grade.eq(grade)),
-                calender.date.day.asc());
+                calender.date.dayOfMonth().asc());
     }
 
-    private List<CalenderRes> findByClass(Integer month, Short grade, Short classNumber) {
+    private List<CalenderRes> findByClass(Integer year, Integer month, Short grade, Short classNumber) {
         return findTemplate(
-                calender.date.month.eq(month)
+                calender.date.month().eq(month)
+                        .and(calender.date.year().eq(year))
                         .and(calender.type.eq(Type.CLASS))
                         .and(calender.grade.eq(grade)
                                 .and(calender.classNumber.eq(classNumber))),
-                calender.date.day.asc(), calender.priority.desc()
+                calender.date.dayOfMonth().asc(), calender.priority.desc()
         );
     }
-
-    public List<CalenderRes> findTemplate(BooleanExpression where, OrderSpecifier<Integer>... orderBy) {
+    @SafeVarargs
+    public final List<CalenderRes> findTemplate(BooleanExpression where, OrderSpecifier<Integer>... orderBy) {
         return jpaQueryFactory
                 .from(calender)
                 .select(constructor(CalenderRes.class, calender, user))
