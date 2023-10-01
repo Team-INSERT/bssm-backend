@@ -2,6 +2,7 @@ package com.insert.ogbsm.service.comment;
 
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
+import com.insert.ogbsm.domain.common.OrderType;
 import com.insert.ogbsm.domain.like.Likes;
 import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
@@ -26,9 +27,13 @@ public class CommentReadService {
     private final UserWrapper userWrapper;
     private final LikesRepo likesRepo;
 
-    public Pagination<List<CommentRes>> readComments(Long postId, Long userId, Pageable pageable) {
-        Page<Comment> postPage = commentRepo.findByPostId(postId, userId, pageable);
-/**/
+    public Pagination<List<CommentRes>> readComments(Long postId, Long userId, Pageable pageable, OrderType orderType) {
+        Page<Comment> postPage = commentRepo.findByPostIdOrderByLikeDesc(postId, userId, pageable);
+
+        if (orderType == OrderType.RECENT) {
+            postPage = commentRepo.findByPostOrderByCreatedAtDesc(postId, userId, pageable);
+        }
+
         List<CommentRes> comments = postPage.stream()
                 .map(comment -> new CommentRes(
                                 comment,

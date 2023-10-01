@@ -1,5 +1,6 @@
 package com.insert.ogbsm.presentation.comment;
 
+import com.insert.ogbsm.domain.common.OrderType;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.comment.dto.CommentReq;
@@ -36,9 +37,9 @@ public class CommentController {
     }
 
     @GetMapping("/{postId}")
-    public Pagination<List<CommentRes>> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable) {
+    public Pagination<List<CommentRes>> readByPostId(@PathVariable Long postId, @PageableDefault Pageable pageable, @RequestParam OrderType orderType) {
         Long userId = SecurityUtil.getCurrentUserIdWithoutLogin();
-        return commentReadService.readComments(postId, userId, pageable);
+        return commentReadService.readComments(postId, userId, pageable, orderType);
     }
 
     @DeleteMapping("/{commentId}")
