@@ -1,5 +1,6 @@
 package com.insert.ogbsm.presentation.post;
 
+import com.insert.ogbsm.domain.common.OrderType;
 import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
@@ -11,6 +12,7 @@ import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.post.PostDefService;
 import com.insert.ogbsm.service.post.PostReadService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -48,8 +50,8 @@ public class PostController {
     }
 
     @QueryMapping
-    public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page, @Argument int size) {
-        return postReadService.readByCategory(category, PageRequest.of(page, size));
+    public Pagination<List<PostRes>> readByCategory(@Argument Category category, @Argument int page, @Argument int size, @Argument OrderType orderType) {
+        return postReadService.readByCategory(category, PageRequest.of(page, size), orderType);
     }
 
     @MutationMapping
