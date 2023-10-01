@@ -58,7 +58,10 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
 
     //timeTable
-    NO_PERIOD_MATCHED(404, "TIMETABLE-404-1", "TimeTable Not Matches");
+    NO_PERIOD_MATCHED(404, "TIMETABLE-404-1", "TimeTable Not Matches"),
+
+    //order
+    NO_ORDERTYPE_EXCEPTION(400, "ORDER-400-1", "No OrderType Exception");
 
 
     private final int status;
