@@ -34,39 +34,39 @@ public enum Period {
     SECOND(new Time(9, 40), new Time(10, 30)),
     THIRD(new Time(10, 40), new Time(11, 30)),
     FOURTH(new Time(11, 40), new Time(12, 30)),
-    FIFTH(new Time(1, 20), new Time(2, 10)),
-    SIXTH(new Time(2, 20), new Time(3, 10)),
-    SEVENTH(new Time(3, 20), new Time(4, 10)),
-    AFTER_SCHOOL_1(new Time(4, 30), new Time(6, 10)),
-    AFTER_SCHOOL_2(new Time(7, 0), new Time(8, 40)),
+    FIFTH(new Time(13, 20), new Time(14, 10)),
+    SIXTH(new Time(14, 20), new Time(15, 10)),
+    SEVENTH(new Time(15, 20), new Time(16, 10)),
+    AFTER_SCHOOL_1(new Time(16, 30), new Time(18, 10)),
+    AFTER_SCHOOL_2(new Time(19, 0), new Time(20, 40)),
 
     //조례, 종례
     PRONUNCIATION(new Time(8, 30), new Time(8, 40)),
-    ANTONYM(new Time(4, 20), new Time(4, 30)),
-    CLEANING(new Time(4, 10), new Time(4, 20)),
+    ANTONYM(new Time(16, 20), new Time(16, 30)),
+    CLEANING(new Time(16, 10), new Time(16, 20)),
 
     //쉬는 시간
     BREAK_1(new Time(9, 30), new Time(9, 40)),
     BREAK_2(new Time(10, 30), new Time(10, 40)),
     BREAK_3(new Time(11, 30), new Time(11, 40)),
-    BREAK_4(new Time(2, 10), new Time(2, 20)),
-    BREAK_5(new Time(3, 10), new Time(3, 20)),
+    BREAK_4(new Time(14, 10), new Time(14, 20)),
+    BREAK_5(new Time(15, 10), new Time(15, 20)),
 
     //식사
     BREAKFAST(new Time(7, 30), new Time(8, 5)),
-    LUNCH(new Time(12, 30), new Time(1, 20)),
-    DINNER(new Time(6, 10), new Time(7, 0)),
+    LUNCH(new Time(12, 30), new Time(13, 20)),
+    DINNER(new Time(18, 10), new Time(19, 0)),
 
     //금요일
-    ANTONYM_FRIDAY(new Time(3, 10), new Time(3, 20)),
-    GO_HOME(new Time(3, 20), new Time(24, 0)),
+    ANTONYM_FRIDAY(new Time(15, 10), new Time(15, 20)),
+    GO_HOME(new Time(15, 20), new Time(24, 0)),
 
     //토요일
     HOME(new Time(0, 0), new Time(24, 0)),
 
     //일요일
-    HOME_SUNDAY(new Time(0, 0), new Time(7, 50)),
-    DORM_SUNDAY(new Time(7, 50), new Time(24, 0));
+    HOME_SUNDAY(new Time(0, 0), new Time(19, 50)),
+    DORM_SUNDAY(new Time(19, 50), new Time(24, 0));
 
 
     final Time startTime;
