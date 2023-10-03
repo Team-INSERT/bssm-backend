@@ -6,6 +6,7 @@ import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class BambooAdminService {
                 .map(BambooRes::new).toList();
     }
 
-    public AllowedBambooRes allowBamboo(Long id, Long userId) {
+    public AllowedBambooRes allowBamboo(Long id) {
         Bamboo bamboo = bambooRepo.findById(id).orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_ALREADY_ALLOWED));
 
         if(bamboo.getIsAllow()) {
@@ -38,7 +39,7 @@ public class BambooAdminService {
         bamboo.setIsAllow();
         return new AllowedBambooRes(
                 allowedBambooRepo.save(AllowedBamboo.builder()
-                        .allowedAdminId(userId)
+                        .allowedAdminId(SecurityUtil.getCurrentUserWithLogin().getId())
                         .bamboo(bamboo)
                         .build())
         );

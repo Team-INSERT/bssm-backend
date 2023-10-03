@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.comment;
+package com.insert.ogbsm.service.validation;
 
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;

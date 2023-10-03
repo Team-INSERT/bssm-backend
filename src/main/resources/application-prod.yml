@@ -1,4 +1,9 @@
 spring:
+
+  devtools:
+    restart:
+      log-condition-evaluation-delta: false
+
   config:
     activate:
       on-profile: prod

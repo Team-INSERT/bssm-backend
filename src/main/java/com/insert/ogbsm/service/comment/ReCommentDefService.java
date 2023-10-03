@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.insert.ogbsm.presentation.comment.dto.ReCommentRes.ReCommentDefRes;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -22,13 +24,15 @@ public class ReCommentDefService {
     private final CommentRepo commentRepo;
     private final UserValidation userValidation;
 
-    public void create(ReCommentReq dto, Long commentId, Long userId) {
+    public ReCommentDefRes create(ReCommentReq dto, Long commentId, Long userId) {
         ReComment reComment = new ReComment(dto.detail(), commentId, userId);
 
         commentValidation.checkCommentExist(commentId);
         increaseReCommentCount(commentId);
 
         reCommentRepo.save(reComment);
+
+        return new ReCommentDefRes(reComment.getCommentId());
     }
 
     private void increaseReCommentCount(Long commentId) {
@@ -38,22 +42,26 @@ public class ReCommentDefService {
         comment.increaseReCommentCount();
     }
 
-    public void update(ReCommentReq dto, Long userId) {
+    public ReCommentDefRes update(ReCommentReq dto, Long userId) {
         ReComment reComment = reCommentRepo.findById(dto.id())
                 .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         userValidation.checkSameUser(userId, reComment.getUserId());
 
         reComment.update(dto.detail());
+
+        return new ReCommentDefRes(reComment.getCommentId());
     }
 
-    public void delete(Long reCommentId, Long userId) {
+    public ReCommentDefRes delete(Long reCommentId, Long userId) {
         ReComment reComment = reCommentRepo.findById(reCommentId)
                 .orElseThrow(() -> new BsmException(ErrorCode.RECOMMENT_NOT_FOUND));
 
         decreaseReCommentCount(reComment);
         userValidation.checkSameUser(reComment.getUserId(), userId);
         reCommentRepo.delete(reComment);
+
+        return new ReCommentDefRes(reComment.getCommentId());
     }
 
     private void decreaseReCommentCount(ReComment reComment) {

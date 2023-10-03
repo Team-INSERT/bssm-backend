@@ -73,30 +73,16 @@ public enum Period {
     final Time endTime;
 
     public static Period get(int period) {
-        switch (period) {
-            case 1 -> {
-                return FIRST;
-            }
-            case 2 -> {
-                return SECOND;
-            }
-            case 3 -> {
-                return THIRD;
-            }
-            case 4 -> {
-                return FOURTH;
-            }
-            case 5 -> {
-                return FIFTH;
-            }
-            case 6 -> {
-                return SIXTH;
-            }
-            case 7 -> {
-                return SEVENTH;
-            }
-        }
-        throw new BsmException(ErrorCode.NO_PERIOD_MATCHED);
+        return switch (period){
+            case 1 -> FIRST;
+            case 2 -> SECOND;
+            case 3 -> THIRD;
+            case 4 -> FOURTH;
+            case 5 -> FIFTH;
+            case 6 -> SIXTH;
+            case 7 -> SEVENTH;
+            default -> throw new BsmException(ErrorCode.NO_PERIOD_MATCHED);
+        };
     }
 
     public static Map<DayOfWeek, List<TimeTableValueRes>> getAllPeriod(Map<DayOfWeek, List<TimeTableValueRes>> periodMap) {
