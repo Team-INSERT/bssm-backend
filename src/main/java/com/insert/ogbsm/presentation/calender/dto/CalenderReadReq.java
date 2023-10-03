@@ -1,4 +1,4 @@
 package com.insert.ogbsm.presentation.calender.dto;
 
-public record CalenderReadReq(Integer year,Integer month, Short grade, Short classNumber) {
+public record CalenderReadReq(Integer year, Integer month) {
 }

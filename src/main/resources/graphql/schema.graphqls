@@ -1,7 +1,6 @@
 type Query{
     readOne(id:Int):PostOutPut
     readByCategory(category: String, page: Int, size: Int): Pagination
-    getCalender(input:CalenderReadReq): CalenderGraphRes
 }
 
 type Mutation{
@@ -9,13 +8,6 @@ type Mutation{
     update(input:PostInput):PostOutPut
     delete(id: Int):DeleteOutPut
     updateLostFoundUser(postId: Int, foundUserId: Int): PostOutPut
-}
-
-input CalenderReadReq{
-    year:Int
-    month:Int
-    grade:Int
-    classNumber:Int
 }
 
 input PostInput{
@@ -70,24 +62,7 @@ type DeleteOutPut{
     deletedId: Int
 }
 
-type CalenderGraphRes{
-    findByClass:[CalenderRes]
-    findByGrade:[CalenderRes]
-    findBySchool:[CalenderRes]
-}
 
 scalar Date
     @specifiedBy(url:"https://tools.ietf.org/html/rfc3339")
-
-type CalenderRes{
-    id:ID
-    title: String
-    priority: Int
-    date: Date
-    color: String
-    types: String
-    grade: Int
-    classNumber: Int
-    user: UserSimpleOutPut
-}
 
