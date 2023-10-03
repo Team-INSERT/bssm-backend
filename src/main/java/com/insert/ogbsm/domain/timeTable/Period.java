@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -184,7 +185,7 @@ public enum Period {
     }
 
     private static List<TimeTableValueRes> setOrdinaryMorning(List<TimeTableValueRes> day) {
-        List<TimeTableValueRes> ordinary = new java.util.ArrayList<>(Stream.of(
+        List<TimeTableValueRes> ordinary = new ArrayList<>(Stream.of(
                 new TimeTableValueRes(MORNING_DORM, "기숙사", null),
                 new TimeTableValueRes(MORNING_EXERSIZE, "아침 운동", null),
                 new TimeTableValueRes(PREPARING_DORM, "등교 준비", null),
@@ -214,7 +215,7 @@ public enum Period {
     }
 
     private static List<TimeTableValueRes> getFriday(List<TimeTableValueRes> timeTableValueRes) {
-        List<TimeTableValueRes> friday = new java.util.ArrayList<>(Stream.of(
+        List<TimeTableValueRes> friday = new ArrayList<>(Stream.of(
                 new TimeTableValueRes(MORNING_DORM_FRIDAY, "기숙사", null),
                 new TimeTableValueRes(BREAKFAST, "아침 식사", null),
                 new TimeTableValueRes(MORNING_SELF_STUDY, "아침 자습 시간", null),
