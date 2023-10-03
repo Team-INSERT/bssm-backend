@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 public final class RowTimeTableReq {
-    private String GRADE;
-    private String CLASS_NM;
-    private String PERIO;
+    private Integer GRADE;
+    private Integer CLASS_NM;
+    private Integer PERIO;
     private String ITRT_CNTNT;
     private String ALL_TI_YMD;
 
@@ -19,9 +19,9 @@ public final class RowTimeTableReq {
     public TimeTable toEntity() {
         return new TimeTable(
                 LocalDate.parse(ALL_TI_YMD, DateTimeFormatter.ofPattern("yyyyMMdd")),
-                Integer.parseInt(GRADE),
-                Integer.parseInt(CLASS_NM),
-                Period.get(Integer.parseInt(PERIO)),
+                GRADE,
+                CLASS_NM,
+                Period.get(PERIO),
                 ITRT_CNTNT
         );
     }
