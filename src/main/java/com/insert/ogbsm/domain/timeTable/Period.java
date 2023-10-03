@@ -73,20 +73,27 @@ public enum Period {
 
     public static Period get(int period) {
         switch (period) {
-            case 1:
+            case 1 -> {
                 return FIRST;
-            case 2:
+            }
+            case 2 -> {
                 return SECOND;
-            case 3:
+            }
+            case 3 -> {
                 return THIRD;
-            case 4:
+            }
+            case 4 -> {
                 return FOURTH;
-            case 5:
+            }
+            case 5 -> {
                 return FIFTH;
-            case 6:
+            }
+            case 6 -> {
                 return SIXTH;
-            case 7:
+            }
+            case 7 -> {
                 return SEVENTH;
+            }
         }
         throw new BsmException(ErrorCode.NO_PERIOD_MATCHED);
     }
@@ -96,33 +103,15 @@ public enum Period {
 
         for (DayOfWeek day : periodMap.keySet()) {
             switch (day) {
-                case MONDAY -> {
-                    List<TimeTableValueRes> monday = getMonday(periodMap.get(day));
-                    periodMap.replace(day, monday);
-                }
-                case TUESDAY -> {
-                    List<TimeTableValueRes> tuesday = getTuesday(periodMap.get(day));
-                    periodMap.replace(day, tuesday);
-                }
-                case WEDNESDAY -> {
-                    List<TimeTableValueRes> wednesday = getWednesday(periodMap.get(day));
-                    periodMap.replace(day, wednesday);
-                }
-                case THURSDAY -> {
-                    List<TimeTableValueRes> thursday = getThursday(periodMap.get(day));
-                    periodMap.replace(day, thursday);
-                }
-                case FRIDAY -> {
-                    List<TimeTableValueRes> friday = getFriday(periodMap.get(day));
-                    periodMap.replace(day, friday);
-                }
+                case MONDAY -> periodMap.replace(day, getMonday(periodMap.get(day)));
+                case TUESDAY -> periodMap.replace(day, getTuesday(periodMap.get(day)));
+                case WEDNESDAY -> periodMap.replace(day, getWednesday(periodMap.get(day)));
+                case THURSDAY -> periodMap.replace(day, getThursday(periodMap.get(day)));
+                case FRIDAY -> periodMap.replace(day, getFriday(periodMap.get(day)));
             }
         }
-        List<TimeTableValueRes> saturday = getSaturday();
-        List<TimeTableValueRes> sunday = getSunday();
-
-        periodMap.put(SATURDAY, saturday);
-        periodMap.put(SUNDAY, sunday);
+        periodMap.put(SATURDAY, getSaturday());
+        periodMap.put(SUNDAY, getSunday());
 
         return periodMap;
     }
@@ -236,8 +225,8 @@ public enum Period {
 
         friday.addAll(
                 List.of(
-                new TimeTableValueRes(ANTONYM_FRIDAY, "종례", null),
-                new TimeTableValueRes(GO_HOME, "집", null)
+                        new TimeTableValueRes(ANTONYM_FRIDAY, "종례", null),
+                        new TimeTableValueRes(GO_HOME, "집", null)
                 )
         );
 
