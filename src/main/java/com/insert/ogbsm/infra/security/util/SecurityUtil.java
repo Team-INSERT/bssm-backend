@@ -7,6 +7,8 @@ import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.infra.security.auth.AuthDetails;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Optional;
+
 public class SecurityUtil {
     public static User getCurrentUserWithLogin() {
         try {
@@ -36,8 +38,11 @@ public class SecurityUtil {
         }
     }
 
-    private static User getUser() {
+    public static Optional<User> getOptUser() {
+        return Optional.ofNullable(getCurrentUserOrNotLogin());
+    }
 
+    private static User getUser() {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication()
                 .getPrincipal();
