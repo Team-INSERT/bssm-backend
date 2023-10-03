@@ -19,7 +19,7 @@ public class MealFacade {
     private final MealRepo mealRepo;
 
     public String filterMealStr(String str) {
-        return str.replaceAll("<br/>|\\([0-9.]*?\\)|\\(산고\\)|\\(소마[0-9.]*?\\)", "").trim();
+        return str.replaceAll("\\([0-9.]*?\\)|\\(산고\\)|\\(소마[0-9.]*?\\)", "").trim();
     }
 
     public String getTodayMealStr(MealType type) {
