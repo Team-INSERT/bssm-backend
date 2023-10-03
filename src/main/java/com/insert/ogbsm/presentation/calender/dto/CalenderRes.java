@@ -5,6 +5,7 @@ import com.insert.ogbsm.domain.calender.Type;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
 import lombok.Getter;
+
 import java.time.LocalDate;
 
 @Getter
@@ -14,7 +15,7 @@ public class CalenderRes {
     final int priority;
     final LocalDate date;
     final String color;
-    final Type types;
+    final Type type;
     final Short grade;
     final Short classNumber;
     final UserSimpleRes user;
@@ -25,7 +26,7 @@ public class CalenderRes {
         this.priority = calender.getPriority();
         this.date = calender.getDate();
         this.color = calender.getColor();
-        this.types = calender.getType();
+        this.type = calender.getType();
         this.grade = calender.getGrade();
         this.classNumber = calender.getClassNumber();
         this.user = new UserSimpleRes(user);

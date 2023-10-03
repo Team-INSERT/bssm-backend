@@ -43,7 +43,7 @@ public class CalenderReadService {
     }
 
     private void fillAllDays(LocalDate start, LocalDate end, Map<LocalDate, List<CalenderRes>> calenderMap) {
-        for (LocalDate i = start; i.isBefore(end); i = i.plusDays(1)) {
+        for (LocalDate i = start; i.isBefore(end) || i.isEqual(end); i = i.plusDays(1)) {
             if (!calenderMap.containsKey(i)) {
                 calenderMap.put(i, new ArrayList<>());
             }
