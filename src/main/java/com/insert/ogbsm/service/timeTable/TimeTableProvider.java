@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
-import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -63,15 +63,11 @@ public class TimeTableProvider {
                 .url(url)
                 .get()
                 .build();
-        Response mealResponse = httpClient.newCall(mealRequest).execute();
-        return mealResponse;
+        return httpClient.newCall(mealRequest).execute();
     }
 
     private String getUrl(LocalDate date) {
-        if (date.getMonthValue() < 10) {
-            return TIME_TABLE_API_URL + "ALL_TI_YMD=" + date.getYear() + "0" + date.getMonthValue() + date.getDayOfMonth();
-        }
 
-        return TIME_TABLE_API_URL + "ALL_TI_YMD=" + date.getYear() + date.getMonthValue();
+        return TIME_TABLE_API_URL + "ALL_TI_YMD=" + date.format(DateTimeFormatter.BASIC_ISO_DATE);
     }
 }
