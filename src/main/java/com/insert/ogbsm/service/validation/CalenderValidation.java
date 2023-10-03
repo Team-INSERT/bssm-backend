@@ -9,31 +9,29 @@ import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+import static com.insert.ogbsm.domain.calender.Type.CLASS;
+import static com.insert.ogbsm.domain.calender.Type.GRADE;
+
 @Component
 public class CalenderValidation {
 
-    private static void ifFalseThrowNoAuthException(boolean boll) {
-        if (boll) {
-            throw new BsmException(ErrorCode.NO_AUTH_TO_DEF_CALENDER);
-        }
+    private void ifFalseThrowNoAuthException(boolean boll) {
+        if(boll) throw new BsmException(ErrorCode.NO_AUTH_TO_DEF_CALENDER);
     }
 
     public void checkHasAuthToDef(Calender calender, User user) {
-        Type calenderType = calender.getType();
-        if (calenderType == Type.SCHOOL) {
-            return;
-        } else if (calenderType == Type.GRADE) {
-            checkSameGrade(calender.getGrade(), user.getGrade());
-        } else if (calenderType == Type.CLASS) {
-            checkSameClass(calender.getGrade(), calender.getClassNumber(), user.getGrade(), user.getClass_number());
+        switch (calender.getType()){
+            case GRADE -> checkSameGrade(calender, user);
+            case CLASS -> checkSameClass(calender, user);
         }
     }
 
-    private void checkSameClass(Short calGrade, Short calClassNumber, Short userGrade, Short userClassNumber) {
-        ifFalseThrowNoAuthException(!Objects.equals(calGrade, userGrade) || !Objects.equals(calClassNumber, userClassNumber));
+    private void checkSameClass(Calender calender, User user) {
+        checkSameGrade(calender,user);
+        ifFalseThrowNoAuthException(!calender.getClassNumber().equals(user.getClass_number()));
     }
 
-    private void checkSameGrade(Short calenderGrade, Short userGrade) {
-        ifFalseThrowNoAuthException(!Objects.equals(calenderGrade, userGrade));
+    private void checkSameGrade(Calender calender, User user) {
+        ifFalseThrowNoAuthException(!calender.getGrade().equals(user.getGrade()));
     }
 }

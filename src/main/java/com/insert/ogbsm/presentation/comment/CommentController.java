@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.insert.ogbsm.presentation.comment.dto.CommentRes.*;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/comment")
@@ -22,15 +24,15 @@ public class CommentController {
     private final CommentReadService commentReadService;
 
     @PostMapping("/{postId}")
-    public void create(@RequestBody CommentReq dto, @PathVariable Long postId) {
+    public CommentDefRes create(@RequestBody CommentReq dto, @PathVariable Long postId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.create(dto, postId, user.getId());
+        return commentDefService.create(dto, postId, user.getId());
     }
 
     @PutMapping()
-    public void update(@RequestBody CommentReq dto) {
+    public CommentDefRes update(@RequestBody CommentReq dto) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.update(dto, user.getId());
+        return commentDefService.update(dto, user.getId());
     }
 
     @GetMapping("/{postId}")
@@ -40,8 +42,8 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
-    public void delete(@PathVariable Long commentId) {
+    public CommentDefRes delete(@PathVariable Long commentId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        commentDefService.delete(commentId, user.getId());
+        return commentDefService.delete(commentId, user.getId());
     }
 }

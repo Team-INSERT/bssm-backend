@@ -4,9 +4,12 @@ import com.insert.ogbsm.domain.calender.Calender;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface CalenderRepo extends JpaRepository<Calender, Long>, CalenderDao {
-    @Query("select c from Calender c where c.date.month = :month and c.date.day = :day")
-    List<Calender> findByDate(Long month, Long day);
+    Optional<Calender> findByDate(LocalDate date);
+
+
 }
