@@ -50,7 +50,10 @@ public enum ErrorCode {
     MEAL_NOT_FOUND(404, "MEAL-404-1", "Meal Not Found"),
     MEAL_TYPE_PARSE(400, "MEAL-401-1", "MEAL TYPE PARSE ERROR"),
 
-    //ServerError,
+    //timeTable
+    NO_PERIOD_MATCHED(404, "TIMETABLE-404-1", "TimeTable Not Matches"),
+  
+    //ServerError
     INVALID_ARGUMENT(400, "ARG-400-1", "Arg Is Not Valid"),
     FORBIDDEN(403, "COMMON-403-1", "Forbidden"),
     NOT_FOUND(404, "NOT_FOUND", "Not Found"),
