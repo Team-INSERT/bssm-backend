@@ -4,7 +4,6 @@ import com.insert.ogbsm.presentation.meister.dto.response.*;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 import static com.insert.ogbsm.domain.meister.QMeisterData.meisterData;
@@ -36,9 +35,9 @@ public class MeisterDataDaoImpl implements MeisterDataDao {
     }
 
     @Override
-    public MeisterAvgResponse findAvgByGradeOfScores(int grade) {
+    public MeisterScoreResponse findAvgByGradeOfScores(int grade) {
         return jpaQueryFactory
-                .select(new QMeisterAvgResponse(
+                .select(new QMeisterScoreResponse(
                         meisterData.score.avg(),
                         meisterData.basicJobSkills.avg(),
                         meisterData.professionalTech.avg(),
@@ -47,6 +46,26 @@ public class MeisterDataDaoImpl implements MeisterDataDao {
                         meisterData.foreignScore.avg(),
                         meisterData.positivePoint.avg(),
                         meisterData.negativePoint.avg()
+                ))
+                .from(meisterData)
+                .leftJoin(student).on(meisterData.meisterInfo.email.eq(student.email))
+                .where(student.grade.eq(grade))
+                .fetch()
+                .get(0);
+    }
+
+    @Override
+    public MeisterScoreResponse findMaxByGradeOfScores(int grade) {
+        return jpaQueryFactory
+                .select(new QMeisterScoreResponse(
+                        meisterData.score.max().doubleValue(),
+                        meisterData.basicJobSkills.max().doubleValue(),
+                        meisterData.professionalTech.max().doubleValue(),
+                        meisterData.workEthic.max().doubleValue(),
+                        meisterData.humanities.max().doubleValue(),
+                        meisterData.foreignScore.max().doubleValue(),
+                        meisterData.positivePoint.max().doubleValue(),
+                        meisterData.negativePoint.max().doubleValue()
                 ))
                 .from(meisterData)
                 .leftJoin(student).on(meisterData.meisterInfo.email.eq(student.email))
