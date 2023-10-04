@@ -28,10 +28,13 @@ public class Ber {
 
     private Long reservationUserId;
 
+    private String reservationUsersName;
+
     @Builder
-    public Ber(LocalDate reservation, Integer berNumber, Long reservationUserId) {
+    public Ber(LocalDate reservation, Integer berNumber, Long reservationUserId, String reservationUsersName) {
         this.reservationDate = reservation;
         this.berNumber = berNumber;
         this.reservationUserId = reservationUserId;
+        this.reservationUsersName = reservationUsersName;
     }
 }

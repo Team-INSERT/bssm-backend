@@ -23,6 +23,7 @@ public class BerDef {
         Ber ber = Ber.builder()
                 .berNumber(berReserveReq.getBerNumber())
                 .reservation(berReserveReq.getReservationTime())
+                .reservationUsersName(berReserveReq.getReservationUsersName())
                 .reservationUserId(userId)
                 .build();
 
