@@ -31,6 +31,8 @@ public enum ErrorCode {
     Ber_Already_Reserved(400, "BER-400-1", "Ber Already Reserved"),
     Ber_Not_Found(400, "Ber-400-2", "Ber Not Found"),
     Ber_User_Already_Reserved_Same_Time(400, "Ber-400-3", "Ber User Already Reserved Same Time"),
+    Ber_Reservation_Time_Before_Now(400, "Ber-400-4", "Ber Reservation Time Before Now"),
+    Ber_Reservation_Time_Not_Monday_To_Sunday(400, "BER-400-5", "Ber_Reservation_Time_Not_Sunday_To_Friday "),
 
     // S3
     IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
