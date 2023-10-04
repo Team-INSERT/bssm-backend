@@ -11,7 +11,7 @@ import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.meister.dto.request.MeisterDetailRequest;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterDetailResponse;
-import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvg;
+import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,7 +60,7 @@ public class MeisterService {
         return detailInfo;
     }
 
-    public MeisterResAndAvg get(User user) {
+    public MeisterResAndAvgAndMax get(User user) {
         MeisterData meisterData = meisterDataRepository.findByStudentIdAndModifiedAtGreaterThan(meisterInfoFacade.getMeisterInfo(user).getStudentId(), LocalDate.now().atStartOfDay())
                 .orElseGet(() -> meisterDataProvider.getAndUpdateMeisterData(
                         meisterDataProvider.findOrElseCreateMeisterData(getStudent(user))
@@ -74,7 +74,10 @@ public class MeisterService {
                     .loginError(true)
                     .build();
 
-            return new MeisterResAndAvg(build, meisterDataRepository.findAvgByGradeOfScores(user.getGrade()));
+            return new MeisterResAndAvgAndMax(
+                    build,
+                    meisterDataRepository.findAvgByGradeOfScores(user.getGrade()),
+                    meisterDataRepository.findMaxByGradeOfScores(user.getGrade()));
         }
 
         MeisterResponse build = MeisterResponse.builder()
@@ -90,7 +93,11 @@ public class MeisterService {
                 .loginError(false)
                 .build();
 
-        return new MeisterResAndAvg(build, meisterDataRepository.findAvgByGradeOfScores(user.getGrade()));
+        return new MeisterResAndAvgAndMax(
+                build,
+                meisterDataRepository.findAvgByGradeOfScores(user.getGrade()),
+                meisterDataRepository.findMaxByGradeOfScores(user.getGrade())
+        );
     }
 
     public MeisterResponse updateAndGet(User user) {

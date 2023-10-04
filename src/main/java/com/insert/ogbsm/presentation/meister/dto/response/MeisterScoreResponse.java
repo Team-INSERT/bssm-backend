@@ -2,7 +2,7 @@ package com.insert.ogbsm.presentation.meister.dto.response;
 
 import com.querydsl.core.annotations.QueryProjection;
 
-public record MeisterAvgResponse(
+public record MeisterScoreResponse(
         double score,
         double basicJobSkills,
         double professionalTech,
@@ -13,6 +13,6 @@ public record MeisterAvgResponse(
         double negativePoint
 ) {
     @QueryProjection
-    public MeisterAvgResponse {
+    public MeisterScoreResponse {
     }
 }

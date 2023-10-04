@@ -3,7 +3,7 @@ package com.insert.ogbsm.presentation.meister;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.meister.dto.request.MeisterDetailRequest;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterDetailResponse;
-import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvg;
+import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResponse;
 import com.insert.ogbsm.service.meister.MeisterService;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class MeisterController {
     }
 
     @GetMapping
-    public MeisterResAndAvg get() {
+    public MeisterResAndAvgAndMax get() {
         return meisterService.get(SecurityUtil.getCurrentUserWithLogin());
     }
 
