@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class BerValidation {
     public void executeReserve(BerReserveReq berReserveReq, Long userId) {
         checkAlreadyReserved(berReserveReq.getBerNumber(), berReserveReq.getReservationTime());
         checkUserAlreadyReservedSameTime(berReserveReq.getReservationTime(), userId);
+        checkReservationTime(berReserveReq.getReservationTime());
 
     }
 
@@ -39,6 +43,23 @@ public class BerValidation {
                 .ifPresent(ber -> {
                     throw new BsmException(ErrorCode.Ber_User_Already_Reserved_Same_Time);
                 });
+    }
+
+    private void checkReservationTime(LocalDate reservationTime) {
+        LocalDate now = LocalDate.now();
+        TemporalField fieldUS = WeekFields.of(Locale.US).dayOfWeek();
+        LocalDate ThisSunday = now.with(fieldUS, 1);
+        LocalDate ThisThursDay = now.with(fieldUS, 5);
+
+        if (reservationTime.isBefore(now)) {
+            throw new BsmException(ErrorCode.Ber_Reservation_Time_Before_Now);
+        }
+
+
+        if (reservationTime.isAfter(ThisSunday) && reservationTime.isBefore(ThisThursDay)) {
+            return;
+        }
+        throw new BsmException(ErrorCode.Ber_Reservation_Time_Not_Monday_To_Sunday);
     }
 
 }

@@ -8,4 +8,5 @@ import java.time.LocalDate;
 public class BerReserveReq {
     private int berNumber;
     private LocalDate reservationTime;
+    private String reservationUsersName;
 }
