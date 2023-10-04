@@ -82,6 +82,11 @@ public class MeisterService {
                 .positivePoint(meisterData.getPositivePoint())
                 .negativePoint(meisterData.getNegativePoint())
                 .lastUpdate(meisterData.getModifiedAt())
+                .basicJobSkills(meisterData.getBasicJobSkills())
+                .professionalTech(meisterData.getProfessionalTech())
+                .workEthic(meisterData.getWorkEthic())
+                .humanities(meisterData.getHumanities())
+                .foreignScore(meisterData.getForeignScore())
                 .loginError(false)
                 .build();
 
