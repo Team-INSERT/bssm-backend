@@ -47,19 +47,3 @@ public class MeisterScheduler {
     }
 
 }
-
-
-// 살아있는 학생 모두 부르기
-
-// 모든 마이스터 dataList 조회 -> 이게 언제 생기는 알아야함
-
-// 학생 뺑뻉이 돌면서 맞는 MeisterData가 있는지 확인
-
-// 있으면 그 마이스터 데이터 저장, 없으면 MeisterData create
-
-// meister Info에 student를 save
-
-//만들어진 meisterData를 업데이트
-
-
-
