@@ -1,7 +1,7 @@
 package com.insert.ogbsm.presentation.ber;
 
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.ber.dto.BerRes;
+import com.insert.ogbsm.presentation.ber.dto.BerReadRes;
 import com.insert.ogbsm.presentation.ber.dto.BerReserveReq;
 import com.insert.ogbsm.service.ber.BerDef;
 import com.insert.ogbsm.service.ber.BerRead;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,7 +31,7 @@ public class BerController {
     }
 
     @GetMapping
-    public List<BerRes> findBer(@RequestParam(name = "date") LocalDate localDate) {
+    public BerReadRes findBer(@RequestParam(name = "date") LocalDate localDate) {
         if (localDate == null) localDate = LocalDate.now();
         return berRead.getBer(localDate);
     }

@@ -14,7 +14,5 @@ public class BerReadRes {
         this.reservedBerNumber = berResList.stream()
                 .map(BerRes::getBerNumber)
                 .toList();
-
-
     }
 }
