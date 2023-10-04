@@ -14,6 +14,9 @@ public enum ErrorCode {
     NOT_SAME_USER(403, "USER-403-2", "Not A Same User"),
     USER_NOT_FOUND(404, "USER-404-1", "User Not Found"),
 
+    //Student
+    STUDENT_NOT_FOUND(404, "STUDENT-404-1", "Student Not Found"),
+
     //Bamboo
     BAMBOO_ALREADY_ALLOWED(400, "BAMBOO-400-1", "Bamboo Already Allowed"),
     BAMBOO_NOT_FOUND(404, "BAMBOO-404-1", "BAMBOO Not Found"),
@@ -58,7 +61,15 @@ public enum ErrorCode {
     FORBIDDEN(403, "COMMON-403-1", "Forbidden"),
     NOT_FOUND(404, "NOT_FOUND", "Not Found"),
     BSM_AUTH_INVALID_CLIENT(500, "BSM-500-1", "Bsm Client Is Invalid"),
-    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error");
+    INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
+
+    //meister
+    MEISTER_INFO_PRIVATE(403, "MEISTER-403-1", "Cannot See Ranking With Setting Private"),
+    MEISTER_PASSWORD_FORBIDDEN(403, "MEISTER-403-2", "Meister Password Forbidden"),
+    MEISTER_PASSWORD_CHANGED(403, "MEISTER-403-3", "Meister Password Changed"),
+    MEISTER_CANNOT_CHANGE_AUTH(403, "MEISTER-403-4", "You Can't Change your Auth"),
+    MEISTER_INFO_NOT_FOUND(404, "MEISTER-404-1", "Meister Info Not Found"),
+    MEISTER_INTERNAL_SERVER(500, "MEISTER-500-1", "Meister Internal Server Error");
 
     private final int status;
     private final String code;
