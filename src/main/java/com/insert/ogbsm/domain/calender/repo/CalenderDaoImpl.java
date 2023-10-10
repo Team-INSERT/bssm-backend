@@ -26,11 +26,10 @@ public class CalenderDaoImpl implements CalenderDao {
                 .from(calender)
                 .join(user)
                 .on(calender.userId.eq(user.id))
-                .where(calender.date.year().eq(year)
-                        .and(calender.date.month().eq(month)))
-                .where(calender.type.eq(Type.GRADE).and(calender.grade.eq(grade))
-                        .or(calender.type.eq(Type.CLASS).and(calender.grade.eq(grade).and(calender.classNumber.eq(classNumber))))
-                )
+                .where(calender.date.year().eq(year).and(calender.date.month().eq(month)).and(calender.type.eq(Type.SCHOOL))
+                        .or(calender.type.eq(Type.GRADE).and(calender.grade.eq(grade))
+                                .or(calender.type.eq(Type.CLASS).and(calender.grade.eq(grade).and(calender.classNumber.eq(classNumber))))
+                        ))
                 .orderBy(calender.date.asc(), calender.type.desc(), calender.priority.desc())
                 .transform(groupBy(calender.date).as(list(constructor(CalenderRes.class, calender, user))));
     }
