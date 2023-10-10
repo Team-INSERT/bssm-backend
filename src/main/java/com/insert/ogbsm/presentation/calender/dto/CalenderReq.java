@@ -1,13 +1,11 @@
 package com.insert.ogbsm.presentation.calender.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.insert.ogbsm.domain.calender.Calender;
 import com.insert.ogbsm.domain.calender.Type;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -40,7 +38,7 @@ public class CalenderReq {
         Calender calender = null;
         try {
             calender = new Calender(title, priority, LocalDate.parse(date), color, type, grade, classNumber);
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             throw new BsmException(ErrorCode.Invalid_Date);
         }
 
