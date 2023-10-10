@@ -5,9 +5,8 @@ import com.insert.ogbsm.domain.meal.MealType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Getter
 @NoArgsConstructor
@@ -23,7 +22,13 @@ public class MealRes {
         );
         res.keys = mealList.stream()
                 .map(Meal::getType)
-                .toList();
+                .collect(Collectors.toList());
+
+        // Enum을 MORNING, LUNCH, DINNER 순으로 정렬하는 Comparator 생성
+        Comparator<MealType> mealTypeComparator = Comparator.comparingInt(Enum::ordinal);
+
+        // 정렬
+        res.keys.sort(mealTypeComparator);
         return res;
     }
 }
