@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CalenderRepo extends JpaRepository<Calender, Long>, CalenderDao {
-    Optional<Calender> findByDate(LocalDate date);
+    List<Calender> findByDate(LocalDate date);
 
 
 }

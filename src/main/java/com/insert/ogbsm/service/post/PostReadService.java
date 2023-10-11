@@ -63,4 +63,14 @@ public class PostReadService {
 
         return new Pagination<>(collect, pagePost.getTotalPages(), pageable.getPageNumber());
     }
+
+    public List<PostRes> readTop5ByCategory(Category category) {
+        List<Post> pagePost = postRepo.findByCategory(category);
+
+        return pagePost.stream()
+                .sorted()
+                .limit(5)
+                .map(post -> new PostRes(post, userWrapper.getUser(post.getWriterId())))
+                .toList();
+    }
 }

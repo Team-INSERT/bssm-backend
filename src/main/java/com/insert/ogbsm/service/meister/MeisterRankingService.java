@@ -40,4 +40,25 @@ public class MeisterRankingService {
         meisterInfoFacade.viewPermissionCheckRank(user);
         return meisterDataRepository.findByMeisterInfoStudentGradeOrderByScoreDesc(grade);
     }
+
+    public Integer getRankingOne(User user) {
+        List<MeisterRankingResponse> ranking = getRanking(user, user.getGrade());
+        int rank = 0;
+        boolean changed = false;
+        for (MeisterRankingResponse meisterRankingResponse : ranking) {
+            rank++;
+
+            if (meisterRankingResponse.student().studentNo() == user.getStudent_number() &&
+            meisterRankingResponse.student().classNo() == user.getClass_number() &&
+            meisterRankingResponse.student().grade() == user.getGrade()) {
+                changed = true;
+                break;
+            }
+        }
+
+        if (!changed) {
+            return 0;
+        }
+        return rank;
+    }
 }
