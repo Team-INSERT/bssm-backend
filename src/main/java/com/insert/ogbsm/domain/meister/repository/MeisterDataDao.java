@@ -11,4 +11,6 @@ public interface MeisterDataDao {
     MeisterScoreResponse findAvgByGradeOfScores(int grade);
 
     MeisterScoreResponse findMaxByGradeOfScores(int grade);
+
+
 }

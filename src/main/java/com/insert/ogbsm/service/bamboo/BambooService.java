@@ -1,10 +1,12 @@
 package com.insert.ogbsm.service.bamboo;
 
+import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
 import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
 import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
+import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.CreateBambooReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -37,4 +39,7 @@ public class BambooService {
         return bamboo.getId();
     }
 
+    public AllowedBambooRes findMostRecentAllowedBamboo() {
+        return new AllowedBambooRes(allowedBambooRepo.findAll().get(0));
+    }
 }

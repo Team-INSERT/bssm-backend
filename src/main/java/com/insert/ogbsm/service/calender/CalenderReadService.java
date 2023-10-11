@@ -1,10 +1,14 @@
 package com.insert.ogbsm.service.calender;
 
+import com.insert.ogbsm.domain.calender.Calender;
 import com.insert.ogbsm.domain.calender.repo.CalenderRepo;
 import com.insert.ogbsm.domain.user.User;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.calender.dto.CalenderReadReq;
 import com.insert.ogbsm.presentation.calender.dto.CalenderReadRes;
 import com.insert.ogbsm.presentation.calender.dto.CalenderRes;
+import com.insert.ogbsm.presentation.calender.dto.CalenderSimpleRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,6 +44,12 @@ public class CalenderReadService {
                 .stream()
                 .map(e -> new CalenderReadRes(e.getKey(), e.getValue()))
                 .toList();
+    }
+
+    public CalenderSimpleRes getOne(LocalDate date) {
+        List<Calender> calenders = calenderRepo.findByDate(date);
+
+        return new CalenderSimpleRes(calenders);
     }
 
     private void fillAllDays(LocalDate start, LocalDate end, Map<LocalDate, List<CalenderRes>> calenderMap) {
