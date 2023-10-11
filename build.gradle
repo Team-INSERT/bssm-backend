@@ -54,8 +54,6 @@ dependencies {
 	testImplementation 'com.h2database:h2'
 	testImplementation 'org.assertj:assertj-core:3.21.0'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly 'io.jsonwebtoken:jjwt-api:0.11.5'
 
