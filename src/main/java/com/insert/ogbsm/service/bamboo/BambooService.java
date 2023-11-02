@@ -14,6 +14,8 @@ import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -40,6 +42,7 @@ public class BambooService {
     }
 
     public AllowedBambooRes findMostRecentAllowedBamboo() {
-        return new AllowedBambooRes(allowedBambooRepo.findAll().get(0));
+        List<AllowedBamboo> all = allowedBambooRepo.findAll();
+        return new AllowedBambooRes(all.get(all.size() - 1));
     }
 }
