@@ -18,9 +18,9 @@ public class MealScheduler {
     private final MealFacade mealFacade;
     private final MealProvider mealProvider;
 
-    @Scheduled(cron = "0 0 0 28 * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     private void getMonthMeal() throws IOException {
-        YearMonth nextMonth = YearMonth.now().plusMonths(1);
+        YearMonth nextMonth = YearMonth.now();
         List<Meal> mealList = mealProvider.getRawMonthMealList(nextMonth).stream()
                 .map(meal -> meal.toEntity(mealFacade.filterMealStr(meal.DDISH_NM())))
                 .toList();
