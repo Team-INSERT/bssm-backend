@@ -12,7 +12,6 @@ public class RoomMateCheckInRes {
     LocalDateTime checkInTime;
 
     public RoomMateCheckInRes(CheckIn checkIn) {
-        System.out.println(checkIn.getId());
         this.userId = checkIn.getUserId();
         this.checkInTime = checkIn.getCheckInTime();
     }

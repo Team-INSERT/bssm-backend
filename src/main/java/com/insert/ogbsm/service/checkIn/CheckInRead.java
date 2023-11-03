@@ -1,6 +1,7 @@
 package com.insert.ogbsm.service.checkIn;
 
 import com.insert.ogbsm.domain.checkIn.repo.CheckInRepo;
+import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,13 @@ public class CheckInRead {
     }
 
     public List<CheckInRes> getCheckIn(String dormitoryType) {
-        return switch (dormitoryType) {
+        List<Room> room = switch (dormitoryType) {
             case "A" -> checkInRepo.findAllTodayCheckIn(A);
             case "B" -> checkInRepo.findAllTodayCheckIn(B);
             default -> checkInRepo.findAllTodayCheckIn();
         };
+
+        return room.stream()
+                .map(room1 -> new CheckInRes(room1, checkInRepo.findCheckInByRoomId(room1.getId()))).toList();
     }
 }

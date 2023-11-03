@@ -1,6 +1,5 @@
 package com.insert.ogbsm.service.room;
 
-import com.insert.ogbsm.domain.room.YearSemester;
 import com.insert.ogbsm.domain.room.repo.RoomRepo;
 import com.insert.ogbsm.presentation.room.dto.RoomRes;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +13,7 @@ public class RoomRead {
     private final RoomRepo roomRepo;
 
     public List<RoomRes> getRoom() {
-        return roomRepo.findByYearSemester(new YearSemester());
+        return roomRepo.findAllByYearSemester();
     }
 
 

@@ -3,7 +3,6 @@ package com.insert.ogbsm.service.checkIn;
 import com.insert.ogbsm.domain.checkIn.CheckIn;
 import com.insert.ogbsm.domain.checkIn.repo.CheckInRepo;
 import com.insert.ogbsm.domain.room.Room;
-import com.insert.ogbsm.domain.room.YearSemester;
 import com.insert.ogbsm.domain.room.repo.RoomRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
@@ -24,11 +23,12 @@ public class CheckInDef {
     private final RoomRepo roomRepo;
 
     public Long checkIn(Long userId) {
+        System.out.println(userId);
         Collection<Set<Long>> userIdSet = Collections.singleton(Collections.singleton(userId));
-        Room room = roomRepo.findByYearSemesterAndRoomMate_RoomMateIdsIn(new YearSemester(), userIdSet)
-                .orElseThrow(() -> new BsmException(ErrorCode.NOT_YOUR_ROOM));
+        Room room = roomRepo.findByUserId(userId);
 
-        if (!room.getRoomMate().getRoomMateIds().contains(userId)) {
+        if (room == null) {
+            System.out.println("asfd");
             throw new BsmException(ErrorCode.NOT_YOUR_ROOM);
         }
 
@@ -45,6 +45,7 @@ public class CheckInDef {
                 .build();
 
         return checkInRepo.save(newCheckIn).getId();
+
     }
 
 }

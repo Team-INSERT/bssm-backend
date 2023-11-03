@@ -24,4 +24,18 @@ public class RoomMate {
         roomMateIds.add(userId);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RoomMate roomMate = (RoomMate) o;
+
+        return getRoomMateIds() != null ? getRoomMateIds().containsAll(roomMate.getRoomMateIds()) : roomMate.getRoomMateIds() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getRoomMateIds() != null ? getRoomMateIds().hashCode() : 0;
+    }
 }

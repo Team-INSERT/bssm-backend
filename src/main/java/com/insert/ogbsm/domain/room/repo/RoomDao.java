@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoomDao {
-    List<RoomRes> findByYearSemester(YearSemester yearSemester);
+
+    List<RoomRes> findAllByYearSemester();
+
+    Room findByUserId(Long userId);
 
     Optional<Room> findByAllData(String roomNumber, DormitoryType dormitoryType, YearSemester yearSemester);
 

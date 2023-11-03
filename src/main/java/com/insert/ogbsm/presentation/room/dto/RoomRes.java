@@ -1,5 +1,6 @@
 package com.insert.ogbsm.presentation.room.dto;
 
+import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.domain.room.type.DormitoryType;
 import com.insert.ogbsm.presentation.user.dto.UserSimpleWithNameRes;
 import lombok.Getter;
@@ -12,9 +13,9 @@ public class RoomRes {
     private final DormitoryType dormitoryType;
     private final List<UserSimpleWithNameRes> roommates;
 
-    public RoomRes(String roomNumber, DormitoryType dormitoryType, List<UserSimpleWithNameRes> roommates) {
-        this.roomNumber = roomNumber;
-        this.dormitoryType = dormitoryType;
+    public RoomRes(Room room, List<UserSimpleWithNameRes> roommates) {
+        this.roomNumber = room.getRoomNumber();
+        this.dormitoryType = room.getDormitoryType();
         this.roommates = roommates;
     }
 }

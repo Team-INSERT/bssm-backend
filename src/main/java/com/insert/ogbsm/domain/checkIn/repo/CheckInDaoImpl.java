@@ -1,8 +1,9 @@
 package com.insert.ogbsm.domain.checkIn.repo;
 
 import com.insert.ogbsm.domain.checkIn.CheckIn;
+import com.insert.ogbsm.domain.room.Room;
+import com.insert.ogbsm.domain.room.YearSemester;
 import com.insert.ogbsm.domain.room.type.DormitoryType;
-import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -13,8 +14,6 @@ import java.util.Optional;
 
 import static com.insert.ogbsm.domain.checkIn.QCheckIn.checkIn;
 import static com.insert.ogbsm.domain.room.QRoom.room;
-import static com.querydsl.core.types.Projections.constructor;
-import static com.querydsl.core.types.Projections.list;
 
 @RequiredArgsConstructor
 public class CheckInDaoImpl implements CheckInDao {
@@ -32,31 +31,32 @@ public class CheckInDaoImpl implements CheckInDao {
     }
 
     @Override
-    public List<CheckInRes> findAllTodayCheckIn(DormitoryType dormitoryType) {
+    public List<Room> findAllTodayCheckIn(DormitoryType type) {
         LocalDate localDate = LocalDate.now();
-
-        return jpaQueryFactory.select(
-                        constructor(
-                                CheckInRes.class, room, list(checkIn)
-                        ))
+        return jpaQueryFactory.select(room)
                 .from(room)
-                .leftJoin(checkIn)
-                .on(room.id.eq(checkIn.roomId))
-                .groupBy(room)
+                .where(room.yearSemester.eq(new YearSemester())
+                        .and(room.dormitoryType.eq(type)))
+                .fetch();
+    }
+
+    @Override
+    public List<Room> findAllTodayCheckIn() {
+        LocalDate localDate = LocalDate.now();
+        return jpaQueryFactory.select(room)
+                .from(room)
+                .where(room.yearSemester.eq(new YearSemester()))
                 .fetch();
     }
 
 
     @Override
-    public List<CheckInRes> findAllTodayCheckIn() {
+    public List<CheckIn> findCheckInByRoomId(Long roomId) {
         LocalDate localDate = LocalDate.now();
-        return jpaQueryFactory.select(constructor(CheckInRes.class, room, list(checkIn)))
-                .from(room)
-                .leftJoin(checkIn)
-                .on(room.id.eq(checkIn.roomId))
-                .where(
-                        checkIn.checkInTime.dayOfYear().eq(localDate.getDayOfYear())
-                                .and(checkIn.checkInTime.year().eq(localDate.getYear()))
-                ).fetch();
+        return jpaQueryFactory.select(checkIn)
+                .from(checkIn)
+                .where(checkIn.roomId.eq(roomId)
+                        .and(checkIn.checkInTime.between(localDate.atStartOfDay(), localDate.atStartOfDay().plusDays(1))))
+                .fetch();
     }
 }
