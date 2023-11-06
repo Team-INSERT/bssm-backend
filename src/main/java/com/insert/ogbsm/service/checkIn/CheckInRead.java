@@ -31,4 +31,11 @@ public class CheckInRead {
         return room.stream()
                 .map(room1 -> new CheckInRes(room1, checkInRepo.findCheckInByRoomId(room1.getId()))).toList();
     }
+
+    public CheckInRes getMyRoom(Long userId) {
+        CheckIn myCheckIn = checkInRepo.findByUserId(userId).orElseThrow();
+        Room room = checkInRepo.findByUserId(myCheckIn.getUserId());
+
+        return new CheckInRes(room, checkInRepo.findCheckInByRoomId(room.getId()));
+    }
 }
