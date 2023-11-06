@@ -71,7 +71,15 @@ public enum ErrorCode {
     MEISTER_PASSWORD_CHANGED(403, "MEISTER-403-3", "Meister Password Changed"),
     MEISTER_CANNOT_CHANGE_AUTH(403, "MEISTER-403-4", "You Can't Change your Auth"),
     MEISTER_INFO_NOT_FOUND(404, "MEISTER-404-1", "Meister Info Not Found"),
-    MEISTER_INTERNAL_SERVER(500, "MEISTER-500-1", "Meister Internal Server Error");
+    MEISTER_INTERNAL_SERVER(500, "MEISTER-500-1", "Meister Internal Server Error"),
+
+    //Room
+    AlreadyFullRoomMate(400, "Room-400-1", "RoomMate Already Full"),
+    Not_ALLOW_DATE(400, "Room-400-2", "Not Allowed Date"),
+    NOT_YOUR_ROOM(403, "Room-403-1", "Not your Room"),
+
+    //CheckIN
+    ALREADY_CHECKIN(400, "CheckIn-400-1", "Already checkIn");
 
     private final int status;
     private final String code;
