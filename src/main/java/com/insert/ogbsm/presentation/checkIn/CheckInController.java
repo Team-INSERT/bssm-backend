@@ -30,6 +30,9 @@ public class CheckInController {
         return checkInRead.getMyCheckIn(SecurityUtil.getCurrentUserIdWithoutLogin());
     }
 
+    @GetMapping
+    public CheckInRes() { return checkInRead.getMyRoom(SecurityUtil.getCurrentUserIdWithoutLogin()); }
+
     @GetMapping("/all")
     public List<CheckInRes> getAllCheckIn(@RequestParam(name = "type", defaultValue = "all") String dormitoryType) {
         return checkInRead.getCheckIn(dormitoryType);
