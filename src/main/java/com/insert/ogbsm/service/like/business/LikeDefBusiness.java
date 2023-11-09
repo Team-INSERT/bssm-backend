@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.like;
+package com.insert.ogbsm.service.like.business;
 
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.ReComment;
@@ -23,7 +23,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class LikeDefService {
+public class LikeDefBusiness {
     private final LikesRepo likeRepo;
     private final PostWrapper postWrapper;
     private final PostValidation postValidation;

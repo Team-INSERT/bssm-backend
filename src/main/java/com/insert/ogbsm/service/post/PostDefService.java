@@ -35,7 +35,7 @@ public class PostDefService {
     public PostRes update(PostReq reqDto, User user) {
         Post updatablePost = postWrapper.getPost(reqDto.id());
 
-        userValidation.checkSameUser(updatablePost.getWriterId(), user.getId());
+        userValidation.mustBeSameUser(updatablePost.getWriterId(), user.getId());
 
         Post post = reqDto.entityToBeUpdated(user.getId());
         updatablePost.update(post);
@@ -48,7 +48,7 @@ public class PostDefService {
     public PostDeleteRes delete(Long id, Long userId) {
         Post post = postWrapper.getPost(id);
 
-        userValidation.checkSameUser(post.getWriterId(), userId);
+        userValidation.mustBeSameUser(post.getWriterId(), userId);
 
         postRepo.deleteById(id);
 
@@ -59,7 +59,7 @@ public class PostDefService {
         Post post = postRepo.findById(postId)
                 .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
 
-        userValidation.checkSameUser(post.getWriterId(), user.getId());
+        userValidation.mustBeSameUser(post.getWriterId(), user.getId());
 
         if (post.getCategory() != Category.LOST && post.getCategory() != Category.FOUND) {
             throw new BsmException(ErrorCode.POST_TYPE_WEIRD);

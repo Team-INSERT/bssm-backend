@@ -14,7 +14,7 @@ public class UserValidation {
 
     private final UserRepo userRepo;
 
-    public void checkSameUser(Long id1, Long id2) {
+    public void mustBeSameUser(Long id1, Long id2) {
         if (!Objects.equals(id1, id2)) {
             throw new BsmException(ErrorCode.NOT_SAME_USER);
         }
@@ -24,5 +24,4 @@ public class UserValidation {
         userRepo.findById(userId)
                 .orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
     }
-
 }
