@@ -1,8 +1,14 @@
 package com.insert.ogbsm.service.checkIn;
 
+import com.insert.ogbsm.domain.checkIn.CheckIn;
 import com.insert.ogbsm.domain.checkIn.repo.CheckInRepo;
 import com.insert.ogbsm.domain.room.Room;
+import com.insert.ogbsm.domain.room.repo.RoomRepo;
+import com.insert.ogbsm.domain.user.repo.UserRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +22,8 @@ import static com.insert.ogbsm.domain.room.type.DormitoryType.B;
 @RequiredArgsConstructor
 public class CheckInRead {
     private final CheckInRepo checkInRepo;
+    private final RoomRepo roomRepo;
+    private final UserRepo userRepo;
 
     public boolean getMyCheckIn(Long userId) {
         return checkInRepo.findTodayCheckIn(LocalDate.now().atStartOfDay(), userId).isPresent();
@@ -29,13 +37,15 @@ public class CheckInRead {
         };
 
         return room.stream()
-                .map(room1 -> new CheckInRes(room1, checkInRepo.findCheckInByRoomId(room1.getId()))).toList();
+                .map(room1 -> new CheckInRes(room1, checkInRepo.findCheckInByRoomId(room1.getId()),
+                        userRepo.findByIdIn(room1.getRoomMate().getRoomMateIds()))).toList();
     }
 
     public CheckInRes getMyRoom(Long userId) {
-        CheckIn myCheckIn = checkInRepo.findByUserId(userId).orElseThrow();
-        Room room = checkInRepo.findByUserId(myCheckIn.getUserId());
+        Room myRoom = roomRepo.findByUserId(userId);
+        List<CheckIn> checkInList = checkInRepo.findCheckInByRoomId(myRoom.getId());
+        CheckInRes checkInRes = new CheckInRes(myRoom, checkInList,userRepo.findByIdIn(myRoom.getRoomMate().getRoomMateIds()));
 
-        return new CheckInRes(room, checkInRepo.findCheckInByRoomId(room.getId()));
+        return checkInRes;
     }
 }
