@@ -39,6 +39,10 @@ public class RoomDaoImpl implements RoomDao {
                 .fetch();
 
         a = a.stream().filter(room1 -> room1.getRoomMate().equals(roomMate)).toList();
-        return Optional.ofNullable(a.get(0));
+        try {
+            return Optional.ofNullable(a.get(0));
+        }catch (Exception e){
+            return Optional.empty();
+        }
     }
 }
