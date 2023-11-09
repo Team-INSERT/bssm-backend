@@ -20,7 +20,7 @@ public class LikesController {
     boolean updateLikes(@RequestBody LikesReq likesReq) {
         User user = SecurityUtil.getCurrentUserWithLogin();
 
-        return likeDefBusiness.changeLikeStatus(likesReq, user.getId());
+        return likeDefBusiness.changeLikeStatus(likesReq.toEntity(user.getId()));
     }
 
 
