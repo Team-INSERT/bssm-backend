@@ -8,7 +8,7 @@ import com.insert.ogbsm.presentation.mainpage.dto.MainRes;
 import com.insert.ogbsm.presentation.meal.dto.res.MealRes;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
-import com.insert.ogbsm.service.bamboo.BambooService;
+import com.insert.ogbsm.service.bamboo.business.BambooBusiness;
 import com.insert.ogbsm.service.calender.CalenderReadService;
 import com.insert.ogbsm.service.meal.MealService;
 import com.insert.ogbsm.service.meister.MeisterRankingService;
@@ -27,7 +27,7 @@ import java.util.List;
 public class MainPageService {
     private final MealService mealService;
     private final CalenderReadService calenderReadService;
-    private final BambooService bambooService;
+    private final BambooBusiness bambooBusiness;
     private final MeisterService meisterService;
     private final PostReadService postReadService;
     private final MeisterRankingService meisterRankingService;
@@ -47,7 +47,7 @@ public class MainPageService {
             calender = calenderReadService.getOne(now);
             ranking = meisterRankingService.getRankingOne(currentUser);
             meisterResAndAvgAndMax1 = meisterService.get(currentUser);
-            allowedBambooRes = bambooService.findMostRecentAllowedBamboo();
+            allowedBambooRes = bambooBusiness.findMostRecentAllowedBamboo();
             common = postReadService.readTop5ByCategory(Category.COMMON);
             notice = postReadService.readTop5ByCategory(Category.NOTICE);
         }
