@@ -1,21 +1,20 @@
 package com.insert.ogbsm.service.checkIn.implement;
 
-import com.insert.ogbsm.domain.checkIn.CheckIn;
+import static com.insert.ogbsm.domain.room.type.DormitoryType.A;
+import static com.insert.ogbsm.domain.room.type.DormitoryType.B;
+
 import com.insert.ogbsm.domain.checkIn.repo.CheckInRepo;
 import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.domain.room.repo.RoomRepo;
+import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.domain.user.repo.UserRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
+import com.insert.ogbsm.presentation.checkIn.dto.IsCheckInRes;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
-
-import static com.insert.ogbsm.domain.room.type.DormitoryType.A;
-import static com.insert.ogbsm.domain.room.type.DormitoryType.B;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +29,7 @@ public class CheckInImplement {
     }
 
     public boolean readDidICheckInToday(Long userId) {
-        return checkInRepo.findTodayCheckIn(LocalDate.now().atStartOfDay(), userId).isPresent();
+        return checkInRepo.findTodayCheckIn(userId).isPresent();
     }
 
     public List<CheckInRes> readByDormType(String dormitoryType) {
@@ -46,10 +45,11 @@ public class CheckInImplement {
     }
 
 
-    public CheckInRes readRoomById(Long userId) {
+    public IsCheckInRes readRoomById(Long userId) {
         Room myRoom = readByUserId(userId);
-        List<CheckIn> checkInList = checkInRepo.findCheckInByRoomId(myRoom.getId());
+        User user = userRepo.findById(userId).orElseThrow(() -> new BsmException(ErrorCode.USER_NOT_FOUND));
+        boolean isCheckin = checkInRepo.findTodayCheckIn(userId).isPresent();
 
-        return new CheckInRes(myRoom, checkInList,userRepo.findByIdIn(myRoom.getRoomMate().getRoomMateIds()));
+        return new IsCheckInRes(myRoom, user,isCheckin);
     }
 }

@@ -1,17 +1,13 @@
 package com.insert.ogbsm.service.checkIn.business;
 
-import com.insert.ogbsm.domain.checkIn.CheckIn;
 import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
+import com.insert.ogbsm.presentation.checkIn.dto.IsCheckInRes;
 import com.insert.ogbsm.service.checkIn.implement.CheckInImplement;
 import com.insert.ogbsm.service.checkIn.implement.CheckInValidation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-import static com.insert.ogbsm.domain.room.type.DormitoryType.A;
-import static com.insert.ogbsm.domain.room.type.DormitoryType.B;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +29,7 @@ public class CheckInBusiness {
         return checkInImplement.readByDormType(dormitoryType);
     }
 
-    public CheckInRes getMyRoom(Long userId) {
+    public IsCheckInRes getMyRoom(Long userId) {
         return checkInImplement.readRoomById(userId);
     }
 

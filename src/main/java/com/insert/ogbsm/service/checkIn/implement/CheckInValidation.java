@@ -18,7 +18,7 @@ public class CheckInValidation {
     private final CheckInRepo checkInRepo;
 
     public void mustNotCheckedIn(Long userId) {
-        Optional<CheckIn> checkIn = checkInRepo.findTodayCheckIn(LocalDate.now().atStartOfDay(), userId);
+        Optional<CheckIn> checkIn = checkInRepo.findTodayCheckIn(userId);
 
         if (checkIn.isPresent()) {
             throw new BsmException(ErrorCode.ALREADY_CHECKIN);
