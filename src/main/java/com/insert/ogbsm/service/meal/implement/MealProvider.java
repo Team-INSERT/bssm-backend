@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.meal;
+package com.insert.ogbsm.service.meal.implement;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

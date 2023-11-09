@@ -10,7 +10,7 @@ import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.bamboo.business.BambooBusiness;
 import com.insert.ogbsm.service.calender.business.CalenderBusiness;
-import com.insert.ogbsm.service.meal.MealService;
+import com.insert.ogbsm.service.meal.business.MealBusiness;
 import com.insert.ogbsm.service.meister.MeisterRankingService;
 import com.insert.ogbsm.service.meister.MeisterService;
 import com.insert.ogbsm.service.post.PostReadService;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class MainPageService {
-    private final MealService mealService;
+    private final MealBusiness mealBusiness;
     private final CalenderBusiness calenderBusiness;
     private final BambooBusiness bambooBusiness;
     private final MeisterService meisterService;
@@ -34,7 +34,7 @@ public class MainPageService {
 
 
     public MainRes get(LocalDate now, User currentUser) {
-        MealRes meal = mealService.getMeal(now);
+        MealRes meal = mealBusiness.getMeal(now);
 
         CalenderSimpleRes calender = null;
         MeisterResAndAvgAndMax meisterResAndAvgAndMax1 = null;

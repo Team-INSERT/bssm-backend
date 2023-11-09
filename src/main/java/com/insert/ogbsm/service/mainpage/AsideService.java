@@ -8,7 +8,7 @@ import com.insert.ogbsm.presentation.meal.dto.res.MealRes;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.service.calender.business.CalenderBusiness;
 import com.insert.ogbsm.service.checkIn.business.CheckInBusiness;
-import com.insert.ogbsm.service.meal.MealService;
+import com.insert.ogbsm.service.meal.business.MealBusiness;
 import com.insert.ogbsm.service.meister.MeisterRankingService;
 import com.insert.ogbsm.service.meister.MeisterService;
 import com.insert.ogbsm.service.room.RoomRead;
@@ -22,7 +22,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 @Slf4j
 public class AsideService {
-    private final MealService mealService;
+    private final MealBusiness mealBusiness;
     private final CalenderBusiness calenderBusiness;
     private final MeisterService meisterService;
     private final MeisterRankingService meisterRankingService;
@@ -30,7 +30,7 @@ public class AsideService {
     private final RoomRead roomRead;
 
     public AsideRes get(LocalDate now, User currentUser) {
-        MealRes meal = mealService.getMeal(now);
+        MealRes meal = mealBusiness.getMeal(now);
         CalenderSimpleRes calender = null;
         MeisterResAndAvgAndMax meisterResAndAvgAndMax1 = null;
         Integer ranking = null;
