@@ -47,6 +47,7 @@ public class SecurityConfig {
                         .requestMatchers("/checkIn").authenticated()
                         .requestMatchers("/checkIn/all").hasAuthority("ADMIN")
                         .requestMatchers("/room").authenticated()
+                        .requestMatchers(HttpMethod.GET,"/main").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(exceptionHandler -> exceptionHandler.authenticationEntryPoint(new CustomAuthenticationEntryPoint(objectMapper)))

@@ -39,7 +39,7 @@ public class MainPageController {
     @GetMapping()
     public MainRes get() {
         LocalDate now = LocalDate.now();
-        User currentUserOrNotLogin = SecurityUtil.getCurrentUserOrNotLogin();
+        User currentUserOrNotLogin = SecurityUtil.getCurrentUserWithLogin();
 
         return mainPageService.get(now, currentUserOrNotLogin);
     }
