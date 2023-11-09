@@ -1,6 +1,6 @@
 package com.insert.ogbsm.presentation.image;
 
-import com.insert.ogbsm.service.image.ImageDefService;
+import com.insert.ogbsm.service.image.business.ImageDefBusiness;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,10 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/image")
 @RequiredArgsConstructor
 public class ImageController {
-    private final ImageDefService imageDefService;
+    private final ImageDefBusiness imageDefBusiness;
 
     @PostMapping("/save")
     public String create(@RequestPart("image") MultipartFile multipartFile) {
-        return imageDefService.uploadImage(multipartFile);
+        return imageDefBusiness.uploadImage(multipartFile);
     }
 }
