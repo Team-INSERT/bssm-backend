@@ -6,8 +6,10 @@ import jakarta.validation.constraints.Min;
 
 import java.time.LocalDate;
 import java.time.temporal.IsoFields;
+import lombok.Getter;
 
 @Embeddable
+@Getter
 public class YearSemester {
     private int year;
     @Min(0)

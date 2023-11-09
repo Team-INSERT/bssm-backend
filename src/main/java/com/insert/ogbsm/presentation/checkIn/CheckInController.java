@@ -25,13 +25,13 @@ public class CheckInController {
         return checkInDef.checkIn(SecurityUtil.getCurrentUserIdWithoutLogin());
     }
 
-    @GetMapping
-    public boolean getMyCheckIn() {
-        return checkInRead.getMyCheckIn(SecurityUtil.getCurrentUserIdWithoutLogin());
-    }
+//    @GetMapping
+//    public boolean getMyCheckIn() {
+//        return checkInRead.getMyCheckIn(SecurityUtil.getCurrentUserIdWithoutLogin());
+//    }
 
-    @GetMapping("/ubin")
-    public CheckInRes CheckInRes() { return checkInRead.getMyRoom(SecurityUtil.getCurrentUserIdWithoutLogin()); }
+    @GetMapping
+    public CheckInRes getMyCheckInWithRoom() { return checkInRead.getMyRoom(SecurityUtil.getCurrentUserIdWithoutLogin()); }
 
     @GetMapping("/all")
     public List<CheckInRes> getAllCheckIn(@RequestParam(name = "type", defaultValue = "all") String dormitoryType) {
