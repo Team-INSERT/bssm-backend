@@ -2,16 +2,9 @@ package com.insert.ogbsm.presentation.calender;
 
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.calender.dto.CalenderReadReq;
-import com.insert.ogbsm.presentation.calender.dto.CalenderReadRes;
-import com.insert.ogbsm.presentation.calender.dto.CalenderReq;
-import com.insert.ogbsm.presentation.calender.dto.CalenderRes;
-import com.insert.ogbsm.presentation.calender.dto.PriorityUpdateReq;
-import com.insert.ogbsm.service.calender.CalenderDefService;
-import com.insert.ogbsm.service.calender.CalenderReadService;
-import jakarta.validation.Valid;
+import com.insert.ogbsm.presentation.calender.dto.*;
+import com.insert.ogbsm.service.calender.business.CalenderBusiness;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,31 +13,30 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/calender")
 public class CalenderController {
-    private final CalenderReadService calenderReadService;
-    private final CalenderDefService calenderDefService;
+    private final CalenderBusiness calenderBusiness;
 
     @PostMapping
     public CalenderRes create(@RequestBody CalenderReq calenderReq) {
         User user = SecurityUtil.getCurrentUserWithLogin();
-        return calenderDefService.create(calenderReq, user);
+        return calenderBusiness.append(calenderReq.toEntity(user.getId()), user);
     }
 
     @GetMapping
     public List<CalenderReadRes> getCalender(CalenderReadReq calenderReadReq) {
-        return calenderReadService.get(calenderReadReq, SecurityUtil.getOptUser());
+        return calenderBusiness.read(calenderReadReq.year(), calenderReadReq.month(), SecurityUtil.getOptUser());
     }
 
     @PutMapping("/priority")
     public void updatePriority(@RequestBody PriorityUpdateReq priorityUpdateReq) {
         User user = SecurityUtil.getCurrentUserWithLogin();
 
-        calenderDefService.updatePriority(priorityUpdateReq.calenderId(), priorityUpdateReq.priority(), user);
+        calenderBusiness.updatePriority(priorityUpdateReq.calenderId(), priorityUpdateReq.priority(), user);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         User user = SecurityUtil.getCurrentUserWithLogin();
 
-        calenderDefService.delete(id, user);
+        calenderBusiness.remove(id, user);
     }
 }
