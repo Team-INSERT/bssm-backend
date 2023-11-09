@@ -75,9 +75,10 @@ public enum ErrorCode {
 
     //Room
     AlreadyFullRoomMate(400, "Room-400-1", "RoomMate Already Full"),
-    ALREADY_HAS_ROOM(400, "Room-400-2", "Not Allowed Date"),
+    ALREADY_HAS_ROOM(400, "Room-400-2", "ALREADY_HAS_ROOM"),
     NOT_YOUR_ROOM(403, "Room-403-1", "Not your Room"),
     ROOM_NOT_FOUND(404, "Room-404-1", "Room Not Found"),
+    ROOM_NUMBER_MUST_BE_NUMBER(400, "Room-400-1", "Room number must be string"),
 
     //CheckIN
     ALREADY_CHECKIN(400, "CheckIn-400-1", "Already checkIn"),

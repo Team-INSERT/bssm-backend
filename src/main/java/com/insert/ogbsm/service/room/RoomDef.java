@@ -6,6 +6,7 @@ import com.insert.ogbsm.domain.room.repo.RoomRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.room.dto.AllocateRoomReq;
+import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,11 @@ public class RoomDef {
 
     @Transactional
     public Long allocateRoom(AllocateRoomReq allocateRoomReq, Long userId) {
+
+        if(!Pattern.matches("[0-9]+", allocateRoomReq.roomNumber())) {
+            throw new BsmException(ErrorCode.ROOM_NUMBER_MUST_BE_NUMBER);
+        }
+
         Optional<Room> room = roomRepo.findByYearSemesterAndRoomNumberAndDormitoryType(
                 new YearSemester(), allocateRoomReq.roomNumber(), allocateRoomReq.dormitoryType());
 
