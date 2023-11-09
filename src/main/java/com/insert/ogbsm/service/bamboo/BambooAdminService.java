@@ -26,7 +26,8 @@ public class BambooAdminService {
     public List<BambooRes> findAllBamboo() {
         return bambooRepo.findAllByIsAllow(false)
                 .stream()
-                .map(BambooRes::new).toList();
+                .map(BambooRes::new)
+                .toList();
     }
 
     public AllowedBambooRes allowBamboo(Long id) {
@@ -38,7 +39,9 @@ public class BambooAdminService {
 
         bamboo.setIsAllow();
         return new AllowedBambooRes(
-                allowedBambooRepo.save(AllowedBamboo.builder()
+                allowedBambooRepo.save(
+                        AllowedBamboo
+                        .builder()
                         .allowedAdminId(SecurityUtil.getCurrentUserWithLogin().getId())
                         .bamboo(bamboo)
                         .build())

@@ -28,7 +28,8 @@ public class CalenderReadService {
 
     public List<CalenderReadRes> get(CalenderReadReq calenderReadReq, Optional<User> user) {
 
-        LocalDate start = LocalDate.of(calenderReadReq.year(), calenderReadReq.month(), 1);
+        LocalDate start =
+                LocalDate.of(calenderReadReq.year(), calenderReadReq.month(), 1);
         LocalDate end = LocalDate.of(calenderReadReq.year(), calenderReadReq.month(), start.lengthOfMonth());
 
         Map<LocalDate, List<CalenderRes>> calenderMap = new TreeMap<>(calenderRepo.findMonthCalender(
