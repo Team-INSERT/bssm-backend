@@ -30,7 +30,7 @@ public class RoomDaoImpl implements RoomDao {
     }
 
     @Override
-    public Room findByUserId(Long userId) {
+    public Optional<Room> findByUserId(Long userId) {
         RoomMate roomMate = new RoomMate();
         roomMate.addRoomMate(userId);
         List<Room> a = jpaQueryFactory.selectFrom(room)
@@ -39,18 +39,6 @@ public class RoomDaoImpl implements RoomDao {
                 .fetch();
 
         a = a.stream().filter(room1 -> room1.getRoomMate().equals(roomMate)).toList();
-        return a.get(0);
+        return Optional.ofNullable(a.get(0));
     }
-
-    @Override
-    public Optional<Room> findByAllData(String roomNumber, DormitoryType dormitoryType, YearSemester yearSemester) {
-        return Optional.ofNullable(jpaQueryFactory.select(room)
-                .from(room)
-                .where(
-                        room.roomNumber.eq(roomNumber)
-                                .and(room.dormitoryType.eq(dormitoryType)
-                                        .and(room.yearSemester.eq(yearSemester)))
-                ).fetchOne());
-    }
-
 }

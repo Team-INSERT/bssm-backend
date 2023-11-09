@@ -2,6 +2,8 @@ package com.insert.ogbsm.service.room;
 
 import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.domain.room.repo.RoomRepo;
+import com.insert.ogbsm.infra.error.exception.BsmException;
+import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.room.dto.RoomRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,8 @@ public class RoomRead {
         return roomRepo.findAllByYearSemester();
     }
     public Room getMyRoom(Long id) {
-        return roomRepo.findByUserId(id);
+        return roomRepo.findByUserId(id)
+                .orElseThrow(() -> new BsmException(ErrorCode.ROOM_NOT_FOUND));
     }
 
 }

@@ -13,8 +13,6 @@ import com.insert.ogbsm.presentation.meal.dto.res.MealRes;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
-import com.insert.ogbsm.service.bamboo.BambooService;
-import com.insert.ogbsm.service.calender.CalenderReadService;
 import com.insert.ogbsm.service.mainpage.AsideService;
 import com.insert.ogbsm.service.mainpage.MainPageService;
 import com.insert.ogbsm.service.meal.MealService;
@@ -29,8 +27,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/main")
