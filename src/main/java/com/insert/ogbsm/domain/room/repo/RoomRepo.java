@@ -12,5 +12,4 @@ import java.util.Set;
 public interface RoomRepo extends JpaRepository<Room, Long>, RoomDao {
     Optional<Room> findByYearSemesterAndRoomNumberAndDormitoryType(YearSemester yearSemester, String roomNumber, DormitoryType dormitoryType);
     Optional<Room> findByYearSemesterAndRoomMate_RoomMateIdsIn(YearSemester yearSemester, Collection<Set<Long>> roomMateIds);
-
 }

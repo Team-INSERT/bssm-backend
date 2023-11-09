@@ -34,7 +34,7 @@ public class CalenderReq {
     @NotNull
     private Short classNumber;
 
-    public Calender toEntity(Long id) {
+    public Calender toEntity(Long userId) {
         Calender calender = null;
         try {
             calender = new Calender(title, priority, LocalDate.parse(date), color, type, grade, classNumber);
@@ -42,7 +42,7 @@ public class CalenderReq {
             throw new BsmException(ErrorCode.Invalid_Date);
         }
 
-        calender.updateUserId(id);
+        calender.updateUserId(userId);
 
         return calender;
     }

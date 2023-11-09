@@ -1,9 +1,9 @@
 package com.insert.ogbsm.presentation.checkIn;
 
+import com.insert.ogbsm.domain.room.type.DormitoryType;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
-import com.insert.ogbsm.service.checkIn.CheckInDef;
-import com.insert.ogbsm.service.checkIn.CheckInRead;
+import com.insert.ogbsm.service.checkIn.business.CheckInBusiness;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,12 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/checkIn")
 public class CheckInController {
-    private final CheckInRead checkInRead;
-    private final CheckInDef checkInDef;
+    private final CheckInBusiness checkInBusiness;
 
     @PostMapping
     public Long checkIn() {
-        return checkInDef.checkIn(SecurityUtil.getCurrentUserIdWithoutLogin());
+        return checkInBusiness.checkIn(SecurityUtil.getCurrentUserIdWithoutLogin());
     }
 
 //    @GetMapping
@@ -31,10 +30,10 @@ public class CheckInController {
 //    }
 
     @GetMapping
-    public CheckInRes getMyCheckInWithRoom() { return checkInRead.getMyRoom(SecurityUtil.getCurrentUserIdWithoutLogin()); }
+    public CheckInRes getMyCheckInWithRoom() { return checkInBusiness.getMyRoom(SecurityUtil.getCurrentUserIdWithoutLogin()); }
 
     @GetMapping("/all")
     public List<CheckInRes> getAllCheckIn(@RequestParam(name = "type", defaultValue = "all") String dormitoryType) {
-        return checkInRead.getCheckIn(dormitoryType);
+        return checkInBusiness.getCheckIn(dormitoryType);
     }
 }

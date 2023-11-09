@@ -1,43 +1,31 @@
-package com.insert.ogbsm.service.checkIn;
+package com.insert.ogbsm.service.checkIn.implement;
 
 import com.insert.ogbsm.domain.checkIn.CheckIn;
 import com.insert.ogbsm.domain.checkIn.repo.CheckInRepo;
 import com.insert.ogbsm.domain.room.Room;
-import com.insert.ogbsm.domain.room.repo.RoomRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
-import java.util.Set;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class CheckInDef {
+public class CheckInValidation {
     private final CheckInRepo checkInRepo;
-    private final RoomRepo roomRepo;
 
-    public Long checkIn(Long userId) {
-        System.out.println(userId);
-        Collection<Set<Long>> userIdSet = Collections.singleton(Collections.singleton(userId));
-        Room room = roomRepo.findByUserId(userId);
-
-        if (room == null) {
-            System.out.println("asfd");
-            throw new BsmException(ErrorCode.NOT_YOUR_ROOM);
-        }
-
+    public void mustNotCheckedIn(Long userId) {
         Optional<CheckIn> checkIn = checkInRepo.findTodayCheckIn(LocalDate.now().atStartOfDay(), userId);
 
         if (checkIn.isPresent()) {
             throw new BsmException(ErrorCode.ALREADY_CHECKIN);
         }
+    }
 
+    public Long appendCheckIn(Room room, Long userId) {
         CheckIn newCheckIn = CheckIn.builder()
                 .roomId(room.getId())
                 .userId(userId)
@@ -45,7 +33,5 @@ public class CheckInDef {
                 .build();
 
         return checkInRepo.save(newCheckIn).getId();
-
     }
-
 }

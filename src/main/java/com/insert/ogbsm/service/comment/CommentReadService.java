@@ -28,7 +28,7 @@ public class CommentReadService {
 
     public Pagination<List<CommentRes>> readComments(Long postId, Long userId, Pageable pageable) {
         Page<Comment> postPage = commentRepo.findByPostId(postId, userId, pageable);
-/**/
+
         List<CommentRes> comments = postPage.stream()
                 .map(comment -> new CommentRes(
                                 comment,

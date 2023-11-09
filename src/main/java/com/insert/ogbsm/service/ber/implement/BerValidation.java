@@ -1,5 +1,6 @@
-package com.insert.ogbsm.service.validation;
+package com.insert.ogbsm.service.ber.implement;
 
+import com.insert.ogbsm.domain.ber.Ber;
 import com.insert.ogbsm.domain.ber.repo.BerRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
@@ -18,10 +19,10 @@ public class BerValidation {
 
     private final BerRepo berRepo;
 
-    public void executeReserve(BerReserveReq berReserveReq, Long userId) {
-        checkAlreadyReserved(berReserveReq.getBerNumber(), berReserveReq.getReservationTime());
-        checkUserAlreadyReservedSameTime(berReserveReq.getReservationTime(), userId);
-        checkReservationTime(berReserveReq.getReservationTime());
+    public void executeReserve(Ber ber) {
+        checkAlreadyReserved(ber.getBerNumber(), ber.getReservationDate());
+        checkUserAlreadyReservedSameTime(ber.getReservationDate(), ber.getReservationUserId());
+        checkReservationTime(ber.getReservationDate());
 
     }
 

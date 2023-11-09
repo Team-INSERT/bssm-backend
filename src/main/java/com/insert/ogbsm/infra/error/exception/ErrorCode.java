@@ -32,7 +32,7 @@ public enum ErrorCode {
 
     //Ber
     Ber_Already_Reserved(400, "BER-400-1", "Ber Already Reserved"),
-    Ber_Not_Found(400, "Ber-400-2", "Ber Not Found"),
+    Ber_Not_Found(404, "Ber-400-2", "Ber Not Found"),
     Ber_User_Already_Reserved_Same_Time(400, "Ber-400-3", "Ber User Already Reserved Same Time"),
     Ber_Reservation_Time_Before_Now(400, "Ber-400-4", "Ber Reservation Time Before Now"),
     Ber_Reservation_Time_Not_Monday_To_Sunday(400, "BER-400-5", "Ber_Reservation_Time_Not_Sunday_To_Friday "),
@@ -77,9 +77,11 @@ public enum ErrorCode {
     AlreadyFullRoomMate(400, "Room-400-1", "RoomMate Already Full"),
     Not_ALLOW_DATE(400, "Room-400-2", "Not Allowed Date"),
     NOT_YOUR_ROOM(403, "Room-403-1", "Not your Room"),
+    ROOM_NOT_FOUND(404, "CheckIn-404-1", "CheckIn Not Found"),
 
     //CheckIN
-    ALREADY_CHECKIN(400, "CheckIn-400-1", "Already checkIn");
+    ALREADY_CHECKIN(400, "CheckIn-400-1", "Already checkIn"),
+    CHECKIN_NOTFOUND(404, "CheckIn-404-1", "CheckIn Not Found");
 
     private final int status;
     private final String code;
