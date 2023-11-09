@@ -8,12 +8,14 @@ import com.insert.ogbsm.presentation.calender.dto.CalenderReadReq;
 import com.insert.ogbsm.presentation.calender.dto.CalenderReadRes;
 import com.insert.ogbsm.presentation.calender.dto.CalenderSimpleRes;
 import com.insert.ogbsm.presentation.mainpage.dto.MainRes;
+import com.insert.ogbsm.presentation.mainpage.dto.dto.AsideRes;
 import com.insert.ogbsm.presentation.meal.dto.res.MealRes;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.bamboo.BambooService;
 import com.insert.ogbsm.service.calender.CalenderReadService;
+import com.insert.ogbsm.service.mainpage.AsideService;
 import com.insert.ogbsm.service.mainpage.MainPageService;
 import com.insert.ogbsm.service.meal.MealService;
 import com.insert.ogbsm.service.meister.MeisterRankingService;
@@ -35,6 +37,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MainPageController {
     private final MainPageService mainPageService;
+    private final AsideService asideService;
 
     @GetMapping()
     public MainRes get() {
@@ -42,5 +45,13 @@ public class MainPageController {
         User currentUserOrNotLogin = SecurityUtil.getCurrentUserWithLogin();
 
         return mainPageService.get(now, currentUserOrNotLogin);
+    }
+
+    @GetMapping("/aside")
+    public AsideRes asideGet() {
+        LocalDate now = LocalDate.now();
+        User currentUserOrNotLogin = SecurityUtil.getCurrentUserWithLogin();
+
+        return asideService.get(now, currentUserOrNotLogin);
     }
 }

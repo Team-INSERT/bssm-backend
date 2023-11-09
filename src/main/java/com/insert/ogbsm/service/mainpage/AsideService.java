@@ -1,71 +1,56 @@
 package com.insert.ogbsm.service.mainpage;
 
-import com.insert.ogbsm.domain.post.category.Category;
+import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.domain.user.User;
-import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.calender.dto.CalenderSimpleRes;
-import com.insert.ogbsm.presentation.checkIn.dto.CheckInRes;
-import com.insert.ogbsm.presentation.mainpage.dto.MainRes;
+import com.insert.ogbsm.presentation.mainpage.dto.dto.AsideRes;
 import com.insert.ogbsm.presentation.meal.dto.res.MealRes;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
-import com.insert.ogbsm.presentation.post.dto.PostRes;
-import com.insert.ogbsm.presentation.room.dto.RoomRes;
-import com.insert.ogbsm.service.bamboo.BambooService;
 import com.insert.ogbsm.service.calender.CalenderReadService;
 import com.insert.ogbsm.service.checkIn.CheckInRead;
 import com.insert.ogbsm.service.meal.MealService;
 import com.insert.ogbsm.service.meister.MeisterRankingService;
 import com.insert.ogbsm.service.meister.MeisterService;
-import com.insert.ogbsm.service.post.PostReadService;
+import com.insert.ogbsm.service.room.RoomRead;
+import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MainPageService {
+public class AsideService {
     private final MealService mealService;
     private final CalenderReadService calenderReadService;
-    private final BambooService bambooService;
     private final MeisterService meisterService;
-    private final PostReadService postReadService;
     private final MeisterRankingService meisterRankingService;
     private final CheckInRead checkInRead;
-
-
-    public MainRes get(LocalDate now, User currentUser) {
+    private final RoomRead roomRead;
+    public AsideRes get(LocalDate now, User currentUser) {
         MealRes meal = mealService.getMeal(now);
-
         CalenderSimpleRes calender = null;
         MeisterResAndAvgAndMax meisterResAndAvgAndMax1 = null;
         Integer ranking = null;
-        AllowedBambooRes allowedBambooRes = null;
-        List<PostRes> common = null;
-        List<PostRes> notice = null;
+        Room room = null;
+        Boolean checkInRes = null;
 
         if (currentUser != null) {
             calender = calenderReadService.getOne(now);
             ranking = meisterRankingService.getRankingOne(currentUser);
             meisterResAndAvgAndMax1 = meisterService.get(currentUser);
-            allowedBambooRes = bambooService.findMostRecentAllowedBamboo();
-            common = postReadService.readTop5ByCategory(Category.COMMON);
-            notice = postReadService.readTop5ByCategory(Category.NOTICE);
+            checkInRes = checkInRead.getMyCheckIn(currentUser.getId());
+            room = roomRead.getMyRoom(currentUser.getId());
+
         }
 
-        return new MainRes(
+        return new AsideRes(
                 meal,
                 calender,
                 meisterResAndAvgAndMax1,
                 ranking,
-                allowedBambooRes,
-                common,
-                notice
+                room,
+                checkInRes
         );
     }
 }
-
-
