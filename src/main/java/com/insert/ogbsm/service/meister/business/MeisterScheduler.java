@@ -1,9 +1,10 @@
-package com.insert.ogbsm.service.meister;
+package com.insert.ogbsm.service.meister.business;
 
 import com.insert.ogbsm.domain.meister.MeisterData;
 import com.insert.ogbsm.domain.meister.repository.MeisterDataRepository;
 import com.insert.ogbsm.domain.user.Student;
 import com.insert.ogbsm.domain.user.repo.StudentRepo;
+import com.insert.ogbsm.service.meister.implement.MeisterDataProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

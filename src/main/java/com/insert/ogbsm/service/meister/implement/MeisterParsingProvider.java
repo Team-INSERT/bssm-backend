@@ -1,7 +1,8 @@
-package com.insert.ogbsm.service.meister;
+package com.insert.ogbsm.service.meister.implement;
 
 import com.insert.ogbsm.domain.user.Student;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterDetailResponse;
+import com.insert.ogbsm.service.meister.implement.MeisterAuthProvider;
 import lombok.RequiredArgsConstructor;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;

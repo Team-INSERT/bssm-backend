@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.meister;
+package com.insert.ogbsm.service.meister.implement;
 
 import com.insert.ogbsm.domain.user.Student;
 import com.insert.ogbsm.infra.error.exception.BsmException;

@@ -9,8 +9,8 @@ import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax
 import com.insert.ogbsm.service.calender.business.CalenderBusiness;
 import com.insert.ogbsm.service.checkIn.business.CheckInBusiness;
 import com.insert.ogbsm.service.meal.business.MealBusiness;
-import com.insert.ogbsm.service.meister.MeisterRankingService;
-import com.insert.ogbsm.service.meister.MeisterService;
+import com.insert.ogbsm.service.meister.business.MeisterRankingBusiness;
+import com.insert.ogbsm.service.meister.business.MeisterBusiness;
 import com.insert.ogbsm.service.room.RoomRead;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +24,8 @@ import java.time.LocalDate;
 public class AsideService {
     private final MealBusiness mealBusiness;
     private final CalenderBusiness calenderBusiness;
-    private final MeisterService meisterService;
-    private final MeisterRankingService meisterRankingService;
+    private final MeisterBusiness meisterBusiness;
+    private final MeisterRankingBusiness meisterRankingBusiness;
     private final CheckInBusiness checkInBusiness;
     private final RoomRead roomRead;
 
@@ -39,8 +39,8 @@ public class AsideService {
 
         if (currentUser != null) {
             calender = calenderBusiness.readByDate(now);
-            ranking = meisterRankingService.getRankingOne(currentUser);
-            meisterResAndAvgAndMax1 = meisterService.get(currentUser);
+            ranking = meisterRankingBusiness.getRankingOne(currentUser);
+            meisterResAndAvgAndMax1 = meisterBusiness.get(currentUser);
             checkInRes = checkInBusiness.readMyCheckIn(currentUser.getId());
             room = roomRead.getMyRoom(currentUser.getId());
 

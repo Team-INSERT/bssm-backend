@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.validation;
+package com.insert.ogbsm.service.calender.implement;
 
 import com.insert.ogbsm.domain.calender.Calender;
 import com.insert.ogbsm.domain.calender.Type;

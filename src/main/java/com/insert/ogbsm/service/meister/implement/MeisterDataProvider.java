@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.meister;
+package com.insert.ogbsm.service.meister.implement;
 
 import com.insert.ogbsm.domain.meister.MeisterData;
 import com.insert.ogbsm.domain.meister.MeisterInfo;
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MeisterDataProvider {
 
-    private final MeisterInfoFacade meisterInfoFacade;
+    private final MeisterImplement meisterImpleMent;
     private final MeisterInfoRepository meisterInfoRepository;
     private final MeisterDataRepository meisterDataRepository;
     private final MeisterParsingProvider meisterProvider;
@@ -48,12 +48,12 @@ public class MeisterDataProvider {
         MeisterDetailResponse responseDto;
         try {
             meisterData.setModifiedAt(LocalDateTime.now());
-            meisterAuthProvider.login(meisterInfoFacade.getStudent(meisterInfo), meisterInfo.getStudentId());
-            responseDto = meisterProvider.getAllInfo(meisterInfoFacade.getStudent(meisterInfo));
+            meisterAuthProvider.login(meisterImpleMent.getStudent(meisterInfo), meisterInfo.getStudentId());
+            responseDto = meisterProvider.getAllInfo(meisterImpleMent.getStudent(meisterInfo));
         } catch (BsmException e) {
             try {
                 meisterInfo.setLoginError(true);
-                responseDto = meisterProvider.getScoreInfo(meisterInfoFacade.getStudent(meisterInfo));
+                responseDto = meisterProvider.getScoreInfo(meisterImpleMent.getStudent(meisterInfo));
                 meisterData.setScores(responseDto);
                 meisterData.setScoreRawData(responseDto.getScoreHtmlContent());
             } catch (IOException ex) {

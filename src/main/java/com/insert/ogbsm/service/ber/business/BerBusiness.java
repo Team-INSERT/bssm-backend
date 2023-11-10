@@ -21,7 +21,6 @@ public class BerBusiness {
 
     public Long berReserve(Ber ber) {
         berValidation.executeReserve(ber);
-
         return berImplement.append(ber);
     }
 
