@@ -7,7 +7,7 @@ import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.service.post.implement.PostValidation;
-import com.insert.ogbsm.service.validation.UserValidation;
+import com.insert.ogbsm.service.user.implement.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

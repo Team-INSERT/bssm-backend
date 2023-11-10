@@ -8,7 +8,7 @@ import com.insert.ogbsm.presentation.post.dto.PostLikeRes;
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.post.implement.PostImplement;
 import com.insert.ogbsm.service.post.implement.PostValidation;
-import com.insert.ogbsm.service.validation.UserValidation;
+import com.insert.ogbsm.service.user.implement.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
