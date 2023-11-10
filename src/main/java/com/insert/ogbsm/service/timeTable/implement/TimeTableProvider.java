@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.timeTable;
+package com.insert.ogbsm.service.timeTable.implement;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

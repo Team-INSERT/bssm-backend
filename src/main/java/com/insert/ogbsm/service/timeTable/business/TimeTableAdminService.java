@@ -1,7 +1,8 @@
-package com.insert.ogbsm.service.timeTable;
+package com.insert.ogbsm.service.timeTable.business;
 
 import com.insert.ogbsm.domain.timeTable.TimeTable;
 import com.insert.ogbsm.domain.timeTable.repo.TimeTableRepo;
+import com.insert.ogbsm.service.timeTable.implement.TimeTableProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
