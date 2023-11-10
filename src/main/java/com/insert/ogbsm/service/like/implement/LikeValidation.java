@@ -3,16 +3,13 @@ package com.insert.ogbsm.service.like.implement;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.like.Likes;
-import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.service.validation.PostValidation;
-import com.insert.ogbsm.service.validation.UserValidation;
+import com.insert.ogbsm.service.post.implement.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor

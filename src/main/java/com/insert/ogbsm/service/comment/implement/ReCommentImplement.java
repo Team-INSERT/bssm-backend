@@ -4,12 +4,12 @@ import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.ReComment;
 import com.insert.ogbsm.domain.comment.repo.ReCommentRepo;
 import com.insert.ogbsm.domain.like.Likes;
+import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
-import com.insert.ogbsm.service.like.implement.LikesImplement;
 import com.insert.ogbsm.service.user.implement.UserImplement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ public class ReCommentImplement {
     private final ReCommentRepo reCommentRepo;
     private final CommentImplement commentImplement;
     private final UserImplement userImplement;
-    private final LikesImplement likesImplement;
+    private final LikesRepo likesRepo;
 
 
     public void increaseReCommentCount(Long commentId) {
@@ -69,7 +69,7 @@ public class ReCommentImplement {
 
     private boolean doesLikeComment(Long userId, ReComment reComment) {
         if (userId != null) {
-            Optional<Likes> likes = likesImplement.readByUserIdAndPartyIdAndType(userId, reComment.getId(), Type.RECOMMENT);
+            Optional<Likes> likes = likesRepo.findByUserIdAndPartyIdAndType(userId, reComment.getId(), Type.RECOMMENT);
             return likes.isPresent();
         }
 

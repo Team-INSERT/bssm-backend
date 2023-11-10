@@ -40,7 +40,7 @@ public class LikesImplement {
 
     public void addLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
-            Post post = postImplement.readPost(likes.getPartyId());
+            Post post = postImplement.read(likes.getPartyId());
             post.increaseLike();
         }
         else if (likes.getType() == Type.COMMENT) {
@@ -59,7 +59,7 @@ public class LikesImplement {
 
     public void decreaseLikeCount(Likes likes) {
         if (likes.getType() == Type.POST) {
-            Post post = postImplement.readPost(likes.getPartyId());
+            Post post = postImplement.read(likes.getPartyId());
             post.decreaseLike();
         }
         else if (likes.getType() == Type.COMMENT) {

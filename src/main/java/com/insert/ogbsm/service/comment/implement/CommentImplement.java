@@ -3,13 +3,13 @@ package com.insert.ogbsm.service.comment.implement;
 import com.insert.ogbsm.domain.comment.Comment;
 import com.insert.ogbsm.domain.comment.repo.CommentRepo;
 import com.insert.ogbsm.domain.like.Likes;
+import com.insert.ogbsm.domain.like.repo.LikesRepo;
 import com.insert.ogbsm.domain.like.type.Type;
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
-import com.insert.ogbsm.service.like.implement.LikesImplement;
 import com.insert.ogbsm.service.post.implement.PostImplement;
 import com.insert.ogbsm.service.user.implement.UserImplement;
 import com.insert.ogbsm.service.validation.PostValidation;
@@ -29,7 +29,7 @@ import static com.insert.ogbsm.presentation.comment.dto.CommentRes.CommentDefRes
 public class CommentImplement {
     private final CommentRepo commentRepo;
     private final PostImplement postImplement;
-    private final LikesImplement likesImplement;
+    private final LikesRepo likesRepo;
     private final PostValidation postValidation;
     private final UserImplement userImplement;
 
@@ -51,12 +51,12 @@ public class CommentImplement {
     public void increaseCommentCount(Long postId) {
         postValidation.checkPostExist(postId);
 
-        Post post = postImplement.readPost(postId);
+        Post post = postImplement.read(postId);
         post.increaseCommentCount();
     }
 
     public void decreaseCommentCount(Long postId) {
-        Post post = postImplement.readPost(postId);
+        Post post = postImplement.read(postId);
         post.decreaseCommentCount();
     }
 
@@ -75,7 +75,7 @@ public class CommentImplement {
 
     public boolean checkDoesLikeComment(Long userId, Comment comment) {
         if (userId != null) {
-            Optional<Likes> likes = likesImplement.readByUserIdAndPartyIdAndType(userId, comment.getId(), Type.COMMENT);
+            Optional<Likes> likes = likesRepo.findByUserIdAndPartyIdAndType(userId, comment.getId(), Type.COMMENT);
             return likes.isPresent();
         }
 

@@ -5,7 +5,7 @@ import com.insert.ogbsm.presentation.comment.dto.ReCommentReq;
 import com.insert.ogbsm.presentation.comment.dto.ReCommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.service.comment.implement.ReCommentImplement;
-import com.insert.ogbsm.service.validation.UserValidation;
+import com.insert.ogbsm.service.post.implement.UserValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

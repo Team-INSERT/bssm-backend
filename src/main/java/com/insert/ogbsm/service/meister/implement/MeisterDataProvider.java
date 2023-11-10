@@ -5,6 +5,7 @@ import com.insert.ogbsm.domain.meister.MeisterInfo;
 import com.insert.ogbsm.domain.meister.repository.MeisterDataRepository;
 import com.insert.ogbsm.domain.meister.repository.MeisterInfoRepository;
 import com.insert.ogbsm.domain.user.Student;
+import com.insert.ogbsm.domain.user.repo.StudentRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterDetailResponse;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class MeisterDataProvider {
 
-    private final MeisterImplement meisterImpleMent;
+    private final StudentRepo studentRepo;
     private final MeisterInfoRepository meisterInfoRepository;
     private final MeisterDataRepository meisterDataRepository;
     private final MeisterParsingProvider meisterProvider;
@@ -48,12 +49,12 @@ public class MeisterDataProvider {
         MeisterDetailResponse responseDto;
         try {
             meisterData.setModifiedAt(LocalDateTime.now());
-            meisterAuthProvider.login(meisterImpleMent.getStudent(meisterInfo), meisterInfo.getStudentId());
-            responseDto = meisterProvider.getAllInfo(meisterImpleMent.getStudent(meisterInfo));
+            meisterAuthProvider.login(getStudent(meisterInfo), meisterInfo.getStudentId());
+            responseDto = meisterProvider.getAllInfo(getStudent(meisterInfo));
         } catch (BsmException e) {
             try {
                 meisterInfo.setLoginError(true);
-                responseDto = meisterProvider.getScoreInfo(meisterImpleMent.getStudent(meisterInfo));
+                responseDto = meisterProvider.getScoreInfo(getStudent(meisterInfo));
                 meisterData.setScores(responseDto);
                 meisterData.setScoreRawData(responseDto.getScoreHtmlContent());
             } catch (IOException ex) {
@@ -76,6 +77,11 @@ public class MeisterDataProvider {
         meisterData.setPointRawData(responseDto.getPointHtmlContent());
 
         return meisterDataRepository.save(meisterData);
+    }
+
+    private Student getStudent(MeisterInfo meisterInfo) {
+        return studentRepo.findByEmail(meisterInfo.getEmail())
+                .orElse(null);
     }
 
 }

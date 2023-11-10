@@ -11,9 +11,9 @@ import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.bamboo.business.BambooBusiness;
 import com.insert.ogbsm.service.calender.business.CalenderBusiness;
 import com.insert.ogbsm.service.meal.business.MealBusiness;
-import com.insert.ogbsm.service.meister.business.MeisterRankingBusiness;
 import com.insert.ogbsm.service.meister.business.MeisterBusiness;
-import com.insert.ogbsm.service.post.PostReadService;
+import com.insert.ogbsm.service.meister.business.MeisterRankingBusiness;
+import com.insert.ogbsm.service.post.business.PostBusiness;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,8 +29,8 @@ public class MainPageService {
     private final CalenderBusiness calenderBusiness;
     private final BambooBusiness bambooBusiness;
     private final MeisterBusiness meisterBusiness;
-    private final PostReadService postReadService;
     private final MeisterRankingBusiness meisterRankingBusiness;
+    private final PostBusiness postBusiness;
 
 
     public MainRes get(LocalDate now, User currentUser) {
@@ -48,8 +48,8 @@ public class MainPageService {
             ranking = meisterRankingBusiness.getRankingOne(currentUser);
             meisterResAndAvgAndMax1 = meisterBusiness.get(currentUser);
             allowedBambooRes = bambooBusiness.findMostRecentAllowedBamboo();
-            common = postReadService.readTop5ByCategory(Category.COMMON);
-            notice = postReadService.readTop5ByCategory(Category.NOTICE);
+            common = postBusiness.readTop5ByCategory(Category.COMMON);
+            notice = postBusiness.readTop5ByCategory(Category.NOTICE);
         }
 
         return new MainRes(

@@ -1,5 +1,7 @@
 package com.insert.ogbsm.service.validation;
 
+import com.insert.ogbsm.domain.post.Post;
+import com.insert.ogbsm.domain.post.category.Category;
 import com.insert.ogbsm.domain.post.repo.PostRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
@@ -14,5 +16,11 @@ public class PostValidation {
     public void checkPostExist(Long postId) {
         postRepo.findById(postId)
                 .orElseThrow(() -> new BsmException(ErrorCode.POST_NOT_FOUND));
+    }
+
+    public void mustBeLostOrFound(Post post) {
+        if (post.getCategory() != Category.LOST && post.getCategory() != Category.FOUND) {
+            throw new BsmException(ErrorCode.POST_TYPE_WEIRD);
+        }
     }
 }

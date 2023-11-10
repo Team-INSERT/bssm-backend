@@ -50,11 +50,6 @@ public class MeisterImplement {
                 .orElseThrow(() -> new BsmException(ErrorCode.MEISTER_INFO_NOT_FOUND));
     }
 
-    public Student getStudent(MeisterInfo meisterInfo) {
-        return studentRepo.findByEmail(meisterInfo.getEmail())
-                .orElse(null);
-    }
-
     public MeisterInfo readInfoByEmail(String email) {
         return meisterInfoRepository.findByEmail(email)
                 .orElseThrow(() -> new BsmException(ErrorCode.MEISTER_INFO_NOT_FOUND));
