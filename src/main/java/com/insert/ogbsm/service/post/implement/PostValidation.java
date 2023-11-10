@@ -1,4 +1,4 @@
-package com.insert.ogbsm.service.validation;
+package com.insert.ogbsm.service.post.implement;
 
 import com.insert.ogbsm.domain.post.Post;
 import com.insert.ogbsm.domain.post.category.Category;

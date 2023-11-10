@@ -12,7 +12,7 @@ import com.insert.ogbsm.presentation.comment.dto.CommentRes;
 import com.insert.ogbsm.presentation.pagination.Pagination;
 import com.insert.ogbsm.service.post.implement.PostImplement;
 import com.insert.ogbsm.service.user.implement.UserImplement;
-import com.insert.ogbsm.service.validation.PostValidation;
+import com.insert.ogbsm.service.post.implement.PostValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

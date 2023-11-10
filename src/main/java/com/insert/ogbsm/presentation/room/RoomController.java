@@ -3,7 +3,7 @@ package com.insert.ogbsm.presentation.room;
 import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.room.dto.AllocateRoomReq;
 import com.insert.ogbsm.presentation.room.dto.RoomRes;
-import com.insert.ogbsm.service.room.RoomDef;
+import com.insert.ogbsm.service.room.business.RoomBusiness;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,20 +13,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/room")
 public class RoomController {
-    private final RoomDef roomDef;
+    private final RoomBusiness roomBusiness;
 
     @PostMapping("/allow")
     public boolean allowRoom() {
-        return roomDef.setAllocateRoomPublic();
+        return roomBusiness.setAllocateRoomPublic();
     }
 
     @PostMapping("/allocate")
-    public Long allocateRoom(@RequestBody AllocateRoomReq allocateRoomReq) {
-        return roomDef.allocateRoom(allocateRoomReq, SecurityUtil.getCurrentUserIdWithLogin());
-    }
-
-    @GetMapping
-    public List<RoomRes> getRoom() {
-        return roomDef.getRoom();
+    public void allocateRoom(@RequestBody AllocateRoomReq allocateRoomReq) {
+        roomBusiness.allocateRoom(allocateRoomReq, SecurityUtil.getCurrentUserIdWithLogin());
     }
 }
