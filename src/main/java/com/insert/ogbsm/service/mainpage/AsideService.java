@@ -11,7 +11,7 @@ import com.insert.ogbsm.service.checkIn.business.CheckInBusiness;
 import com.insert.ogbsm.service.meal.business.MealBusiness;
 import com.insert.ogbsm.service.meister.business.MeisterRankingBusiness;
 import com.insert.ogbsm.service.meister.business.MeisterBusiness;
-import com.insert.ogbsm.service.room.RoomRead;
+import com.insert.ogbsm.service.room.business.RoomBusiness;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class AsideService {
     private final MeisterBusiness meisterBusiness;
     private final MeisterRankingBusiness meisterRankingBusiness;
     private final CheckInBusiness checkInBusiness;
-    private final RoomRead roomRead;
+    private final RoomBusiness roomBusiness;
 
     public AsideRes get(LocalDate now, User currentUser) {
         MealRes meal = mealBusiness.getMeal(now);
@@ -42,7 +42,7 @@ public class AsideService {
             ranking = meisterRankingBusiness.getRankingOne(currentUser);
             meisterResAndAvgAndMax1 = meisterBusiness.get(currentUser);
             checkInRes = checkInBusiness.readMyCheckIn(currentUser.getId());
-            room = roomRead.getMyRoom(currentUser.getId());
+            room = roomBusiness.getMyRoom(currentUser.getId());
 
         }
 
