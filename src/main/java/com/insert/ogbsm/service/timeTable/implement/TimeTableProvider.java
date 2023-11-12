@@ -29,7 +29,7 @@ import static java.util.Objects.requireNonNull;
 public class TimeTableProvider {
     private final OkHttpClient httpClient;
 
-    @Value("${env.neis.time_table_url}")
+    @Value("${neis.time-table-url}")
     private String TIME_TABLE_API_URL;
 
     @Nullable

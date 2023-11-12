@@ -36,11 +36,11 @@ public class MealImplement {
                 .orElseThrow(() -> new BsmException(ErrorCode.MEAL_NOT_FOUND));
     }
 
-    public List<RawMealItemDto> getRawMonthMealList(YearMonth date) throws IOException {
+    private List<RawMealItemDto> getRawMonthMealList(YearMonth date) throws IOException {
         return mealProvider.getRawMonthMealList(date);
     }
 
-    public List<Meal> refineRawMeal(List<RawMealItemDto> getRawMeal) {
+    private List<Meal> refineRawMeal(List<RawMealItemDto> getRawMeal) {
         return getRawMeal.stream()
                 .map(meal -> meal.toEntity(filterMealStr(meal.DDISH_NM())))
                 .toList();
@@ -53,5 +53,11 @@ public class MealImplement {
 
     public void appendAll(List<Meal> meals) {
         mealRepo.saveAll(meals);
+    }
+
+    public List<Meal> getMonthMeal(YearMonth date) throws IOException {
+        List<RawMealItemDto> rawMonthMeal = getRawMonthMealList(date);
+        return refineRawMeal(rawMonthMeal);
+
     }
 }

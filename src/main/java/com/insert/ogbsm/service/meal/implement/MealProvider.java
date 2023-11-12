@@ -26,7 +26,7 @@ public class MealProvider {
 
     private final OkHttpClient httpClient;
 
-    @Value("${env.neis.meal_url}")
+    @Value("${neis.meal-url}")
     private String MEAL_API_URL;
 
     public List<RawMealItemDto> getRawMonthMealList(YearMonth date) throws IOException {

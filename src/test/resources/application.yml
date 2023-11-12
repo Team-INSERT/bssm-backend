@@ -1,16 +1,47 @@
 spring:
+  profiles:
+    active: test
+
   datasource:
-    url: jdbc:h2:mem:test
-    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=MySQL
     username: sa
     password:
-  h2:
-    console:
-      enabled: true
-  profiles:
-    active: local
+
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    database: h2
-    hibernate:
-      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        highlight_sql: true
+
+
+cloud:
+  aws:
+    s3:
+      bucket: OG_S3_버킷
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    credentials:
+      instance-profile: true
+      access-key: 접근_키
+      secret-key: 비밀_키
+
+auth:
+  jwt:
+    header: header
+    secret: this1is2oggg3test4secret5key6afsdafasdfasdfasdfasdf
+    accessExp: 604800000
+    refreshExp: 604800000
+    prefix: prefix
+
+bsm:
+  client-id: 클라이언트_아이디
+  secret-key: 비밀_키
+  redirect-url: redirect-url
+
+neis:
+  meal-url: mealurl.com
+  time-table-url: timetable.com
