@@ -21,12 +21,13 @@ public class BambooController {
 
     private final BambooBusiness bambooBusiness;
 
-    @GetMapping()
+    @GetMapping
     public Slice<AllowedBambooRes> findAllAllowedBamboo(Pageable pageable) {
-        return bambooBusiness.findAllAllowedBamboo(pageable);
+        return bambooBusiness.findAllAllowedBamboo(pageable)
+                .map(AllowedBambooRes::new);
     }
 
-    @PostMapping()
+    @PostMapping
     public Long CreateNewBamboo(@RequestBody @Valid CreateBambooReq createBambooReq) {
         return bambooBusiness.createBamboo(createBambooReq.of(SecurityUtil.getCurrentUserIdWithLogin()));
     }

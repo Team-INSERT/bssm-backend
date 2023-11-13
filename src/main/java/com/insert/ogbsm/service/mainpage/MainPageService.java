@@ -47,7 +47,7 @@ public class MainPageService {
             calender = calenderBusiness.readByDate(now);
             ranking = meisterRankingBusiness.getRankingOne(currentUser);
             meisterResAndAvgAndMax1 = meisterBusiness.get(currentUser);
-            allowedBambooRes = bambooBusiness.findMostRecentAllowedBamboo();
+            allowedBambooRes = new AllowedBambooRes(bambooBusiness.findMostRecentAllowedBamboo());
             common = postBusiness.readTop5ByCategory(Category.COMMON);
             notice = postBusiness.readTop5ByCategory(Category.NOTICE);
         }
