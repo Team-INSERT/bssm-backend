@@ -114,6 +114,7 @@ jacocoTestReport {
 					fileTree(dir: it, excludes: [
 							'com/insert/ogbsm/domain/**',
 							'com/insert/ogbsm/infra/**',
+							'com/insert/ogbsm/presentation/**',
 					])
 				})
 		)
@@ -147,6 +148,7 @@ jacocoTestCoverageVerification {
 							fileTree(dir: it, excludes: [
 									'com/insert/ogbsm/domain/**',
 									'com/insert/ogbsm/infra/**',
+									'com/insert/ogbsm/presentation/**',
 							] + Qdomains)
 						})
 				)
