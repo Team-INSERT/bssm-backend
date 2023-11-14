@@ -4,8 +4,6 @@ import com.insert.ogbsm.domain.ber.Ber;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
 import com.insert.ogbsm.integration.ber.implement.BerTestImplement;
 import com.insert.ogbsm.presentation.ber.dto.BerReadRes;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +15,6 @@ import static com.insert.ogbsm.integration.ber.implement.BerTestImplement.fixtur
 
 public class BerBusinessTest extends BerTestImplement {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Test
     @Transactional(readOnly = true)
     void 예약된_날짜로_베르실을_전체_조회한다() {
@@ -30,7 +25,6 @@ public class BerBusinessTest extends BerTestImplement {
                 베르실4_11월_15일_화_4L
                 );
 
-        entityManager.flush();
         Ber_전체_예약하기(저장할_Ber, LocalDate.of(2023, 11, 12));
         LocalDate 조회_날짜 = LocalDate.of(2023, 11, 14);
         //when
