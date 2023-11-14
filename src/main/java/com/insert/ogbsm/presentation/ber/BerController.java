@@ -18,7 +18,7 @@ public class BerController {
 
     @PostMapping
     public Long BerReserve(@RequestBody BerReserveReq berReserveReq) {
-        return berBusiness.berReserve(berReserveReq.to(SecurityUtil.getCurrentUserIdWithLogin()));
+        return berBusiness.berReserve(berReserveReq.to(SecurityUtil.getCurrentUserIdWithLogin()), LocalDate.now());
     }
 
     @GetMapping

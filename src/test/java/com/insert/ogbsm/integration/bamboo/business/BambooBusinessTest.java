@@ -20,7 +20,6 @@ public class BambooBusinessTest extends BambooTestImplement {
     EntityManager entityManager;
 
     @Nested
-    @Transactional
     class BambooBusiness에_대한_테스트 {
         @Test
         void Bamboo_저장한다() {
@@ -82,7 +81,6 @@ public class BambooBusinessTest extends BambooTestImplement {
     }
 
     @Nested
-    @Transactional
     class BambooAdminBusiness에_대한_테스트 {
         @Test
         void 모든_허가된_되지_않은_bamboo를_읽는다() {
@@ -107,7 +105,6 @@ public class BambooBusinessTest extends BambooTestImplement {
         }
 
         @Nested
-        @Transactional
         class bamboo를_허가한다 {
             @Test
             void 정확한_bamboo가_들어왔을_때_bamboo를_허가한다() {
@@ -130,7 +127,7 @@ public class BambooBusinessTest extends BambooTestImplement {
                 User 관리자 = 관리자();
 
                 //when, then
-                customExceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
+                exceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
                         () -> bamboo를_허가하기(삭제된_bamboo, 관리자),
                         ErrorCode.BAMBOO_NOT_FOUND);
             }
@@ -143,7 +140,7 @@ public class BambooBusinessTest extends BambooTestImplement {
 
                 bamboo를_허가하기(허가되지_않은_bamboo, 관리자);
                 //when, then
-                customExceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
+                exceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
                         () -> bamboo를_허가하기(허가되지_않은_bamboo, 관리자),
                         ErrorCode.BAMBOO_ALREADY_ALLOWED);
 
@@ -182,7 +179,7 @@ public class BambooBusinessTest extends BambooTestImplement {
                 //given
                 Bamboo bamboo가_allowed이지만_허가된_bamboo가_없는_bamboo = bamboo_단건_저장(bamboo는_allowed이지만_허가된_bamboo가_없는_bamboo());
                 //when, then
-                customExceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
+                exceptionHandler.함수를_실행할_시_다음의_에러코드를_반환한다(
                         () -> bamboo_삭제(bamboo가_allowed이지만_허가된_bamboo가_없는_bamboo),
                         ErrorCode.BAMBOO_NOT_FOUND
                 );

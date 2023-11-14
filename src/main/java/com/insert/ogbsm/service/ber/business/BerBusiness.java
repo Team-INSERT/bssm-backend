@@ -3,7 +3,8 @@ package com.insert.ogbsm.service.ber.business;
 import com.insert.ogbsm.domain.ber.Ber;
 import com.insert.ogbsm.presentation.ber.dto.BerReadRes;
 import com.insert.ogbsm.presentation.ber.dto.BerRes;
-import com.insert.ogbsm.service.ber.implement.*;
+import com.insert.ogbsm.service.ber.implement.BerImplement;
+import com.insert.ogbsm.service.ber.implement.BerValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +20,15 @@ public class BerBusiness {
     private final BerImplement berImplement;
     private final BerValidation berValidation;
 
-    public Long berReserve(Ber ber) {
-        berValidation.executeReserve(ber);
+    public Long berReserve(Ber ber, LocalDate now) {
+        berValidation.reserveValidate(ber, now);
         return berImplement.append(ber);
     }
 
     public void berCancel(Long berId, Long userId) {
         Ber ber = berImplement.read(berId);
 
-        berValidation.executeCancel(ber.getReservationUserId(), userId);
+        berValidation.cancelValidate(ber.getReservationUserId(), userId);
         berImplement.remove(ber);
     }
 

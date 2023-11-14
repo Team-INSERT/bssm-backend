@@ -1,6 +1,5 @@
 package com.insert.ogbsm.common;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -17,7 +16,7 @@ public class IntegrationTest {
     protected DatabaseCleaner databaseCleaner;
 
     @Autowired
-    protected CustomExceptionHandler customExceptionHandler;
+    protected CustomExceptionHandler exceptionHandler;
 
     @BeforeEach
     void DB테이블의_값을_정리한다() {
