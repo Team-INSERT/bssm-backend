@@ -7,6 +7,7 @@ import com.insert.ogbsm.presentation.user.dto.UserSimpleRes;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 public class PostRes {
@@ -25,8 +26,8 @@ public class PostRes {
     String lostThingImage;
     String place;
     String keepingPlace;
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    String startTime;
+    String endTime;
     String field;
 
     public PostRes(Post post, User user) {
@@ -50,8 +51,11 @@ public class PostRes {
         }
 
         if (category == Category.PROJECT) {
-            this.startTime = post.getProject().getStartTime();
-            this.endTime = post.getProject().getEndTime();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String formattedStartTime = post.getProject().getStartTime().format(formatter);
+            String formattedEndTime = post.getProject().getEndTime().format(formatter);
+            this.startTime = formattedStartTime;
+            this.endTime = formattedEndTime;
             this.field = post.getProject().getField();
         }
     }
