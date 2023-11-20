@@ -45,7 +45,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/ber").permitAll()
                         .requestMatchers(HttpMethod.POST, "/ber/**").authenticated()
                         .requestMatchers("/checkIn").authenticated()
-                        .requestMatchers("/checkIn/all").hasAuthority("ADMIN")
                         .requestMatchers("/room").authenticated()
                         .requestMatchers(HttpMethod.GET,"/main").authenticated()
                         .anyRequest().permitAll()

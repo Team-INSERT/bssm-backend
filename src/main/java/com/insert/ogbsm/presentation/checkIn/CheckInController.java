@@ -20,7 +20,6 @@ public class CheckInController {
 
     @PostMapping
     public Long checkIn() {
-
         return checkInBusiness.checkIn(SecurityUtil.getCurrentUserIdWithoutLogin());
     }
 
