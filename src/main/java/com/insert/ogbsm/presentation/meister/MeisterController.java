@@ -5,6 +5,7 @@ import com.insert.ogbsm.presentation.meister.dto.request.MeisterDetailRequest;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterDetailResponse;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax;
 import com.insert.ogbsm.presentation.meister.dto.response.MeisterResponse;
+import com.insert.ogbsm.service.meister.MeisterAvg;
 import com.insert.ogbsm.service.meister.MeisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class MeisterController {
     private final MeisterService meisterService;
 
     @PostMapping("/detail")
-    public MeisterDetailResponse getDetail(@RequestBody MeisterDetailRequest dto) throws IOException {
+    public MeisterAvg getDetail(@RequestBody MeisterDetailRequest dto) throws IOException {
         return meisterService.getDetail(SecurityUtil.getCurrentUserWithLogin(), dto);
     }
 

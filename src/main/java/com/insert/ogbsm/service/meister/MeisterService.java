@@ -32,7 +32,7 @@ public class MeisterService {
     private final MeisterDataProvider meisterDataProvider;
     private final MeisterInfoFacade meisterInfoFacade;
 
-    public MeisterDetailResponse getDetail(User user, MeisterDetailRequest dto) throws IOException {
+    public MeisterAvg getDetail(User user, MeisterDetailRequest dto) throws IOException {
         Student student = studentRepo.findByGradeAndClassNoAndStudentNo(dto.getGrade(), dto.getClassNo(), dto.getStudentNo())
                 .orElseThrow(() -> new BsmException(ErrorCode.STUDENT_NOT_FOUND));
         meisterInfoFacade.viewPermissionCheck(user, student);
@@ -57,7 +57,10 @@ public class MeisterService {
         meisterData.setPointRawData(detailInfo.getPointHtmlContent());
 
         meisterDataRepository.save(meisterData);
-        return detailInfo;
+        return new MeisterAvg(detailInfo,
+                meisterDataRepository.findAvgByGradeOfScores(user.getGrade()),
+                meisterDataRepository.findMaxByGradeOfScores(user.getGrade())
+        );
     }
 
     public MeisterResAndAvgAndMax get(User user) {
