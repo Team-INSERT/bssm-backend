@@ -10,6 +10,7 @@ import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,7 @@ public class BambooImplement {
     }
 
     public Slice<AllowedBambooRes> readAllowed(Pageable pageable) {
-        return allowedBambooRepo.findAll(pageable)
+        return allowedBambooRepo.findAllByCreateAtDesc(pageable)
                 .map(AllowedBambooRes::new);
     }
 
