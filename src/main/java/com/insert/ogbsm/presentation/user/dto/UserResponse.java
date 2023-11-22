@@ -28,7 +28,7 @@ public class UserResponse {
         this.email = user.getEmail();
         this.name = user.getName();
         this.profile_image = user.getProfile_image();
-        this.profile_url = "https://auth.bssm.kro.kr/user" + user.getId();
+        this.profile_url = "https://auth.bssm.kro.kr/user/" + user.getId();
         this.authority = user.getAuthority();
         this.role = user.getRole();
         this.enroll = user.getEnroll();
