@@ -55,9 +55,7 @@ public class BerValidation {
         if (reservationTime.isBefore(now)) {
             throw new BsmException(ErrorCode.Ber_Reservation_Time_Before_Now);
         }
-
-
-        if (reservationTime.isAfter(ThisSunday) && reservationTime.isBefore(ThisThursDay)) {
+        if ((reservationTime.isAfter(ThisSunday) || reservationTime.isEqual(ThisSunday)) && (reservationTime.isBefore(ThisThursDay) || reservationTime.isEqual(ThisThursDay))) {
             return;
         }
         throw new BsmException(ErrorCode.Ber_Reservation_Time_Not_Monday_To_Sunday);
