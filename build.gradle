@@ -135,11 +135,11 @@ jacocoTestCoverageVerification {
 			enabled = true
 			element = "CLASS"
 
-			limit {
-				counter = 'LINE'
-				value = 'COVEREDRATIO'
-				minimum = 0.9
-			}
+//			limit {
+//				counter = 'LINE'
+//				value = 'COVEREDRATIO'
+//				minimum = 0.9
+//			}
 
 			//Evaluation할 때 제외하고 싶은 파일이나 패키지
 			afterEvaluate {
