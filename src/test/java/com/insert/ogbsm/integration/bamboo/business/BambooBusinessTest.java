@@ -16,9 +16,6 @@ import java.util.List;
 
 public class BambooBusinessTest extends BambooTestImplement {
 
-    @Autowired
-    EntityManager entityManager;
-
     @Nested
     class BambooBusiness에_대한_테스트 {
         @Test

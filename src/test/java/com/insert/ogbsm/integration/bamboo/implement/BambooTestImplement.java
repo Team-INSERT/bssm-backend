@@ -3,17 +3,15 @@ package com.insert.ogbsm.integration.bamboo.implement;
 import com.insert.ogbsm.common.IntegrationTest;
 import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
-import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
-import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
 import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.service.bamboo.business.BambooAdminBusiness;
 import com.insert.ogbsm.service.bamboo.business.BambooBusiness;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -22,10 +20,7 @@ public class BambooTestImplement extends IntegrationTest {
     private BambooBusiness bambooBusiness;
 
     @Autowired
-    private BambooRepo bambooRepo;
-
-    @Autowired
-    private AllowedBambooRepo allowedBambooRepo;
+    private EntityManager em;
 
     @Autowired
     private BambooAdminBusiness bambooAdminBusiness;
@@ -60,11 +55,15 @@ public class BambooTestImplement extends IntegrationTest {
     }
 
     protected void 허가된_bamboo_전체_저장(List<AllowedBamboo> 저장할_bamboo) {
-        allowedBambooRepo.saveAll(저장할_bamboo);
+        for (AllowedBamboo allowedBamboo : 저장할_bamboo) {
+            em.persist(allowedBamboo);
+        }
     }
 
     protected void 허가되지_않은_bamboo_전체_저장(List<Bamboo> 저장할_bamboo) {
-        bambooRepo.saveAll(저장할_bamboo);
+        for (Bamboo bamboo : 저장할_bamboo) {
+            em.persist(bamboo);
+        }
     }
 
     protected Page<AllowedBamboo> 허가된_bamboo_전체_조회하기(int 읽을_페이지, int 읽을_개수) {
@@ -76,13 +75,13 @@ public class BambooTestImplement extends IntegrationTest {
     }
 
     protected void 저장_결과를_검증(Bamboo 생성_요청_bamboo) {
-        Optional<Bamboo> 찾은_bamboo = bambooRepo.findById(생성_요청_bamboo.getId());
+        Bamboo 찾은_bamboo = em.find(Bamboo.class, 생성_요청_bamboo.getId());
 
-        if (찾은_bamboo.isEmpty()) {
+        if (찾은_bamboo == null) {
             fail("조회한 bamboo가 비어있습니다.");
         }
 
-        if (!찾은_bamboo.get().equals(생성_요청_bamboo)) {
+        if (!찾은_bamboo.equals(생성_요청_bamboo)) {
             fail("찾은 bamboo과 생성을 요청한 bamboo가 같지 않습니다.");
         }
     }
@@ -139,23 +138,27 @@ public class BambooTestImplement extends IntegrationTest {
         if (!허가되지_않은_bamboo.getIsAllow()) {
             fail("bamboo가 허가됨으로 변경되지 않았습니다.");
         }
-        Optional<AllowedBamboo> 조회된_허가된_bamboo = allowedBambooRepo.findByBamboo(허가되지_않은_bamboo);
 
-        if(조회된_허가된_bamboo.isEmpty()) {
+        AllowedBamboo 조회된_허가된_bamboo = em.createQuery("select a from AllowedBamboo a where a.bamboo = :allowedBamboo", AllowedBamboo.class)
+                .setParameter("allowedBamboo", 허가되지_않은_bamboo)
+                .getSingleResult();
+        if (조회된_허가된_bamboo == null) {
             fail("허가된_bamboo가_생성되지_않았습니다.");
         }
 
-        if (!조회된_허가된_bamboo.get().equals(허가된_bamboo)) {
+        if (!조회된_허가된_bamboo.equals(허가된_bamboo)) {
             fail("조회된 bamboo가 허가된 bamboo와 같지 않습니다.");
         }
     }
 
     protected Bamboo bamboo_단건_저장(Bamboo bamboo) {
-        return bambooRepo.save(bamboo);
+        em.persist(bamboo);
+        return bamboo;
     }
 
     protected AllowedBamboo 허가된_bamboo_단건_저장(AllowedBamboo allowedBamboo) {
-        return allowedBambooRepo.save(allowedBamboo);
+        em.persist(allowedBamboo);
+        return allowedBamboo;
     }
 
     protected User 관리자() {
@@ -169,18 +172,18 @@ public class BambooTestImplement extends IntegrationTest {
     }
 
     protected void bamboo가_삭제되었는지_검증(Bamboo bamboo) {
-        Optional<Bamboo> 아이디로_조회 = bambooRepo.findById(bamboo.getId());
-        if (아이디로_조회.isPresent()) {
+        Bamboo 아이디로_조회 = em.find(Bamboo.class, bamboo.getId());
+        if (아이디로_조회 != null) {
             fail("bamboo가 삭제되지 않았습니다.");
         }
     }
 
     protected void 허가된_bamboo가_삭제되었는지_검증(AllowedBamboo 허가된_bamboo) {
-        if (bambooRepo.findById(허가된_bamboo.getBamboo().getId()).isPresent()) {
+        if (em.find(AllowedBamboo.class, 허가된_bamboo.getBamboo().getId()) != null) {
             fail("bamboo가 삭제되지 않았습니다.");
         }
 
-        if (allowedBambooRepo.findById(허가된_bamboo.getId()).isPresent()) {
+        if (em.find(AllowedBamboo.class, 허가된_bamboo.getId()) != null) {
             fail("허가된 bamboo가 삭제되지 않았습니다.");
         }
     }
