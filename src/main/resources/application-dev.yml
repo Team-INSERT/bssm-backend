@@ -76,3 +76,8 @@ bsm:
   client-id: ${env.bsm.client_id}
   secret-key: ${env.bsm.secret_key}
   redirect-url: ${env.bsm.redirect_url}
+
+
+neis:
+  meal-url: ${env.neis.meal_url}
+  time-table-url: ${env.neis.time_table_url}

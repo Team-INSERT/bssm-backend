@@ -6,7 +6,7 @@ import com.insert.ogbsm.presentation.calender.dto.CalenderReadRes;
 import com.insert.ogbsm.presentation.calender.dto.CalenderRes;
 import com.insert.ogbsm.presentation.calender.dto.CalenderSimpleRes;
 import com.insert.ogbsm.service.calender.implement.CalenderImplement;
-import com.insert.ogbsm.service.validation.CalenderValidation;
+import com.insert.ogbsm.service.calender.implement.CalenderValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,15 +1,12 @@
 package com.insert.ogbsm.presentation.bamboo;
 
+import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
+import com.insert.ogbsm.infra.security.util.SecurityUtil;
 import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
 import com.insert.ogbsm.service.bamboo.business.BambooAdminBusiness;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,12 +19,16 @@ public class BambooAdminController {
 
     @GetMapping()
     public List<BambooRes> findAllBamboo() {
-        return bambooAdminBusiness.findAllBamboo();
+        return bambooAdminBusiness.findAllBamboo()
+                .stream()
+                .map(BambooRes::new)
+                .toList();
     }
 
     @PutMapping("/{id}")
     public AllowedBambooRes CreateNewBamboo(@PathVariable Long id) {
-        return bambooAdminBusiness.allowBamboo(id);
+        AllowedBamboo allowedBamboo = bambooAdminBusiness.allowBamboo(id, SecurityUtil.getCurrentUserWithLogin());
+        return new AllowedBambooRes(allowedBamboo);
     }
 
     @DeleteMapping("/{id}")

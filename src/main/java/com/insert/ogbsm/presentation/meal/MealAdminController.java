@@ -1,6 +1,6 @@
 package com.insert.ogbsm.presentation.meal;
 
-import com.insert.ogbsm.service.meal.MealService;
+import com.insert.ogbsm.service.meal.business.MealBusiness;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,11 +16,11 @@ import java.time.YearMonth;
 @RequiredArgsConstructor
 public class MealAdminController {
 
-    private final MealService mealService;
+    private final MealBusiness mealBusiness;
 
     @PutMapping("{date}")
     public void updateMonthMeal(@PathVariable @DateTimeFormat(pattern = "yyyy-MM") YearMonth date) throws IOException {
-        mealService.updateMonthMeal(date);
+        mealBusiness.updateMonthMeal(date);
     }
 
 }

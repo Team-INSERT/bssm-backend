@@ -2,11 +2,7 @@ package com.insert.ogbsm.service.bamboo.business;
 
 import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
-import com.insert.ogbsm.infra.error.exception.BsmException;
-import com.insert.ogbsm.infra.error.exception.ErrorCode;
-import com.insert.ogbsm.infra.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
-import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
+import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.service.bamboo.implement.BambooImplement;
 import com.insert.ogbsm.service.bamboo.implement.BambooValidation;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +20,14 @@ public class BambooAdminBusiness {
     private final BambooValidation bambooValidation;
 
     @Transactional(readOnly = true)
-    public List<BambooRes> findAllBamboo() {
+    public List<Bamboo> findAllBamboo() {
         return bambooImplement.readNotAllowed();
     }
 
-    public AllowedBambooRes allowBamboo(Long bambooId) {
+    public AllowedBamboo allowBamboo(Long bambooId, User admin) {
         Bamboo bamboo = bambooImplement.read(bambooId);
         bambooValidation.bambooShouldNotAllowed(bamboo);
-        return bambooImplement.updateBambooAllowed(bamboo);
+        return bambooImplement.updateBambooAllowed(bamboo, admin);
     }
 
     public Long deleteBamboo(Long bambooId) {

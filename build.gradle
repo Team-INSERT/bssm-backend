@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.2'
+	id 'jacoco'
 }
 
 group = 'com.insert'
@@ -93,9 +94,84 @@ configurations {
 	querydsl.extendsFrom compileClasspath
 }
 
+//jacoco
+jacoco {
+	toolVersion = "0.8.8"
+}
 
-tasks.named('test') {
+jacocoTestReport {
+	dependsOn test
+
+	reports {
+		html.required = true
+		html.destination file("${buildDir}/jacoco/index.html")
+	}
+
+	//Evaluation 후에 report에서 뺼 클래스 및 패키지 설정
+	afterEvaluate {
+		classDirectories.setFrom(
+				files(classDirectories.files.collect {
+					fileTree(dir: it, excludes: [
+							'com/insert/ogbsm/domain/**',
+							'com/insert/ogbsm/infra/**',
+							'com/insert/ogbsm/presentation/**',
+					])
+				})
+		)
+	}
+
+	finalizedBy 'jacocoTestCoverageVerification'
+}
+
+jacocoTestCoverageVerification {
+	def Qdomains = []
+
+	for (qPattern in '*.QA'..'*.QZ') { // qPattern = '*.QA', '*.QB', ... '*.QZ'
+		Qdomains.add(qPattern + '*')
+	}
+
+	violationRules {
+		rule {
+			enabled = true
+			element = "CLASS"
+
+//			limit {
+//				counter = 'LINE'
+//				value = 'COVEREDRATIO'
+//				minimum = 0.9
+//			}
+
+			//Evaluation할 때 제외하고 싶은 파일이나 패키지
+			afterEvaluate {
+				classDirectories.setFrom(
+						files(classDirectories.files.collect {
+							fileTree(dir: it, excludes: [
+									'com/insert/ogbsm/domain/**',
+									'com/insert/ogbsm/infra/**',
+									'com/insert/ogbsm/presentation/**',
+							] + Qdomains)
+						})
+				)
+			}
+		}
+	}
+}
+
+task testCoverage(type: Test) {
+	group 'verification'
+	description 'Runs the unit tests with coverage'
+
+	dependsOn(':test',
+			':jacocoTestReport',
+			':jacocoTestCoverageVerification')
+
+	tasks['jacocoTestReport'].mustRunAfter(tasks['test'])
+	tasks['jacocoTestCoverageVerification'].mustRunAfter(tasks['jacocoTestReport'])
+}
+
+test {
 	useJUnitPlatform()
+	finalizedBy 'jacocoTestReport'
 }
 
 jar {

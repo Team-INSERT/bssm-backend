@@ -7,7 +7,6 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Getter;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Getter
 public final class TimeTableValueRes {
@@ -27,5 +26,5 @@ public final class TimeTableValueRes {
         this.startTime = period.getStartTime();
         this.endTime = period.getEndTime();
     }
-    
+
 }

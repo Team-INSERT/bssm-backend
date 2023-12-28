@@ -4,7 +4,6 @@ import com.insert.ogbsm.domain.ber.Ber;
 import com.insert.ogbsm.domain.ber.repo.BerRepo;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
-import com.insert.ogbsm.presentation.ber.dto.BerReserveReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +18,14 @@ public class BerValidation {
 
     private final BerRepo berRepo;
 
-    public void executeReserve(Ber ber) {
+    public void reserveValidate(Ber ber, LocalDate now) {
         checkAlreadyReserved(ber.getBerNumber(), ber.getReservationDate());
         checkUserAlreadyReservedSameTime(ber.getReservationDate(), ber.getReservationUserId());
-        checkReservationTime(ber.getReservationDate());
+        checkReservationTime(ber.getReservationDate(), now);
 
     }
 
-    public void executeCancel(Long berReserveUserId, Long userId) {
+    public void cancelValidate(Long berReserveUserId, Long userId) {
         if (!berReserveUserId.equals(userId)) {
             throw new BsmException(ErrorCode.NOT_SAME_USER);
         }
@@ -46,8 +45,7 @@ public class BerValidation {
                 });
     }
 
-    private void checkReservationTime(LocalDate reservationTime) {
-        LocalDate now = LocalDate.now();
+    private void checkReservationTime(LocalDate reservationTime, LocalDate now) {
         TemporalField fieldUS = WeekFields.of(Locale.US).dayOfWeek();
         LocalDate ThisSunday = now.with(fieldUS, 1);
         LocalDate ThisThursDay = now.with(fieldUS, 5);

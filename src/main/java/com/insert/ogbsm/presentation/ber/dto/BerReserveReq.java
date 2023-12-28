@@ -13,7 +13,7 @@ public record BerReserveReq(
     public Ber to(Long userId) {
         return Ber.builder()
                 .berNumber(berNumber)
-                .reservation(reservationTime)
+                .reservationDate(reservationTime)
                 .reservationUsersName(reservationUsersName)
                 .reservationUserId(userId)
                 .build();

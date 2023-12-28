@@ -10,10 +10,10 @@ import com.insert.ogbsm.presentation.meister.dto.response.MeisterResAndAvgAndMax
 import com.insert.ogbsm.presentation.post.dto.PostRes;
 import com.insert.ogbsm.service.bamboo.business.BambooBusiness;
 import com.insert.ogbsm.service.calender.business.CalenderBusiness;
-import com.insert.ogbsm.service.meal.MealService;
-import com.insert.ogbsm.service.meister.MeisterRankingService;
-import com.insert.ogbsm.service.meister.MeisterService;
-import com.insert.ogbsm.service.post.PostReadService;
+import com.insert.ogbsm.service.meal.business.MealBusiness;
+import com.insert.ogbsm.service.meister.business.MeisterBusiness;
+import com.insert.ogbsm.service.meister.business.MeisterRankingBusiness;
+import com.insert.ogbsm.service.post.business.PostBusiness;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,16 +25,16 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class MainPageService {
-    private final MealService mealService;
+    private final MealBusiness mealBusiness;
     private final CalenderBusiness calenderBusiness;
     private final BambooBusiness bambooBusiness;
-    private final MeisterService meisterService;
-    private final PostReadService postReadService;
-    private final MeisterRankingService meisterRankingService;
+    private final MeisterBusiness meisterBusiness;
+    private final MeisterRankingBusiness meisterRankingBusiness;
+    private final PostBusiness postBusiness;
 
 
     public MainRes get(LocalDate now, User currentUser) {
-        MealRes meal = mealService.getMeal(now);
+        MealRes meal = mealBusiness.getMeal(now);
 
         CalenderSimpleRes calender = null;
         MeisterResAndAvgAndMax meisterResAndAvgAndMax1 = null;
@@ -45,11 +45,11 @@ public class MainPageService {
 
         if (currentUser != null) {
             calender = calenderBusiness.readByDate(now);
-            ranking = meisterRankingService.getRankingOne(currentUser);
-            meisterResAndAvgAndMax1 = meisterService.get(currentUser);
-            allowedBambooRes = bambooBusiness.findMostRecentAllowedBamboo();
-            common = postReadService.readTop5ByCategory(Category.COMMON);
-            notice = postReadService.readTop5ByCategory(Category.NOTICE);
+            ranking = meisterRankingBusiness.getRankingOne(currentUser);
+            meisterResAndAvgAndMax1 = meisterBusiness.get(currentUser);
+            allowedBambooRes = new AllowedBambooRes(bambooBusiness.findMostRecentAllowedBamboo());
+            common = postBusiness.readTop5ByCategory(Category.COMMON);
+            notice = postBusiness.readTop5ByCategory(Category.NOTICE);
         }
 
         return new MainRes(

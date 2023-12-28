@@ -3,8 +3,6 @@ package com.insert.ogbsm.domain.room.repo;
 import com.insert.ogbsm.domain.room.Room;
 import com.insert.ogbsm.domain.room.RoomMate;
 import com.insert.ogbsm.domain.room.YearSemester;
-import com.insert.ogbsm.domain.room.type.DormitoryType;
-import com.insert.ogbsm.presentation.room.dto.RoomRes;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
@@ -17,17 +15,6 @@ import static com.insert.ogbsm.domain.room.QRoom.room;
 public class RoomDaoImpl implements RoomDao {
 
     private final JPAQueryFactory jpaQueryFactory;
-
-    @Override
-    public List<RoomRes> findAllByYearSemester() {
-//        return jpaQueryFactory.from(room)
-//                .select(constructor(RoomRes.class, room, list(constructor(UserSimpleWithNameRes.class, user))))
-//                .leftJoin(room, user)
-//                .where(room.yearSemester.eq(new YearSemester()))
-//                .orderBy(room.dormitoryType.asc(), room.roomNumber.asc())
-//                .fetch();
-        return null;
-    }
 
     @Override
     public Optional<Room> findByUserId(Long userId) {

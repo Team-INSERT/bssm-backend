@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface CommentRepo extends JpaRepository<Comment, Long> {
     @Query("SELECT c FROM Comment c WHERE c.postId = :postId ORDER BY CASE WHEN c.userId = :userId THEN 0 ELSE 1 END, c.likeCount DESC, c.createdAt ASC")
-    Page<Comment> findByPostId(Long postId, Long userId, Pageable pageable);
+    Page<Comment> findOrderByMineLikeRecent(Long postId, Long userId, Pageable pageable);
 }

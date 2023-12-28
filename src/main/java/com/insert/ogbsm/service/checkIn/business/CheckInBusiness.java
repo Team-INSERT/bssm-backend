@@ -8,6 +8,7 @@ import com.insert.ogbsm.service.checkIn.implement.CheckInValidation;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +22,7 @@ public class CheckInBusiness {
         return checkInValidation.appendCheckIn(room, userId);
     }
 
+    @Transactional(readOnly = true)
     public boolean readMyCheckIn(Long userId) {
         return checkInImplement.readDidICheckInToday(userId);
     }

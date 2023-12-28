@@ -1,11 +1,11 @@
 package com.insert.ogbsm.service.bamboo.business;
 
+import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
-import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
 import com.insert.ogbsm.service.bamboo.implement.BambooImplement;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +22,12 @@ public class BambooBusiness {
     }
 
     @Transactional(readOnly = true)
-    public Slice<AllowedBambooRes> findAllAllowedBamboo(Pageable pageable) {
+    public Page<AllowedBamboo> findAllAllowedBamboo(Pageable pageable) {
         return bambooImplement.readAllowed(pageable);
     }
 
     @Transactional(readOnly = true)
-    public AllowedBambooRes findMostRecentAllowedBamboo() {
+    public AllowedBamboo findMostRecentAllowedBamboo() {
         return bambooImplement.readMostRecentAllowed();
     }
 }

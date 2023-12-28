@@ -2,17 +2,14 @@ package com.insert.ogbsm.service.bamboo.implement;
 
 import com.insert.ogbsm.domain.bamboo.AllowedBamboo;
 import com.insert.ogbsm.domain.bamboo.Bamboo;
-import com.insert.ogbsm.domain.bamboo.repo.AllowedBambooRepo;
-import com.insert.ogbsm.domain.bamboo.repo.BambooRepo;
+import com.insert.ogbsm.domain.user.User;
 import com.insert.ogbsm.infra.error.exception.BsmException;
 import com.insert.ogbsm.infra.error.exception.ErrorCode;
-import com.insert.ogbsm.infra.security.util.SecurityUtil;
-import com.insert.ogbsm.presentation.bamboo.dto.AllowedBambooRes;
-import com.insert.ogbsm.presentation.bamboo.dto.BambooRes;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,54 +17,73 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class BambooImplement {
-    private final BambooRepo bambooRepo;
-    private final AllowedBambooRepo allowedBambooRepo;
+    private final EntityManager em;
 
-    public List<BambooRes> readNotAllowed() {
-        return bambooRepo.findAllByIsAllow(false)
-                .stream()
-                .map(BambooRes::new)
-                .toList();
+    public List<Bamboo> readNotAllowed() {
+        return em
+                .createQuery("select b from Bamboo b where b.isAllow = false", Bamboo.class)
+                .getResultList();
     }
 
     public Bamboo read(Long bambooId) {
-        return bambooRepo.findById(bambooId)
-                .orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_ALREADY_ALLOWED));
+        Bamboo bamboo = em.find(Bamboo.class, bambooId);
+
+        if (bamboo == null) {
+            throw new BsmException(ErrorCode.BAMBOO_NOT_FOUND);
+        }
+
+        return bamboo;
     }
 
-    public AllowedBambooRes updateBambooAllowed(Bamboo bamboo) {
+    public AllowedBamboo updateBambooAllowed(Bamboo bamboo, User admin) {
         bamboo.setIsAllow();
-        return new AllowedBambooRes(
-                allowedBambooRepo.save(
-                        AllowedBamboo
-                                .builder()
-                                .allowedAdminId(SecurityUtil.getCurrentUserWithLogin().getId())
-                                .bamboo(bamboo)
-                                .build())
-        );
+
+        AllowedBamboo allowed = AllowedBamboo
+                .builder()
+                .allowedAdminId(admin.getId())
+                .bamboo(bamboo)
+                .build();
+
+        em.persist(allowed);
+
+        return allowed;
     }
 
     public void remove(Bamboo bamboo) {
         if (bamboo.getIsAllow()) {
-            allowedBambooRepo.delete(
-                    allowedBambooRepo.findByBamboo(bamboo)
-                            .orElseThrow(() -> new BsmException(ErrorCode.BAMBOO_NOT_FOUND))
+            List<AllowedBamboo> allowedBamboo = em.createQuery("select a from AllowedBamboo a where a.bamboo = :bamboo", AllowedBamboo.class)
+                    .setParameter("bamboo", bamboo)
+                    .getResultList();
+
+            if (allowedBamboo.isEmpty()) {
+                throw new BsmException(ErrorCode.BAMBOO_NOT_FOUND);
+            }
+
+            em.remove(
+                    allowedBamboo.get(0)
             );
         }
-        bambooRepo.deleteById(bamboo.getId());
+        em.remove(bamboo);
     }
 
-    public Slice<AllowedBambooRes> readAllowed(Pageable pageable) {
-        return allowedBambooRepo.findAllByCreateAtDesc(pageable)
-                .map(AllowedBambooRes::new);
+    public Page<AllowedBamboo> readAllowed(Pageable pageable) {
+        List<AllowedBamboo> allowedBamboos = em.createQuery("select a from AllowedBamboo a", AllowedBamboo.class)
+                .setFirstResult((pageable.getPageNumber()) * pageable.getPageSize())
+                .setMaxResults((pageable.getPageNumber() + 1) * pageable.getPageSize())
+                .getResultList();
+
+        return new PageImpl<>(allowedBamboos);
     }
 
     public void save(Bamboo bamboo) {
-        bambooRepo.save(bamboo);
+        em.persist(bamboo);
     }
 
-    public AllowedBambooRes readMostRecentAllowed() {
-        List<AllowedBamboo> all = allowedBambooRepo.findAll();
-        return new AllowedBambooRes(all.get(all.size() - 1));
+    public AllowedBamboo readMostRecentAllowed() {
+        List<AllowedBamboo> all = em
+                .createQuery("select a from AllowedBamboo a", AllowedBamboo.class)
+                .getResultList();
+
+        return all.get(all.size() - 1);
     }
 }

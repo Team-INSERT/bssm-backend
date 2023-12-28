@@ -26,7 +26,4 @@ public class ReCommentRes {
         this.user = new UserSimpleRes(user);
         this.doesLike = doesLike;
     }
-
-    public record ReCommentDefRes(Long commentId) {
-    }
 }
