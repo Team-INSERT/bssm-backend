@@ -20,7 +20,7 @@ public class TimeTableScheduler {
     private final TimeTableRepo timeTableRepo;
     private final TimeTableImplements timeTableImplements;
 
-    @Scheduled(cron = "0 0 12 ? * SUN")
+    @Scheduled(cron = " 0 0 12 * * *")
     private void getMonthTimeTable() throws IOException {
         List<LocalDate> startAndEndOfWeek = timeTableImplements.getStartAndEndOfWeek();
         List<TimeTable> timeTableList = new ArrayList<>();

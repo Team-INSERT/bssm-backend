@@ -21,13 +21,14 @@ public class CheckInDaoImpl implements CheckInDao {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Optional<CheckIn> findTodayCheckIn(LocalDateTime localDate, Long userId) {
-        return Optional.ofNullable(
-                jpaQueryFactory.select(checkIn)
+    public Optional<CheckIn> findTodayCheckIn(Long userId) {
+        LocalDateTime localDate = LocalDate.now().atStartOfDay();
+        return Optional.ofNullable(jpaQueryFactory.select(checkIn)
                 .from(checkIn)
-                        .where(checkIn.checkInTime.between(localDate, localDate.plusDays(1))
+                .where(checkIn.checkInTime.between(localDate,localDate.plusDays(1))
                         .and(checkIn.userId.eq(userId)))
-                .fetchOne());
+                .fetchOne()
+        );
     }
 
     @Override
